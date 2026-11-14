@@ -15,7 +15,9 @@ Design documents are in [`documents/`](documents/): Game Concept, Game Design (G
     then open <http://localhost:8080/>. Stop it with Ctrl+C.
   - Or use the VS Code "Live Server" extension.
 
-Controls: click / tap / Space / Enter to continue dialogue; drag crystals into the cauldron (or tap a crystal, then tap the cauldron); Esc or "Menu" for the pause panel.
+Controls: click / tap / Space / Enter to continue dialogue (on every screen; Auto mode and its speed are in Settings); drag crystals into the cauldron (or tap a crystal, then tap the cauldron); Esc or "Menu" for the pause panel.
+
+Saving works like a visual novel: **Save** / **Load** in the dialogue menu or the pause panel, 18 slots with screenshots, plus an autosave at every step. **Continue** on the title screen loads the newest save. Saves are stored in the browser.
 
 ## Publish on GitHub Pages
 
@@ -34,6 +36,7 @@ All text lives in data files. No code changes are needed.
 | Potion names and flavour lines | `data/potions.json` |
 | Crystal names | `data/crystals.json` |
 | Buttons, menus, hints, panel texts, ending names | `data/texts.json` |
+| Credits | `data/credits.txt` |
 
 **Script format** (`data/script.txt`, full description in TDD §5.1):
 
@@ -56,7 +59,7 @@ jaros: Burnt sock.
 == ending romance           ending scenes: romance, friendship, bad
 ```
 
-Potion events: `start`, `advice` (also when the cat is clicked), `hint`, `fizzle`, `success`, `resist_heavy`, `resist_slip`, and for potion 1 the tutorial: `tutorial_recipe`, `tutorial_elements`, `tutorial_drag`, `tutorial_brew`.
+Potion events: `start`, `advice` (also when the cat is clicked), `fizzle`, `success`, `resist_heavy`, `resist_slip`, and for potion 1 the tutorial: `tutorial_recipe`, `tutorial_elements`, `tutorial_drag`, `tutorial_brew`.
 
 Moving sections in the file changes the order of the story. Mistakes don't crash the game: they're listed in the browser console (F12) and in debug mode.
 

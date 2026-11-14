@@ -1,4 +1,4 @@
-import { G, T, font, rect, charName, hasTexture, warn, isTouchDevice, goTo } from '../core.js';
+import { G, T, font, rect, charName, hasTexture, warn, isTouchDevice, goTo, autoDelayMs } from '../core.js';
 import { TextBox } from '../ui/TextBox.js';
 import { Portrait } from '../ui/Portrait.js';
 import { TextMenu } from '../ui/TextMenu.js';
@@ -41,11 +41,11 @@ export class DialogueScene extends Phaser.Scene {
       { id: 'log', label: T('menu.log'), onClick: () => openOverlay(this, 'log') },
       { id: 'auto', label: T('menu.auto'), onClick: () => this.toggleAuto() },
       { id: 'skip', label: T('menu.skip'), onClick: () => this.toggleSkip() },
-      { id: 'save', label: T('menu.save'), onClick: () => this.save() },
-      { id: 'load', label: T('menu.load'), onClick: () => this.load() },
+      { id: 'save', label: T('menu.save'), onClick: () => openOverlay(this, 'save') },
+      { id: 'load', label: T('menu.load'), onClick: () => openOverlay(this, 'load') },
       { id: 'settings', label: T('menu.settings'), onClick: () => openOverlay(this, 'settings') }
     ], 25);
-    this.menu.get('auto').setActive(!!G.session.auto);
+    this.menu.get('auto').setActive(!!G.settings.auto);
     this.skip = false;
 
     // Heroine portrait
@@ -76,10 +76,20 @@ export class DialogueScene extends Phaser.Scene {
       kb.on('keydown-ESC', () => openOverlay(this, 'pause'));
     }
 
+    // Settings may change while paused (Auto on/off, auto speed).
+    this.events.on('resume', () => {
+      this.menu.get('auto').setActive(!!G.settings.auto);
+      if (G.settings.auto && this.waiting && !this.textbox.typing && !this.autoTimer) this.lineDone();
+      if (!G.settings.auto && this.autoTimer) { this.autoTimer.remove(); this.autoTimer = null; }
+    });
+
     this.rows = this.section.rows.filter(r => r.kind !== 'comment');
     this.i = 0;
+    this.lineIndex = 0;
     this.waiting = false;
     this.autoTimer = null;
+    this.restoring = false;
+    if (typeof data.resumeRow === 'number' && data.resumeRow > 0) this.fastForward(data.resumeRow);
     this.time.delayedCall(350, () => this.run());
     setupDebug(this, () => `section: ${this.section.id}  row ${this.i}/${this.rows.length}`);
   }
@@ -90,6 +100,38 @@ export class DialogueScene extends Phaser.Scene {
   }
 
   // ---- Script execution ----
+
+  /** Loading a save: replays backgrounds, sprites and expressions up to the saved line, without showing lines. */
+  fastForward(target) {
+    this.restoring = true;
+    target = Math.min(target, this.rows.length);
+    while (this.i < target) {
+      const r = this.rows[this.i++];
+      if (r.kind === 'cmd') {
+        if (['bg', 'show', 'hide', 'expr', 'music'].includes(r.name)) this.command(r);
+      } else if (r.kind === 'line' && r.speaker) {
+        const ch = G.characters[r.speaker];
+        if (ch && ch.kind === 'portrait' && r.expr) this.portrait.set(r.expr);
+        if (ch && ch.kind === 'sprite' && r.expr) this.showSprite(r.speaker, r.expr);
+      }
+    }
+    this.restoring = false;
+  }
+
+  /** Current position for save slots (TDD §4.4). */
+  saveData() {
+    const atLine = this.waiting || this.textbox.typing;
+    return {
+      kind: this.section.type,
+      sectionId: this.section.id,
+      row: atLine ? this.lineIndex : this.i,
+      endingId: this.endingId,
+      text: (this.textbox.full || '').replace(/\s*\n\s*/g, ' ')
+    };
+  }
+
+  /** Animation time: instant while restoring a save, very short while skipping. */
+  dur(ms) { return this.restoring ? 0 : (this.skip ? 50 : ms); }
 
   run() {
     while (this.i < this.rows.length) {
@@ -131,7 +173,7 @@ export class DialogueScene extends Phaser.Scene {
     if (this.bg.texture.key === key) return;
     const old = this.bg;
     this.bg = this.add.image(0, 0, key).setOrigin(0, 0).setDisplaySize(1920, 1080).setDepth(1).setAlpha(0);
-    this.tweens.add({ targets: this.bg, alpha: 1, duration: this.skip ? 50 : 500, onComplete: () => { old.destroy(); this.bg.setDepth(0); } });
+    this.tweens.add({ targets: this.bg, alpha: 1, duration: this.dur(500), onComplete: () => { old.destroy(); this.bg.setDepth(0); } });
   }
 
   showSprite(id, expr) {
@@ -146,7 +188,7 @@ export class DialogueScene extends Phaser.Scene {
     } else {
       this.tweens.killTweensOf(this.sprite);
       this.sprite.setTexture(key).setDisplaySize(sp.w, sp.h).setVisible(true).setAlpha(0);
-      this.tweens.add({ targets: this.sprite, alpha: 1, duration: this.skip ? 50 : 350 });
+      this.tweens.add({ targets: this.sprite, alpha: 1, duration: this.dur(350) });
     }
     this.spriteChar = id;
     this.spriteExpr = expr;
@@ -156,7 +198,7 @@ export class DialogueScene extends Phaser.Scene {
   hideSprite() {
     if (!this.sprite.visible) return;
     this.tweens.killTweensOf(this.sprite);
-    this.tweens.add({ targets: this.sprite, alpha: 0, duration: this.skip ? 50 : 300, onComplete: () => this.sprite.setVisible(false) });
+    this.tweens.add({ targets: this.sprite, alpha: 0, duration: this.dur(300), onComplete: () => this.sprite.setVisible(false) });
     this.spriteChar = null;
     this.catIcon.setVisible(true);
   }
@@ -173,6 +215,7 @@ export class DialogueScene extends Phaser.Scene {
     }
     this.setSwing(r.speaker && G.characters[r.speaker] && G.characters[r.speaker].kind === 'cat');
     G.session.log.push({ name, text: r.text });
+    this.lineIndex = this.i - 1;
     this.waiting = true;
     this.textbox.show(name, r.text, { instant: this.skip, onDone: () => this.lineDone() });
     this.startIdle();
@@ -181,9 +224,8 @@ export class DialogueScene extends Phaser.Scene {
   lineDone() {
     if (this.skip) {
       this.time.delayedCall(70, () => this.advance(false));
-    } else if (G.session.auto) {
-      const t = G.config.text;
-      const ms = (t.autoDelayBase + t.autoDelayPerChar * this.textbox.full.length) * 1000;
+    } else if (G.settings.auto) {
+      const ms = autoDelayMs(this.textbox.full.length);
       this.autoTimer = this.time.delayedCall(ms, () => { this.autoTimer = null; this.advance(false); });
     }
   }
@@ -238,10 +280,11 @@ export class DialogueScene extends Phaser.Scene {
   // ---- Menu actions ----
 
   toggleAuto() {
-    G.session.auto = !G.session.auto;
-    this.menu.get('auto').setActive(G.session.auto);
-    if (G.session.auto && this.waiting && !this.textbox.typing) this.lineDone();
-    if (!G.session.auto && this.autoTimer) { this.autoTimer.remove(); this.autoTimer = null; }
+    G.settings.auto = !G.settings.auto;
+    SaveSystem.saveSettings();
+    this.menu.get('auto').setActive(G.settings.auto);
+    if (G.settings.auto && this.waiting && !this.textbox.typing && !this.autoTimer) this.lineDone();
+    if (!G.settings.auto && this.autoTimer) { this.autoTimer.remove(); this.autoTimer = null; }
   }
 
   toggleSkip() {
@@ -251,17 +294,6 @@ export class DialogueScene extends Phaser.Scene {
       if (this.textbox.typing) this.textbox.finish();
       else if (this.waiting) this.advance(false);
     }
-  }
-
-  save() {
-    if (this.endingId) return;
-    this.toast(SaveSystem.saveManual() ? T('toast.saved') : T('toast.noSave'));
-  }
-
-  load() {
-    const data = SaveSystem.loadManual();
-    if (!data) { this.toast(T('toast.noSave')); return; }
-    openOverlay(this, 'confirm', { message: T('confirm.load'), onYes: () => Flow.resume(this, data) });
   }
 
   toast(msg) {

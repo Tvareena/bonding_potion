@@ -2,12 +2,13 @@
   <style>
     .lbl { font-size: 30px; font-weight: bold; fill: #333; }
     .dim { font-size: 24px; fill: #555; }
+    .sm { font-size: 20px; fill: #555; }
   </style>
   <!-- Background -->
   <rect x="0" y="0" width="1920" height="1080" fill="#ECECEC"/>
   <rect x="4" y="4" width="1912" height="1072" fill="none" stroke="#999" stroke-width="4" stroke-dasharray="20 12"/>
-  <text x="40" y="1010" class="lbl">Title background</text>
-  <text x="40" y="1048" class="dim">0, 0 · 1920 × 1080</text>
+  <text x="1880" y="1010" text-anchor="end" class="lbl">Title background</text>
+  <text x="1880" y="1048" text-anchor="end" class="dim">0, 0 · 1920 × 1080</text>
 
   <!-- Logo -->
   <rect x="100" y="100" width="800" height="320" fill="#D8CDE6" stroke="#6A4A8C" stroke-width="4"/>
@@ -15,17 +16,29 @@
   <text x="500" y="290" text-anchor="middle" class="dim">100, 100 · 800 × 320</text>
 
   <!-- Buttons -->
-  <rect x="300" y="520" width="400" height="100" rx="12" fill="#F6E3A8" stroke="#B8902A" stroke-width="4"/>
-  <text x="500" y="565" text-anchor="middle" class="lbl">Start</text>
-  <text x="500" y="600" text-anchor="middle" class="dim">300, 520 · 400 × 100</text>
+  <g>
+    <rect x="300" y="460" width="400" height="100" rx="12" fill="#F6E3A8" stroke="#B8902A" stroke-width="4"/>
+    <text x="500" y="503" text-anchor="middle" class="lbl">Start</text>
+    <text x="500" y="537" text-anchor="middle" class="sm">300, 460 · 400 × 100</text>
 
-  <rect x="300" y="650" width="400" height="100" rx="12" fill="#F6E3A8" stroke="#B8902A" stroke-width="4"/>
-  <text x="500" y="695" text-anchor="middle" class="lbl">Continue</text>
-  <text x="500" y="730" text-anchor="middle" class="dim">300, 650 · 400 × 100</text>
+    <rect x="300" y="575" width="400" height="100" rx="12" fill="#F6E3A8" stroke="#B8902A" stroke-width="4" stroke-dasharray="12 6"/>
+    <text x="500" y="618" text-anchor="middle" class="lbl">Continue</text>
+    <text x="500" y="652" text-anchor="middle" class="sm">300, 575 · only when a save exists</text>
 
-  <rect x="300" y="780" width="400" height="100" rx="12" fill="#F6E3A8" stroke="#B8902A" stroke-width="4"/>
-  <text x="500" y="825" text-anchor="middle" class="lbl">Settings</text>
-  <text x="500" y="860" text-anchor="middle" class="dim">300, 780 · 400 × 100</text>
+    <rect x="300" y="690" width="400" height="100" rx="12" fill="#F6E3A8" stroke="#B8902A" stroke-width="4"/>
+    <text x="500" y="733" text-anchor="middle" class="lbl">Load</text>
+    <text x="500" y="767" text-anchor="middle" class="sm">300, 690 · 400 × 100</text>
 
-  <text x="1880" y="1072" text-anchor="end" class="dim" font-size="20">MAIN MENU · 1920 × 1080</text>
+    <rect x="300" y="805" width="400" height="100" rx="12" fill="#F6E3A8" stroke="#B8902A" stroke-width="4"/>
+    <text x="500" y="848" text-anchor="middle" class="lbl">Credits</text>
+    <text x="500" y="882" text-anchor="middle" class="sm">300, 805 · 400 × 100</text>
+
+    <rect x="300" y="920" width="400" height="100" rx="12" fill="#F6E3A8" stroke="#B8902A" stroke-width="4"/>
+    <text x="500" y="963" text-anchor="middle" class="lbl">Settings</text>
+    <text x="500" y="997" text-anchor="middle" class="sm">300, 920 · 400 × 100</text>
+  </g>
+  <text x="500" y="1056" text-anchor="middle" class="sm">"Endings found: N of 3" (text, centred at 500, 1052)</text>
+  <text x="730" y="625" class="sm">Without a save the buttons below</text>
+  <text x="730" y="650" class="sm">Continue move up one place.</text>
+
 </svg>

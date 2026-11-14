@@ -1,5 +1,6 @@
 {
-  "saveVersion": 1,
+  "saveVersion": 2,
+  "saveSlots": { "pages": 3, "perPage": 6 },
   "letterboxColor": "#1a1424",
   "font": {
     "family": "Arial, Helvetica, sans-serif",
@@ -49,8 +50,11 @@
   },
   "text": {
     "speeds": { "slow": 25, "normal": 45, "fast": 90 },
-    "autoDelayBase": 1.2,
-    "autoDelayPerChar": 0.03
+    "autoSpeeds": {
+      "slow":   { "base": 2.0, "perChar": 0.05 },
+      "normal": { "base": 1.2, "perChar": 0.03 },
+      "fast":   { "base": 0.6, "perChar": 0.015 }
+    }
   },
   "hints": {
     "idleAdvance": 5,
@@ -69,7 +73,6 @@
     "driftSpeed": 4
   },
   "potion": {
-    "lineAutoHide": 4,
     "tapMaxMove": 12,
     "tapMaxTime": 0.25
   },

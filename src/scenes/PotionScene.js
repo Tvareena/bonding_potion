@@ -1,4 +1,4 @@
-import { G, T, ELEMENTS, font, rect, color, charName, potionById, crystalById, hasTexture, goTo } from '../core.js';
+import { G, T, ELEMENTS, font, rect, color, charName, potionById, crystalById, isTouchDevice, autoDelayMs } from '../core.js';
 import { TextBox } from '../ui/TextBox.js';
 import { Portrait } from '../ui/Portrait.js';
 import { Button } from '../ui/Button.js';
@@ -43,6 +43,8 @@ export class PotionScene extends Phaser.Scene {
     this.queue = [];
     this.lineActive = false;
     this.lineTimer = null;
+    this.idleTimer = null;
+    this.hintTween = null;
     this.tutorialStep = 0;
     this.nudges = [];
 
@@ -57,6 +59,8 @@ export class PotionScene extends Phaser.Scene {
     const kb = this.input.keyboard;
     if (kb) {
       kb.on('keydown-ESC', () => openOverlay(this, 'pause'));
+      kb.on('keydown-SPACE', () => this.advanceLine(true));
+      kb.on('keydown-ENTER', () => this.advanceLine(true));
       if (G.debug) {
         kb.on('keydown-B', () => this.debugFill('book'));
         kb.on('keydown-C', () => this.debugFill('cat'));
@@ -64,7 +68,12 @@ export class PotionScene extends Phaser.Scene {
     }
     this.events.once('shutdown', () => this.cleanup());
     this.events.on('pause', () => this.setCustomCursor(false));
-    this.events.on('resume', () => { if (this.mouseMode) this.setCustomCursor(true); });
+    this.events.on('resume', () => {
+      if (this.mouseMode) this.setCustomCursor(true);
+      // Auto may have been switched in Settings.
+      if (G.settings.auto && this.lineActive && !this.textbox.typing) this.lineDone();
+      if (!G.settings.auto && this.lineTimer) { this.lineTimer.remove(); this.lineTimer = null; }
+    });
 
     G.audio.music('brewing');
     this.time.delayedCall(400, () => this.startSequence());
@@ -176,6 +185,9 @@ export class PotionScene extends Phaser.Scene {
     const tb = rect(L.textbox);
     this.add.zone(tb.x, tb.y, tb.w, tb.h).setOrigin(0, 0).setDepth(D.textbox + 5).setInteractive()
       .on('pointerup', () => this.onTextboxClick());
+    const hp = G.layout.dialogue.potionHint;
+    this.hint = this.add.text(hp[0], hp[1], T(isTouchDevice() ? 'hint.tap' : 'hint.click'),
+      font(this.cfg.font.hint, { color: this.cfg.colors.menu, fontStyle: 'italic' })).setOrigin(1, 1).setDepth(D.textbox + 3).setVisible(false);
 
     // Tutorial highlight
     this.tutHi = this.add.graphics().setDepth(D.tutorial);
@@ -565,8 +577,8 @@ export class PotionScene extends Phaser.Scene {
   }
 
   onPointerDown(p, over) {
-    if (this.done || this._leaving) return;
-    if (this.selected && !this.held) {
+    if (this._leaving) return;
+    if (!this.done && this.selected && !this.held) {
       const pos = this.pointerPos(p);
       if (Phaser.Geom.Rectangle.Contains(this.dropZone, pos.x, pos.y)) {
         const entry = this.selected;
@@ -574,8 +586,10 @@ export class PotionScene extends Phaser.Scene {
         this.tapPlace(entry);
         return;
       }
-      if (!over.length) this.clearSelection();
+      if (!over.length) { this.clearSelection(); return; }
     }
+    // A click or tap on any free spot (not a crystal, button or tab) continues the dialogue.
+    if (!over.length) this.advanceLine(true);
   }
 
   tapPlace(entry) {
@@ -659,7 +673,8 @@ export class PotionScene extends Phaser.Scene {
     }
     // Level 1+ idle glow and hint
     if (this.level >= 1 && !this.done && !this.glowOn && (this.tutorialStep === 0 || this.tutorialStep >= 5)) {
-      if (time - this.lastAddTime > this.cfg.guidance.glowDelay * 1000) {
+      // Idle time counts only after the opening lines; use the scene clock (same clock as lastAddTime).
+      if (this.startedAt !== undefined && this.time.now - Math.max(this.lastAddTime, this.startedAt) > this.cfg.guidance.glowDelay * 1000) {
         this.showGlow(false);
         if (!this.hintPlayed) { this.hintPlayed = true; this.playEvent('hint'); }
       }
@@ -678,8 +693,8 @@ export class PotionScene extends Phaser.Scene {
   }
 
   onCatClick() {
-    if (this.done || !this.potion.catPresent) return;
-    if (this.lineActive || this.queue.length) return;
+    if (this.lineActive) { this.advanceLine(true); return; }
+    if (this.done || !this.potion.catPresent || this.queue.length) return;
     G.audio.sfx('meow');
     this.playEvent('advice');
   }
@@ -703,6 +718,7 @@ export class PotionScene extends Phaser.Scene {
 
   nextLine() {
     if (this.lineTimer) { this.lineTimer.remove(); this.lineTimer = null; }
+    this.stopIdle();
     while (this.queue.length) {
       const item = this.queue.shift();
       if (item.cb) { item.cb(); continue; }
@@ -716,26 +732,62 @@ export class PotionScene extends Phaser.Scene {
       }
       G.session.log.push({ name, text: r.text });
       this.lineActive = true;
-      this.textbox.show(name, r.text, {
-        onDone: () => {
-          this.lineTimer = this.time.delayedCall(this.cfg.potion.lineAutoHide * 1000, () => { this.lineTimer = null; this.nextLine(); });
-        }
-      });
+      this.textbox.show(name, r.text, { onDone: () => this.lineDone() });
+      this.startIdle();
       return;
     }
+    // No more lines: the last one stays on screen (e.g. the cat's advice next to the recipe)
+    // until a new line replaces it or the player leaves the screen.
     this.lineActive = false;
-    this.textbox.clear();
+  }
+
+  /** A line is fully shown: wait for a click/tap, or continue by itself in Auto mode (same as the dialogue screen). */
+  lineDone() {
+    if (G.settings.auto && !this.lineTimer) {
+      this.lineTimer = this.time.delayedCall(autoDelayMs(this.textbox.full.length), () => { this.lineTimer = null; this.nextLine(); });
+    }
+  }
+
+  /** Click / tap / Space / Enter: finish the typing line, or show the next one. */
+  advanceLine(byPlayer) {
+    if (!this.lineActive || this._leaving) return false;
+    if (this.textbox.typing) { this.textbox.finish(); return true; }
+    if (byPlayer) G.session.advances++;
+    this.nextLine();
+    return true;
   }
 
   onTextboxClick() {
-    if (!this.lineActive) return;
-    if (this.textbox.typing) { this.textbox.finish(); return; }
-    this.nextLine();
+    this.advanceLine(true);
+  }
+
+  startIdle() {
+    this.stopIdle();
+    if (G.session.advances >= this.cfg.hints.idleAdvanceMaxShows) return;
+    // "Click to continue" only makes sense if another line is waiting.
+    if (!this.queue.some(item => item.row && item.row.kind === 'line')) return;
+    this.idleTimer = this.time.delayedCall(this.cfg.hints.idleAdvance * 1000, () => {
+      if (!this.lineActive) return;
+      this.hint.setVisible(true).setAlpha(1);
+      this.hintTween = this.tweens.add({ targets: this.hint, alpha: 0.2, duration: 600, yoyo: true, repeat: -1 });
+    });
+  }
+
+  stopIdle() {
+    if (this.idleTimer) { this.idleTimer.remove(); this.idleTimer = null; }
+    if (this.hintTween) { this.hintTween.stop(); this.hintTween = null; }
+    if (this.hint) this.hint.setVisible(false);
+  }
+
+  /** Save position: a potion always restarts from its beginning when loaded. */
+  saveData() {
+    return { kind: 'potion', sectionId: this.section.id, row: null, endingId: null, text: this.potion.name };
   }
 
   // ---------------------------------------------------------------- start and tutorial
 
   startSequence() {
+    this.startedAt = this.time.now;
     if (this.potion.tutorial && !G.state.flags.tutorialDone) {
       this.tutorialStep = 1;
       this.playEvent('start', () => this.tutorial(1));

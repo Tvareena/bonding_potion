@@ -8,7 +8,7 @@
 #   @bg shop  @show chad smile  @hide  @expr heroine sad  @music shop  @sfx meow  @wait 0.5
 # Speakers: heroine, chad, jaros, jaros_human (see data/characters.json)
 # Potion events: start, tutorial_recipe, tutorial_elements, tutorial_drag, tutorial_brew,
-#   advice, hint, resist_heavy, resist_slip, fizzle, success
+#   advice, resist_heavy, resist_slip, fizzle, success
 # The lines below are a working draft; the final scenario will replace them.
 
 == d1
@@ -45,8 +45,6 @@ jaros: Drag a crystal into the cauldron. Go on, it won't bite.
 jaros: When it looks right, press Brew. If it's wrong, it fizzles and you start again. No harm done.
 @on advice
 jaros: Between you and me, the book is too careful. Three fire, one earth. That's real fun.
-@on hint
-heroine neutral: Let me look at the recipe again…
 @on fizzle random
 heroine sad: That's… not a potion.
 jaros: Smells like a burnt sock.
@@ -71,8 +69,6 @@ heroine neutral: Next is the Potion of Courage. I'll need it to give him the lov
 heroine neutral: Courage. Water and air.
 @on advice
 jaros: Three water, three air. Courage needs balance, not a gale.
-@on hint
-heroine neutral: How much air did the book say?
 @on fizzle random
 heroine sad: It just went flat.
 jaros: Like your plan.
@@ -95,8 +91,6 @@ jaros: Trust, then.
 heroine neutral: Trust. Water and earth.
 @on advice
 jaros: Three and three. Trust should be even, or it isn't trust.
-@on hint
-heroine neutral: Water first, then earth… let me check the page.
 @on resist_heavy
 heroine surprised: Huh? Why is this one so heavy?
 jaros: Interesting. The book doesn't like being argued with.
@@ -126,8 +120,6 @@ jaros: …
 heroine sad: Hope. I could use some.
 @on advice
 jaros: One fire, three air, one water. Hope is mostly air. Light, you know.
-@on hint
-heroine neutral: Three elements now. Careful…
 @on resist_heavy
 heroine surprised: Why is this crystal so heavy?
 jaros: The book has opinions, it seems.
@@ -155,8 +147,6 @@ jaros: …Confidence next. Don't make it a big deal.
 heroine neutral: Confidence. Earth, air and fire.
 @on advice
 jaros: Three fire. Confidence burns. The book always forgets that.
-@on hint
-heroine neutral: Three elements again. Let me read it slowly.
 @on resist_heavy
 heroine surprised: This one feels heavier than it should.
 @on resist_slip
@@ -186,8 +176,6 @@ heroine sad: It's so quiet without him.
 heroine neutral: Gratitude. All four elements.
 @on advice
 heroine neutral: Jaros would say… less fire, less air. More earth, more water. Something you can hold on to.
-@on hint
-heroine sad: I wish he were here to read it with me.
 @on resist_heavy
 heroine surprised: Why is this so heavy?
 @on resist_slip

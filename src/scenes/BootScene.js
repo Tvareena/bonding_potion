@@ -14,6 +14,7 @@ export class BootScene extends Phaser.Scene {
     this.load.json('crystals', 'data/crystals.json' + v);
     this.load.json('texts', 'data/texts.json' + v);
     this.load.text('script', 'data/script.txt' + v);
+    this.load.text('credits', 'data/credits.txt' + v);
     this.load.on('loaderror', (file) => console.error('[Bonding Potion] Could not load ' + file.src));
   }
 
@@ -27,6 +28,7 @@ export class BootScene extends Phaser.Scene {
     G.crystals = c.get('crystals');
     G.texts = c.get('texts') || {};
     G.scriptText = this.cache.text.get('script') || '';
+    G.credits = (this.cache.text.get('credits') || '').replace(/\r\n?/g, '\n').trim();
     if (!G.config || !G.layout || !G.assets) {
       this.add.text(40, 40, 'The game data could not be loaded.\nOpen the game through a web server (see README).', { fontSize: '40px', color: '#ffffff' });
       return;

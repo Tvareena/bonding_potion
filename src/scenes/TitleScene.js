@@ -17,10 +17,13 @@ export class TitleScene extends Phaser.Scene {
     const lg = rect(L.logo);
     this.add.image(lg.x, lg.y, 'ui_logo').setOrigin(0, 0).setDisplaySize(lg.w, lg.h);
 
-    const save = SaveSystem.loadAuto();
+    // Start, Continue (only if there is a save), Load, Credits, Settings
+    const latest = SaveSystem.latest();
     const items = [
-      { label: T('title.start'), fn: () => this.start(save) },
-      save ? { label: T('title.continue'), fn: () => Flow.resume(this, save) } : null,
+      { label: T('title.start'), fn: () => this.start() },
+      latest ? { label: T('title.continue'), fn: () => Flow.load(this, SaveSystem.latest()) } : null,
+      { label: T('title.load'), fn: () => openOverlay(this, 'load') },
+      { label: T('title.credits'), fn: () => openOverlay(this, 'credits') },
       { label: T('title.settings'), fn: () => openOverlay(this, 'settings') }
     ].filter(Boolean);
     items.forEach((it, i) => {
@@ -38,8 +41,9 @@ export class TitleScene extends Phaser.Scene {
     setupDebug(this);
   }
 
-  start(save) {
-    if (save) {
+  start() {
+    // Starting over replaces the autosave; numbered save slots are kept.
+    if (SaveSystem.readAuto()) {
       openOverlay(this, 'confirm', { message: T('confirm.newGame'), onYes: () => Flow.newGame(this) });
     } else {
       Flow.newGame(this);

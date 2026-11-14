@@ -1,0 +1,10 @@
+Bonding Potion
+
+Made for the 3 Days Game Jam
+by the 9 Lives team
+
+Game design
+Art
+
+Built with Phaser
+Thank you for playing!

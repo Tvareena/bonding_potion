@@ -41,6 +41,12 @@ export function warn(msg) {
   }
 }
 
+/** Auto mode pause after a fully shown line, from the Auto speed setting. */
+export function autoDelayMs(chars) {
+  const sp = (G.config.text.autoSpeeds || {})[G.settings.autoSpeed] || { base: 1.2, perChar: 0.03 };
+  return (sp.base + sp.perChar * chars) * 1000;
+}
+
 export function color(hex) {
   return Phaser.Display.Color.HexStringToColor(hex).color;
 }

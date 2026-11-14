@@ -206,14 +206,14 @@ After the tutorial, the player brews freely.
 
 | Feature | Behaviour | Priority |
 |---|---|---|
-| Advance | Click, tap, Space or Enter. While text is typing, the first click finishes the line instantly. | Must |
+| Advance | Click, tap, Space or Enter. While text is typing, the first click finishes the line instantly. Works the same on the dialogue and potion screens (3.9). | Must |
 | Typewriter text | Lines appear letter by letter; speed set in Settings. | Should |
 | Cat icon swing | The cat head icon rocks gently while a Jaros line is shown. | Should |
 | Expressions | Heroine portrait and character sprites change per line, from the script. | Must |
 | Log | Opens a panel with all lines seen in this session, scrollable. | Should |
-| Auto | Toggle. Lines advance by themselves after they finish (pause depends on line length). | Could |
+| Auto | Toggle (also in Settings). Lines advance by themselves after they finish; the pause depends on line length and the **Auto speed** setting (slow / normal / fast). One setting for the whole game, remembered between sessions. | Should |
 | Skip | Toggle. Fast-forwards dialogue until the next potion screen or the end of the scene. | Could |
-| Save / Load | One save slot (3.10). Save stores the current step; Load returns to it. | Could |
+| Save / Load | Open the save and load screens (3.10). | Should |
 | Settings | Opens the settings panel (4.6). | Could |
 
 The six menu items are text-only (no button art) in the bottom-right of the textbox. Items that aren't implemented in the build are hidden, and the rest move right.
@@ -221,15 +221,23 @@ The six menu items are text-only (no button art) in the bottom-right of the text
 ### 3.9 Potion screen dialogue
 
 - All lines (Heroine, Jaros, recollections) appear in the potion screen textbox with the speaker's name.
-- Lines are triggered by events from the script: start of the potion, hint, first resistance, fizzle, success.
-- The puzzle stays playable while a line is shown. Clicking the textbox advances; lines also go away on their own after a few seconds.
+- Lines are triggered by events from the script: start of the potion, the cat's advice, first resistance, fizzle, success.
+- The last line stays in the textbox until a new line replaces it or the player leaves the screen, so the cat's advice can be read next to the recipe. There is no Heroine "hint" line when the player is idle; only the recipe glows.
+- Lines advance exactly like on the dialogue screen: a click or tap on the textbox or on any free spot (not a crystal, button or tab), or Space / Enter. In Auto mode they advance by themselves. The "Click to continue" hint works the same way.
+- The puzzle stays playable while a line is waiting.
 - Jaros's advice for the current potion is repeated on request: clicking the cat on the table makes him say his advice again.
 
 ### 3.10 Progress and saving
 
-- **Autosave:** at the start of every step, progress (current step, book/cat record per potion) is saved in the browser.
-- **Continue** on the title screen resumes from the start of the saved step. It's hidden if there's no save.
-- **Start** begins a new game and overwrites the progress (with confirmation if a save exists).
+Saving works like a standard visual novel. Everything is stored in the browser.
+
+- **Save slots:** 18 slots on 3 pages of 6. Each slot shows a screenshot, slot number, date and time, the scene name ("Scene 3", a potion name or an ending name) and the line on screen.
+- **Saving** (dialogue menu **Save**, or **Save** in the pause panel) stores the exact position: on the dialogue screen the current line, with background, sprite and Heroine expression; on the potion screen the potion (it restarts from its beginning when loaded). Saving over a used slot asks for confirmation.
+- **Loading** (dialogue menu **Load**, **Load** in the pause panel, or **Load** on the title screen) opens the same slot screen with an extra **Auto** page for the autosave. Loading during play asks for confirmation ("Unsaved progress will be lost").
+- **Autosave:** at the start of every step.
+- **Continue** on the title screen loads the most recent save (autosave or slot). It's hidden if there are no saves.
+- **Start** begins a new game and replaces the autosave (with confirmation if one exists). Save slots are kept.
+- After an ending the autosave is cleared; save slots stay.
 - **Seen endings** and settings are stored separately and survive a new game.
 
 ### 3.11 Editing content (team tool)
@@ -253,15 +261,16 @@ Exact positions and sizes are in [Screen Layouts](Screen%20Layouts.md) and the [
 ### 4.1 Screen flow
 
 ```
-Title ──Start/Continue──▶ D1 ▶ P1 ▶ D2 ▶ P2 ▶ … ▶ D7 ▶ P7 ▶ D8 (ending) ▶ Ending card ──▶ Title
+Title ──Start / Continue / Load──▶ D1 ▶ P1 ▶ D2 ▶ P2 ▶ … ▶ D7 ▶ P7 ▶ D8 (ending) ▶ Ending card ──▶ Title
+  ├─Credits──▶ Credits panel
   └─Settings──▶ Settings panel
 ```
 
-Esc (PC) or the **Menu** text button opens the pause panel on dialogue and potion screens: Resume, Log, Settings, Title.
+Esc (PC) or the **Menu** text button opens the pause panel on dialogue and potion screens: Resume, Save, Load, Log, Settings, Title.
 
 ### 4.2 Title screen
 
-Background picture on the right; logo and three buttons on the left (Start, Continue, Settings). A short fade to the first scene on Start.
+Background picture on the right; logo and up to five buttons on the left: Start, Continue (only if there is a save), Load, Credits, Settings. "Endings found: N of 3" under the buttons once an ending has been seen. A short fade to the first scene on Start.
 
 ### 4.3 Dialogue screen
 
@@ -280,10 +289,12 @@ Over the ending illustration (one per ending, 1920 × 1080): ending name, "Endin
 ### 4.6 Panels
 
 One panel style (stretchable) for all of these, centred on screen:
-- **Pause:** Resume, Log, Settings, Title.
+- **Pause:** two columns: Resume, Save, Load / Log, Settings, Title.
+- **Save / Load:** page buttons (Load also has **Auto**), a 3 × 2 grid of slot cards, Close (3.10).
 - **Log:** scrollable list of "Name: line".
-- **Settings:** text speed (slow / normal / fast), music volume, sound volume, fullscreen toggle.
-- **Confirm:** "Start a new game? Your progress will be lost." Yes / No.
+- **Credits:** scrollable, centred text from `data/credits.txt`.
+- **Settings:** text speed (slow / normal / fast), Auto (off / on), Auto speed (slow / normal / fast), music volume, sound volume, fullscreen toggle.
+- **Confirm:** questions such as "Start a new game? Your progress will be lost.", "Overwrite this save?", "Load this save?". Yes / No.
 
 ### 4.7 Mobile
 
@@ -315,8 +326,8 @@ Hand-drawn 2D. Expressive characters with simple silhouettes. The colour palette
 | Priority | Features |
 |---|---|
 | **Must** | Title (Start); dialogue screen with advance and idle hint; script file; expressions; potion screen with recipe, drag-and-drop, counter, Brew, Empty, fizzle, success, Next; all 7 potions; hidden book/cat record; 3 endings + ending card with ending illustrations; temporary art for every asset; GitHub Pages build. |
-| **Should** | Guidance and resistance (all levels); P1 tutorial sequence; typewriter text; cat icon swing; sorting; tap-to-place; Log; pause panel; autosave + Continue; content editor (Texts and Art tabs). |
-| **Could** | Auto, Skip, manual Save/Load, Settings panel, audio, seen-endings marks. |
+| **Should** | Guidance and resistance (all levels); P1 tutorial sequence; typewriter text; cat icon swing; sorting; tap-to-place; Log; pause panel; save slots, Load and Continue; Auto with speed setting; Credits; content editor (Texts and Art tabs). |
+| **Could** | Skip, audio, seen-endings marks. |
 
 ---
 

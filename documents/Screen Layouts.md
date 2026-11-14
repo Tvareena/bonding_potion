@@ -18,9 +18,12 @@ Source files are in [layouts/](layouts/). Each layout has an `.svg` file (exact,
 |---|---|---|---|
 | Title background | 0, 0 | 1920 × 1080 | One image. The left part sits under the logo and buttons, so keep it calm enough for them to read well. |
 | Logo "Bonding Potion" | 100, 100 | 800 × 320 | Left side. |
-| Start button | 300, 520 | 400 × 100 | Centred under the logo. Normal, hover and pressed states. |
-| Continue button | 300, 650 | 400 × 100 | Shown only if saving is implemented. |
-| Settings button | 300, 780 | 400 × 100 | |
+| Start button | 300, 460 | 400 × 100 | Centred under the logo. Normal, hover and pressed states. |
+| Continue button | 300, 575 | 400 × 100 | Only when a save exists. Without it, the buttons below move up one place. |
+| Load button | 300, 690 | 400 × 100 | |
+| Credits button | 300, 805 | 400 × 100 | |
+| Settings button | 300, 920 | 400 × 100 | |
+| "Endings found: N of 3" | centred at 500, 1052 | — | Text drawn by the game, once an ending has been seen. |
 
 ## 2. Dialogue screen
 
@@ -98,7 +101,10 @@ Drawing order, back to front: background → cat → cauldron → everything els
 | Ending card: illustration | 0, 0 | 1920 × 1080 | One per ending. |
 | Ending card: ending name and "Ending X of 3" | centred, around y 400–600 | — | Text drawn by the game. |
 | Ending card: Title button | 760, 880 | 400 × 100 | Same large button as on the title screen. |
-| Panel (Pause, Log, Settings, Confirm) | 360, 140 | 1200 × 800 | Stretchable panel over a dimmed screen. Buttons inside use the small 220 × 90 button. |
+| Panel (Pause, Save, Load, Log, Credits, Settings, Confirm) | 360, 140 | 1200 × 800 | Stretchable panel over a dimmed screen. Buttons inside use the small 220 × 90 button. |
+| Pause panel buttons | two columns centred at x 800 and 1120; rows at y 340, 460, 580 | 220 × 90 each | Resume, Save, Load / Log, Settings, Title. |
+| Save / Load slot cards | 3 × 2 grid from 400, 290; every 390 px across, 270 px down | 340 × 240 each | Drawn by the game (frame, screenshot 288 × 162, slot name, date, scene). No art needed. |
+| Save / Load page buttons | right-aligned ending at x 1500, y 185 | 80 × 50 each | Text only: Auto (Load only), 1, 2, 3. |
 
 ## 7. Changes to the concept document
 

@@ -98,7 +98,7 @@ All tasks except drawing the art. Art *integration* (placeholders, replacing fil
 | B9 | Sorting by element (toggle), default order single → double → triple | Dev | Should | U6 | Filters work and clear. |
 | B10 | Potion 7: Crystals tab locked, bottles draggable, each used once, Empty returns them, success shows the 256 × 256 love potion in the centre | Dev | Must | B6 | P7 completes only with all six bottles. |
 | B11 | Clicking the cat replays the `advice` event | Dev | Should | T5 | Works in P1–P5 and P7 (cat not shown in P6). |
-| B12 | Potion-screen lines from script events (`start`, `hint`, `fizzle`, `success`, …); lines auto-hide after 4 s; puzzle stays playable | Dev | Must | C2, T5 | Events trigger the right lines. |
+| B12 | Potion-screen lines from script events (`start`, `advice`, `fizzle`, `success`, …); lines advance like dialogue; the last line stays on screen; puzzle stays playable | Dev | Must | C2, T5 | Events trigger the right lines. |
 
 ## 8. Guidance and resistance
 
@@ -125,7 +125,7 @@ All tasks except drawing the art. Art *integration* (placeholders, replacing fil
 | W1 | Decide final names for the Heroine and Chad; update `characters.json` | Design | Should | D6 | Names final. |
 | W2 | Write the story events for D3 and D5 (open in GDD §2.3) | Design | Must | — | Beats agreed. |
 | W3 | Write dialogue D1–D7 in the script format (TDD §5.1), with expressions, sprites and backgrounds | Design | Must | W2 | All dialogue sections play in the game. |
-| W4 | Write potion-screen lines for P1–P7: `start`, `advice`, `hint`, `fizzle` (several, random), `success`; P6 as the Heroine's memories of the cat | Design | Must | — | Every potion has at least start, advice, fizzle and success lines. |
+| W4 | Write potion-screen lines for P1–P7: `start`, `advice`, `fizzle` (several, random), `success`; P6 as the Heroine's memories of the cat | Design | Must | — | Every potion has at least start, advice, fizzle and success lines. |
 | W5 | Write the resistance comments (`resist_heavy`, `resist_slip`) | Design | Should | — | Lines in the script. |
 | W6 | Write the three endings (romance, friendship, bad, with the final line "But it's not what I wanted… at all…") and the ending names for the cards | Design | Must | — | All three ending sections play. |
 | W7 | Proofread the whole script; check every line fits the textbox (about 3 rows) | Design | Should | W3–W6 | No overflow or shrunk text. |

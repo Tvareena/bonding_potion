@@ -92,6 +92,7 @@ bonding_potion/
 ├── data/
 │   ├── script.txt          # all dialogue and potion-screen lines
 │   ├── texts.json          # all other text shown to the player (UI, hints, ending names)
+│   ├── credits.txt         # text of the Credits panel
 │   ├── characters.json
 │   ├── potions.json
 │   ├── crystals.json
@@ -167,13 +168,25 @@ Thresholds are in `config.json` (`endings.romanceMin = 5`, `endings.friendshipMi
 
 ### 4.4 Saving
 
+Visual-novel style saving, all in `localStorage` (`src/systems/SaveSystem.js`):
+
 | Key | Content | When written |
 |---|---|---|
-| `bonding_potion.save` | `{ version, stepIndex, choices, flags }` | Autosave at the start of each step; manual Save |
-| `bonding_potion.settings` | `{ textSpeed, musicVolume, sfxVolume }` | On change |
+| `bonding_potion.save` | Save data (below), autosave | At the start of each step; removed after an ending |
+| `bonding_potion.slot.1` … `.18` | Save data with a screenshot | When the player saves to that slot |
+| `bonding_potion.settings` | `{ textSpeed, auto, autoSpeed, musicVolume, sfxVolume }` | On change |
 | `bonding_potion.endings` | `["romance", ...]` | When an ending card is shown |
 
-`version` is checked on load; a save from an incompatible version is ignored (Continue hidden). Errors from `localStorage` (private browsing) are caught: the game still runs, just without saving.
+**Save data:** `{ version, time, kind, sectionId, row, endingId, text, state: { stepIndex, choices, flags }, session: { bg, heroineExpr, music }, shot }`
+- `sectionId` + `row`: the script section and the index of the dialogue line on screen (`null` = start of the section; potion steps always restart from the beginning).
+- `text`: the line on screen, shown on the slot card. `shot`: 320 × 180 JPEG data URL (about 10–20 KB).
+- Slot count: `config.json → saveSlots { pages: 3, perPage: 6 }`.
+
+**Screenshot:** opening a panel from the dialogue or potion screen first takes `renderer.snapshot()` of the game (so the panel isn't in the picture), shrinks it to 320 × 180 and keeps it until the player picks a slot.
+
+**Loading** (`Flow.load`): restores `state` and `session`, then starts the section. The dialogue screen fast-forwards from the start of the section to `row` without showing lines: backgrounds, sprites and expressions are replayed instantly, then the saved line is shown. If the script changed, the position may shift slightly; the save still loads.
+
+**Continue** loads the newest save (autosave or slot). `version` (`config.json → saveVersion`) is checked on load; saves from another version are ignored. Errors from `localStorage` (private browsing, storage full) are caught: the game still runs and the save screen says it couldn't save.
 
 ---
 
@@ -246,7 +259,7 @@ heroine happy: It worked!
 | `@wait <seconds>` | Pause. |
 | `@on <event> [random]` | Potion sections only. The lines below play when `<event>` happens. With `random`, one line is picked each time instead of all. |
 
-**Potion events:** `start`, `tutorial_recipe`, `tutorial_elements`, `tutorial_drag`, `tutorial_brew`, `advice` (also played when the cat is clicked), `hint`, `resist_heavy`, `resist_slip`, `fizzle`, `success`.
+**Potion events:** `start`, `tutorial_recipe`, `tutorial_elements`, `tutorial_drag`, `tutorial_brew`, `advice` (also played when the cat is clicked), `resist_heavy`, `resist_slip`, `fizzle`, `success`.
 
 Unknown commands, speakers or expressions don't stop the game: they're skipped and reported in the browser console and the debug overlay.
 
@@ -297,7 +310,7 @@ Image key = `crystal_<id>`. The full list is in the GDD, section 3.3.
 |---|---|---|
 | `elements.colors` | fire `#E8C547`, water `#3A6FD8`, earth `#4E9A4B`, air `#8E5BC8` | Liquid tint and highlights. Temporary values; the artist picks the final ones. |
 | `text.speeds` | slow 25, normal 45, fast 90 | Characters per second. |
-| `text.autoDelayBase` / `perChar` | 1.2 s / 0.03 s | Auto mode pause after a line. |
+| `text.autoSpeeds` | slow 2.0 s + 0.05 s/char, normal 1.2 + 0.03, fast 0.6 + 0.015 | Auto mode pause after a line, per Auto speed setting. Used on both dialogue and potion screens. |
 | `hints.idleAdvance` | 5 s | "Click to continue" hint delay. |
 | `hints.idleAdvanceMaxShows` | 3 | Stop showing it after this many advances. |
 | `guidance.glowDelay` | 10 s | Level 1 recipe glow delay. |
@@ -306,7 +319,6 @@ Image key = `crystal_<id>`. The full list is in the GDD, section 3.3.
 | `resist.slipDelay` | 0.3–0.7 s | Random time after drag start before a slip. |
 | `resist.driftMax` | 60 px | Maximum cursor drift (level 3, PC). |
 | `resist.driftSpeed` | 4 px per frame | How fast the cursor drifts. |
-| `potion.lineAutoHide` | 4 s | Potion-screen lines hide after this. |
 | `endings.romanceMin` / `friendshipMin` | 5 / 3 | Ending thresholds. |
 
 ### 5.6 `layout.json`
@@ -365,6 +377,7 @@ Every piece of text the player sees that isn't a dialogue line and isn't a chara
 | Potion names and flavour lines | `potions.json` |
 | Crystal names | `crystals.json` |
 | Everything else (buttons, menus, hints, panels, ending names) | `texts.json` |
+| Credits | `credits.txt` (plain text, shown centred and scrollable) |
 
 ---
 

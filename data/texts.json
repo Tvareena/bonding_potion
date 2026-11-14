@@ -1,6 +1,8 @@
 {
   "title.start": "Start",
   "title.continue": "Continue",
+  "title.load": "Load",
+  "title.credits": "Credits",
   "title.settings": "Settings",
   "title.endingsSeen": "Endings found: {n} of 3",
 
@@ -23,13 +25,32 @@
 
   "pause.title": "Paused",
   "pause.resume": "Resume",
+  "pause.save": "Save",
+  "pause.load": "Load",
   "pause.toTitle": "Title",
   "panel.close": "Close",
   "log.title": "Log",
   "log.empty": "Nothing yet.",
 
+  "save.title": "Save",
+  "load.title": "Load",
+  "save.auto": "Auto",
+  "save.autoLabel": "Auto save",
+  "save.slot": "Slot {n}",
+  "save.empty": "Empty",
+  "save.scene": "Scene {n}",
+  "save.overwrite": "Overwrite this save?",
+  "save.loadConfirm": "Load this save? Unsaved progress will be lost.",
+  "save.saved": "Game saved",
+  "save.failed": "Could not save. The browser storage may be full or turned off.",
+  "save.noSaves": "No saved games yet",
+
+  "credits.title": "Credits",
+
   "settings.title": "Settings",
   "settings.textSpeed": "Text speed",
+  "settings.auto": "Auto",
+  "settings.autoSpeed": "Auto speed",
   "settings.slow": "Slow",
   "settings.normal": "Normal",
   "settings.fast": "Fast",
@@ -40,13 +61,9 @@
   "settings.off": "Off",
 
   "confirm.newGame": "Start a new game? Your progress will be lost.",
-  "confirm.load": "Load your saved game? Unsaved progress will be lost.",
   "confirm.toTitle": "Return to the title screen?",
   "confirm.yes": "Yes",
   "confirm.no": "No",
-
-  "toast.saved": "Game saved",
-  "toast.noSave": "No saved game",
 
   "ending.romance": "Spellbound",
   "ending.friendship": "A Friend in Black Fur",

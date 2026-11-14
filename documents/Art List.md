@@ -46,7 +46,7 @@
 
 | File | Size | Position | Priority | Notes |
 |---|---|---|---|---|
-| `bg_title.jpg` | 1920 × 1080 | 0, 0 | Must | Title screen. A picture on the **right** side (for example the Heroine and the cat). The logo (100, 100 · 800 × 320) and buttons (300, 520–880 · 400 wide) sit on the **left**, so keep the left side calm. |
+| `bg_title.jpg` | 1920 × 1080 | 0, 0 | Must | Title screen. A picture on the **right** side (for example the Heroine and the cat). The logo (100, 100 · 800 × 320) and up to five buttons (300, 460–1020 · 400 wide) sit on the **left**, so keep the left side calm. |
 | `bg_shop.jpg` | 1920 × 1080 | 0, 0 | Must | Shop interior: all dialogue scenes and endings. The bottom area (y 780–1000) is under the semi-transparent textbox; the centre (x 510–1410) is behind character sprites; the top-right corner (1660, 30 · 220 × 220) has the cat icon. |
 | `bg_workshop.jpg` | 1920 × 1080 | 0, 0 | Must | Potion screen: the workshop table, where the cauldron and the cat stand. The table surface should be roughly under the cauldron (600–1220 × 300–800) and the cat (1140–1480 × 230–750). Most of the screen is covered by UI; the background can be fairly simple. |
 
@@ -162,7 +162,7 @@ The six bottles should look like one set (similar shape family, different detail
 |---|---|---|---|---|---|
 | `ui_logo.png` | 800 × 320 | 100, 100 (title) | — | Must | "Bonding Potion" lettering. The only image with text. |
 | `ui_portrait_frame.png` | 320 × 420 | Dialogue: 60, 600 · Potion: 40, 650 | — | Must | Frame around the Heroine portrait, drawn on top of it. **Transparent window 300 × 400 at 10, 10 inside the image.** |
-| `ui_button_large_normal.png` | 400 × 100 | Title: 300, 520 / 300, 650 / 300, 780 · Ending card: 760, 880 | normal | Must | Button **without text** (Start, Continue, Settings, Title are written by the game). |
+| `ui_button_large_normal.png` | 400 × 100 | Title: 300, 460 / 575 / 690 / 805 / 920 · Ending card: 760, 880 | normal | Must | Button **without text** (Start, Continue, Load, Credits, Settings, Title are written by the game). |
 | `ui_button_large_hover.png` | 400 × 100 | same | hover | Should | Mouse over (PC only). |
 | `ui_button_large_pressed.png` | 400 × 100 | same | pressed | Should | |
 | `ui_button_small_normal.png` | 220 × 90 | Brew: 1240, 760 · Empty: 1240, 870 · panels | normal | Must | Button **without text**. Also used in panels (Yes/No, Resume…). |
@@ -185,9 +185,12 @@ The six bottles should look like one set (similar shape family, different detail
 |---|---|---|---|---|---|
 | `ui_textbox.png` | 192 × 192 | 48 px | Dialogue: 60, 780 · 1800 × 220 · Potion: 380, 840 · 840 × 200 | Must | **Semi-transparent** (about 70–80% opacity painted into the PNG), so the background and sprite show through. |
 | `ui_nameplate.png` | 192 × 64 | 24 px left and right (stretches only in width) | Dialogue: 400, 730 · 360 × 64 · Potion: 400, 810 · 300 × 56 | Must | Plate with the speaker's name (name written by the game). |
-| `ui_panel.png` | 192 × 192 | 48 px | 360, 140 · 1200 × 800 (Pause, Log, Settings, Confirm) | Should | Panel over a dimmed screen. Opaque. |
+| `ui_panel.png` | 192 × 192 | 48 px | 360, 140 · 1200 × 800 (Pause, Save, Load, Log, Credits, Settings, Confirm) | Should | Panel over a dimmed screen. Opaque. |
 
 ### 7.3 Things the game draws itself (no art needed)
+
+- Save and load slot cards (frame, screenshot, slot name, date) and their page buttons.
+- Credits text (from `data/credits.txt`).
 
 - All text: lines, names, button labels, recipe text, numbers, the "Click to continue" hint.
 - The dialogue screen menu (Log, Auto, Skip, Save, Load, Settings): **text only**, no button images.

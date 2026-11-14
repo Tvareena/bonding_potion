@@ -1,0 +1,15 @@
+[
+  { "id": "ember_shard",    "name": "Ember Shard",    "elements": { "fire": 1 } },
+  { "id": "root_stone",     "name": "Root Stone",     "elements": { "earth": 1 } },
+  { "id": "lava_garnet",    "name": "Lava Garnet",    "elements": { "fire": 1, "earth": 1 } },
+  { "id": "tide_pearl",     "name": "Tide Pearl",     "elements": { "water": 1 } },
+  { "id": "wisp_quartz",    "name": "Wisp Quartz",    "elements": { "air": 1 } },
+  { "id": "storm_opal",     "name": "Storm Opal",     "elements": { "water": 1, "air": 1 } },
+  { "id": "deep_sapphire",  "name": "Deep Sapphire",  "elements": { "water": 2 } },
+  { "id": "marsh_jade",     "name": "Marsh Jade",     "elements": { "water": 1, "earth": 1 } },
+  { "id": "sun_citrine",    "name": "Sun Citrine",    "elements": { "fire": 1, "air": 1 } },
+  { "id": "blaze_ruby",     "name": "Blaze Ruby",     "elements": { "fire": 2 } },
+  { "id": "sky_amethyst",   "name": "Sky Amethyst",   "elements": { "air": 2 } },
+  { "id": "mountain_amber", "name": "Mountain Amber", "elements": { "earth": 2 } },
+  { "id": "dusk_prism",     "name": "Dusk Prism",     "elements": { "fire": 1, "earth": 1, "air": 1 } }
+]

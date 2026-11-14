@@ -1,0 +1,327 @@
+# Bonding Potion — Game Design Document
+
+| | |
+|---|---|
+| **Version** | 1.0 |
+| **Date** | 14 November 2026 |
+| **Based on** | [Game Concept Document](Game%20Concept%20Document.md), [Screen Layouts](Screen%20Layouts.md) |
+| **Related** | [Technical Design Document](Technical%20Design%20Document.md), [Art List](Art%20List.md) |
+| **Repository** | https://github.com/Tvareena/bonding_potion |
+
+> Character names (Heroine, Chad) are working names. Dialogue lines are not final. Every line, speaker, expression and scene change lives in an editable script file (see the TDD), so the scenario can be rewritten without code changes. The lines quoted here only mark story beats.
+
+---
+
+## 1. Game summary
+
+**Bonding Potion** is a short 2D browser game that mixes a visual novel with potion-brewing puzzles. A young potion seller brews six potions to make a love potion for the man she likes. For each potion she can follow the recipe book or the slightly different advice of Jaros, her aunt's black cat. The game never asks her to choose. It notices what she brews, and the interface quietly pushes her toward the book. How many potions she brews the cat's way decides which of three endings she gets.
+
+| Item | Value |
+|---|---|
+| Genre | Visual novel + puzzle |
+| Platforms | Browser on PC and mobile (landscape), hosted on GitHub Pages |
+| Reference resolution | 1920 × 1080, scaled to fit, letterboxed |
+| Language | English |
+| Playtime | 15–25 minutes per playthrough, 3 endings |
+| Input | Mouse and keyboard; touch |
+| Team and time | 1 artist, 1 game designer, 1 working day |
+
+### 1.1 Design pillars
+
+1. **Easy to brew.** Four elements, coloured crystals, one cauldron. Difficulty comes from amounts and ratios, never hidden rules.
+2. **A choice the game doesn't announce.** The player shows their choice by brewing. There is no "book or cat?" menu and no visible score.
+3. **The game pushes back.** Highlights, a stubborn cursor and slipping crystals lean toward the book. It's noticeable and commented on in the story, but the cat's way is never blocked.
+4. **A short story with charm.** Short scenes between puzzles, a witty cat, and a romance that slowly shows its true colours.
+
+---
+
+## 2. Story and characters
+
+### 2.1 Premise
+
+The Heroine sells potions in her aunt's shop. She is in love with Chad, a customer who doesn't return her feelings. The aunt's recipe book says a love potion is made by mixing six potions: Fun, Courage, Trust, Hope, Confidence and Gratitude. Jaros, the aunt's black cat familiar, thinks it's a terrible idea, but he stays with her while she brews and offers advice that differs slightly from the book.
+
+### 2.2 Characters
+
+| ID | Name | Role | How shown | Expressions / variants |
+|---|---|---|---|---|
+| `heroine` | Heroine *(working name)* | Protagonist | Portrait to the left of the textbox, on every screen | neutral, happy, sad, angry, surprised, embarrassed |
+| `chad` | Chad *(working name)* | Love interest; charming at first, then shows he's selfish and cruel | Half-body sprite, dialogue screen | neutral, smile, cold, obsessed |
+| `jaros` | Jaros | The aunt's black cat familiar; sarcastic, grumpy, caring. Secretly a wizard under a curse | Cat head icon (dialogue screen), cat on the table (potion screen) | one image each |
+| `jaros_human` | Jaros (human form) | The freed wizard, in two endings | Half-body sprite, dialogue screen | neutral, smile, embarrassed |
+| — | The Aunt | Potion maker, owner of the shop and the book | **Never appears on screen**, only mentioned | — |
+
+### 2.3 Story structure
+
+The game is a fixed sequence of 15 steps plus an ending. The order is final.
+
+| Step | Type | Content |
+|---|---|---|
+| D1 | Dialogue | Introduces the Heroine, Chad and the premise. She decides to brew a love potion. Dialogue tutorial. |
+| P1 | Potion: **Fun** | Jaros is introduced. Brewing tutorial, told by the cat. |
+| D2 | Dialogue | Chad visits again; the player can tell he isn't kind, but the Heroine doesn't notice. |
+| P2 | Potion: **Courage** | Brewing with the cat. |
+| D3 | Dialogue | *Story events still to be written.* |
+| P3 | Potion: **Trust** | Brewing with the cat. |
+| D4 | Dialogue | The Heroine realises Chad is a bad person, but hopes the love potion will change him. |
+| P4 | Potion: **Hope** | Brewing with the cat. |
+| D5 | Dialogue | *Story events still to be written.* |
+| P5 | Potion: **Confidence** | Brewing with the cat. |
+| D6 | Dialogue | The argument. Jaros makes a last attempt to stop her. She: "So you think I'm stupid?" He: "Yes, if you can't see that one doesn't need a love potion to fall in love with someone like you." She: "You called me… Wait, what did you say?" He leaves, angry and embarrassed. |
+| P6 | Potion: **Gratitude** | The cat is gone. His advice comes back to her as memories. |
+| D7 | Dialogue | They make peace. She goes on with the love potion, but has doubts. |
+| P7 | Potion: **Love** | The six finished potions are mixed. No choice here. |
+| D8 | Dialogue: ending | One of three endings (2.4), then the ending card. |
+
+### 2.4 Endings
+
+Every potion from 1 to 6 is recorded as **book** or **cat** (see 3.4). Potion 7 isn't counted. The count is never shown to the player.
+
+| Cat count | Ending ID | Ending | Summary |
+|---|---|---|---|
+| 5–6 | `romance` | Romance (happy) | Jaros drinks the potion before she can stop him and becomes human: a wizard under a curse. They've grown close while brewing, and she happily forgets Chad. |
+| 3–4 | `friendship` | Friendship | Jaros drinks the potion and becomes human. No romance, but he's grateful. She gives up on Chad. |
+| 0–2 | `bad` | Nightmare (bad) | She gives the potion to Chad. He falls in love, but he's cruel and selfish, and it turns into a nightmare. Final line: "But it's not what I wanted… at all…" |
+
+After the ending scene the **ending card** shows the ending's name and "Ending X of 3" (romance = 1, friendship = 2, bad = 3), with a button back to the title. Endings the player has seen are remembered in the save (3.10).
+
+---
+
+## 3. Gameplay
+
+### 3.1 Core loop
+
+1. Read a dialogue scene (click or tap to advance).
+2. On the potion screen: read the recipe, listen to the cat, drag crystals into the cauldron, watch the element counter.
+3. Press **Brew**. The mix matches the book → success (book). Matches the cat → success (cat). Neither → fizzle, the cauldron empties, try again.
+4. After success the bottle goes to the shelf, the **Next** arrow lights up, and the story continues.
+
+### 3.2 Elements
+
+| Element | Shape | Colour | Liquid tint |
+|---|---|---|---|
+| Fire | Triangle | Yellow | yellow |
+| Water | Circle | Blue | blue |
+| Earth | Square | Green | green |
+| Air | Rhombus | Purple | purple |
+
+The shapes make elements readable for colour-blind players. Exact colour values are set by the artist; the game reads them from a config file.
+
+### 3.3 Crystals (ingredients)
+
+Crystals are unlimited. Each adds fixed element units. New crystals unlock as the story goes on, and an unlocked crystal stays available.
+
+| ID | Crystal | Fire | Water | Earth | Air | Unlocks at |
+|---|---|---|---|---|---|---|
+| `ember_shard` | Ember Shard | 1 | | | | P1 |
+| `root_stone` | Root Stone | | | 1 | | P1 |
+| `lava_garnet` | Lava Garnet | 1 | | 1 | | P1 |
+| `tide_pearl` | Tide Pearl | | 1 | | | P2 |
+| `wisp_quartz` | Wisp Quartz | | | | 1 | P2 |
+| `storm_opal` | Storm Opal | | 1 | | 1 | P2 |
+| `deep_sapphire` | Deep Sapphire | | 2 | | | P3 |
+| `marsh_jade` | Marsh Jade | | 1 | 1 | | P3 |
+| `sun_citrine` | Sun Citrine | 1 | | | 1 | P4 |
+| `blaze_ruby` | Blaze Ruby | 2 | | | | P4 |
+| `sky_amethyst` | Sky Amethyst | | | | 2 | P4 |
+| `mountain_amber` | Mountain Amber | | | 2 | | P5 |
+| `dusk_prism` | Dusk Prism | 1 | | 1 | 1 | P5 |
+
+Number of crystals in the menu: P1 = 3, P2 = 6, P3 = 8, P4 = 11, P5–P6 = 13.
+
+### 3.4 Recipes and the hidden check
+
+| # | ID | Potion | Book recipe | Cat's advice | Units (book / cat) |
+|---|---|---|---|---|---|
+| 1 | `fun` | Fun | Fire 2, Earth 2 | Fire 3, Earth 1 | 4 / 4 |
+| 2 | `courage` | Courage | Water 2, Air 4 | Water 3, Air 3 | 6 / 6 |
+| 3 | `trust` | Trust | Water 4, Earth 2 | Water 3, Earth 3 | 6 / 6 |
+| 4 | `hope` | Hope | Fire 2, Air 2, Water 1 | Fire 1, Air 3, Water 1 | 5 / 5 |
+| 5 | `confidence` | Confidence | Earth 3, Air 2, Fire 2 | Earth 2, Air 2, Fire 3 | 7 / 7 |
+| 6 | `gratitude` | Gratitude | Fire 2, Earth 2, Air 2, Water 2 | Fire 1, Earth 3, Air 1, Water 3 | 8 / 8 |
+| 7 | `love` | Love | One of each finished potion 1–6 | — | — |
+
+**Check rule (potions 1–6).** On Brew, the game compares the cauldron's totals for all four elements with the book recipe and with the cat's version. They must match **exactly**, including zero for elements not in the recipe.
+- Exact match with the book → success, recorded as `book`.
+- Exact match with the cat → success, recorded as `cat`.
+- Otherwise → fizzle.
+
+Both successes look and sound the same. Book and cat totals are always the same size, so the counter alone doesn't give the choice away.
+
+**Potion 7.** The **Potions** tab is active and the **Crystals** tab is locked. The cauldron must contain each of the six finished bottles exactly once (in any order). Brew → the love potion appears large on screen (256 × 256 bottle), and the game moves to D8. Adding a bottle twice isn't possible, since each bottle leaves the shelf when used. Empty puts them back.
+
+**Every cat recipe needs at least one element above the book amount** (Fun: Fire 3 > 2; Courage: Water 3 > 2; Trust: Earth 3 > 2; Hope: Air 3 > 2; Confidence: Fire 3 > 2; Gratitude: Earth 3, Water 3 > 2). This is what lets the resistance (3.6) catch the cat's way.
+
+### 3.5 Brewing interactions
+
+| Action | Result |
+|---|---|
+| Drag a crystal onto the cauldron | Splash; its units are added; the counter and the liquid tint update. |
+| Drop a crystal anywhere else | It flies back to its cell. |
+| Brew (with something in the cauldron) | Check (3.4) → success or fizzle. Brew does nothing on an empty cauldron. |
+| Empty | Cauldron is cleared (in P7 the bottles go back to the shelf). |
+| Fizzle | Smoke effect and sound, a short line from the Heroine or the cat, the cauldron empties automatically. |
+| Success | Sparkle effect, the bottle appears and moves to the Potions tab, a short line, the **Next** arrow lights up and pulses. Crystals can no longer be added. |
+| Next | Goes to the next dialogue. Disabled (dimmed) until success. |
+
+The **element counter** on the cauldron front shows four element icons with a number next to each. Only elements above 0 are shown; it's empty for an empty cauldron.
+
+### 3.6 Guidance and resistance
+
+The game "wants" the book recipe. It helps more and pushes back harder as the story goes on. Each potion has a guidance level.
+
+| Level | Potions | Guidance | Resistance |
+|---|---|---|---|
+| 1 | P1, P2 | After 10 s without adding a crystal, the recipe page glows softly. | None. |
+| 2 | P3, P4 | Recipe lines glow; crystals that fit the book (don't exceed any book amount) get a soft outline in the menu. | **Heavy drag**: an off-recipe crystal lags behind the pointer while dragged. |
+| 3 | P5, P6 | Strong glow, the recipe pulses, fitting crystals nudge forward in their cells. | Heavy drag, plus **cursor drift** (PC) and **slipping** (3.6.1). The Heroine comments the first time. |
+| — | P7 | None. | None. |
+
+**Off-recipe crystal:** a crystal that would push any element **above** the book amount, given what's already in the cauldron. This is checked again on every drag, so the same crystal can be fine at first and off-recipe later.
+
+#### 3.6.1 Resistance rules
+
+- **Heavy drag** (levels 2–3): the dragged crystal follows the pointer slowly, like it's heavy.
+- **Cursor drift** (level 3, PC only): in the potion screen the game draws its own cursor. While an off-recipe crystal is dragged, the cursor slides slightly toward the nearest fitting crystal in the menu.
+- **Slipping** (level 3): an off-recipe crystal may fall out of the hand and fly back to its cell, even while the button is held. It never slips twice in a row for the same crystal, so the second try always works.
+- **Comments:** the first heavy drag in P3 and the first slip in P5 trigger a Heroine line (for example "Why is this one so heavy?" / "Why does it keep slipping?"). Each comment plays once per playthrough.
+- Mobile gets heavy drag and slipping; cursor drift is PC-only.
+- In P6 the cat is gone; his advice shows as the Heroine's recollection ("Jaros would say… more earth, more water."). Resistance stays at level 3.
+
+Exact timings and chances are in the TDD (config values) and tuned in playtesting. The goal: annoying enough to notice, never enough to stop the player.
+
+### 3.7 Tutorial
+
+**Dialogue (D1):** if the player doesn't advance for 5 seconds, a blinking hint appears at the bottom-right of the text area: "Click to continue" (on touch devices: "Tap to continue"). It disappears on the next advance and doesn't return after the first 3 advances.
+
+**Brewing (P1):** a scripted sequence told by Jaros in the textbox. Each step waits for the player:
+1. The recipe: what Fun needs (the recipe page highlights).
+2. Elements and crystals: the counter and the menu highlight.
+3. "Drag a crystal into the cauldron." Waits for the first crystal.
+4. "When it matches, press Brew." Brew highlights.
+5. Jaros's first advice: "The book's too cautious. Three fire, one earth. Trust me." This shows there are two ways.
+After the tutorial, the player brews freely.
+
+### 3.8 Dialogue features
+
+| Feature | Behaviour | Priority |
+|---|---|---|
+| Advance | Click, tap, Space or Enter. While text is typing, the first click finishes the line instantly. | Must |
+| Typewriter text | Lines appear letter by letter; speed set in Settings. | Should |
+| Cat icon swing | The cat head icon rocks gently while a Jaros line is shown. | Should |
+| Expressions | Heroine portrait and character sprites change per line, from the script. | Must |
+| Log | Opens a panel with all lines seen in this session, scrollable. | Should |
+| Auto | Toggle. Lines advance by themselves after they finish (pause depends on line length). | Could |
+| Skip | Toggle. Fast-forwards dialogue until the next potion screen or the end of the scene. | Could |
+| Save / Load | One save slot (3.10). Save stores the current step; Load returns to it. | Could |
+| Settings | Opens the settings panel (4.6). | Could |
+
+The six menu items are text-only (no button art) in the bottom-right of the textbox. Items that aren't implemented in the build are hidden, and the rest move right.
+
+### 3.9 Potion screen dialogue
+
+- All lines (Heroine, Jaros, recollections) appear in the potion screen textbox with the speaker's name.
+- Lines are triggered by events from the script: start of the potion, hint, first resistance, fizzle, success.
+- The puzzle stays playable while a line is shown. Clicking the textbox advances; lines also go away on their own after a few seconds.
+- Jaros's advice for the current potion is repeated on request: clicking the cat on the table makes him say his advice again.
+
+### 3.10 Progress and saving
+
+- **Autosave:** at the start of every step, progress (current step, book/cat record per potion) is saved in the browser.
+- **Continue** on the title screen resumes from the start of the saved step. It's hidden if there's no save.
+- **Start** begins a new game and overwrites the progress (with confirmation if a save exists).
+- **Seen endings** and settings are stored separately and survive a new game.
+
+### 3.11 Editing content (team tool)
+
+The team gets a separate **content editor** page (not part of the game the player sees), described in TDD §13:
+- **Texts tab:** change dialogue lines, speakers, expressions and scene commands; character names; potion and crystal names and flavour lines; all interface texts (buttons, menus, hints, ending names). Warns about lines too long for the textbox.
+- **Art tab:** see which images are still temporary, and replace them with final art by drag-and-drop, with size checks and automatic resizing.
+
+It works in Chrome or Edge on a computer with the project folder. Player-visible text never lives in the game code.
+
+### 3.12 Failure and difficulty
+
+There is no way to lose. Fizzles cost nothing. The player can retry any number of times. The difficulty curve comes from more elements, larger totals and more crystals to choose from (see 3.3, 3.4).
+
+---
+
+## 4. Screens
+
+Exact positions and sizes are in [Screen Layouts](Screen%20Layouts.md) and the [Art List](Art%20List.md).
+
+### 4.1 Screen flow
+
+```
+Title ──Start/Continue──▶ D1 ▶ P1 ▶ D2 ▶ P2 ▶ … ▶ D7 ▶ P7 ▶ D8 (ending) ▶ Ending card ──▶ Title
+  └─Settings──▶ Settings panel
+```
+
+Esc (PC) or the **Menu** text button opens the pause panel on dialogue and potion screens: Resume, Log, Settings, Title.
+
+### 4.2 Title screen
+
+Background picture on the right; logo and three buttons on the left (Start, Continue, Settings). A short fade to the first scene on Start.
+
+### 4.3 Dialogue screen
+
+Background, centred half-body sprite (0–1 at a time), semi-transparent textbox with name plate, Heroine portrait on the left, cat head icon top-right, text-only menu inside the textbox. Characters fade in and out when shown or hidden; backgrounds cross-fade.
+
+### 4.4 Potion screen
+
+Recipe page (top-left), Next arrow (top-right) with a text-only **Menu** button to its left, cat on the table behind the cauldron, cauldron in the centre with the element counter, Brew and Empty buttons, ingredient menu on the right (tabs Crystals/Potions, sort row, 3 × 5 grid), Heroine portrait and textbox at the bottom-left.
+
+**Sorting:** the sort row has four element icons. Tapping one shows only crystals that contain that element (tap again to clear). Default order: single-element, then double, then triple.
+
+### 4.5 Ending card
+
+Over the ending illustration (one per ending, 1920 × 1080): ending name, "Ending X of 3" in the centre, and a **Title** button at the bottom centre.
+
+### 4.6 Panels
+
+One panel style (stretchable) for all of these, centred on screen:
+- **Pause:** Resume, Log, Settings, Title.
+- **Log:** scrollable list of "Name: line".
+- **Settings:** text speed (slow / normal / fast), music volume, sound volume, fullscreen toggle.
+- **Confirm:** "Start a new game? Your progress will be lost." Yes / No.
+
+### 4.7 Mobile
+
+- Landscape only. In portrait the game shows "Please rotate your device".
+- Buttons are at least 90 px tall at the reference resolution. The text-only menu items are smaller (120 × 40 click areas), so check them on a real phone.
+- Crystals can be dragged, or tapped and then the cauldron tapped.
+
+---
+
+## 5. Audio
+
+| Type | Content | Priority |
+|---|---|---|
+| Music | Shop theme (dialogue), brewing theme (potion screen), one track per ending mood (3) | Could |
+| SFX | Click, crystal pick-up, splash, bubbling loop, brew success, fizzle, slip, meow, bottle clink, cat swing (soft) | Could |
+
+Music and SFX volumes are separate. Audio starts after the first click/tap (browser rule).
+
+---
+
+## 6. Art direction
+
+Hand-drawn 2D. Expressive characters with simple silhouettes. The colour palette is not decided yet; colours in the layout drawings are not final. All requirements, sizes and positions are in the [Art List](Art%20List.md).
+
+---
+
+## 7. Scope
+
+| Priority | Features |
+|---|---|
+| **Must** | Title (Start); dialogue screen with advance and idle hint; script file; expressions; potion screen with recipe, drag-and-drop, counter, Brew, Empty, fizzle, success, Next; all 7 potions; hidden book/cat record; 3 endings + ending card with ending illustrations; temporary art for every asset; GitHub Pages build. |
+| **Should** | Guidance and resistance (all levels); P1 tutorial sequence; typewriter text; cat icon swing; sorting; tap-to-place; Log; pause panel; autosave + Continue; content editor (Texts and Art tabs). |
+| **Could** | Auto, Skip, manual Save/Load, Settings panel, audio, seen-endings marks. |
+
+---
+
+## 8. Open questions
+
+- Final names for the Heroine and Chad.
+- Story events for D3 and D5 and the potion-screen lines for P2–P5.
+- Whether the title screen marks endings the player has already seen.

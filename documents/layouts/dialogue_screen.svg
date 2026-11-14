@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" font-family="Arial, sans-serif">
+  <style>
+    .lbl { font-size: 30px; font-weight: bold; fill: #333; }
+    .dim { font-size: 24px; fill: #555; }
+    .sm { font-size: 20px; fill: #333; }
+  </style>
+  <!-- Background -->
+  <rect x="0" y="0" width="1920" height="1080" fill="#ECECEC"/>
+  <rect x="4" y="4" width="1912" height="1072" fill="none" stroke="#999" stroke-width="4" stroke-dasharray="20 12"/>
+  <text x="40" y="60" class="lbl">Dialogue background</text>
+  <text x="40" y="96" class="dim">0, 0 · 1920 × 1080</text>
+
+  <!-- Character sprite (behind textbox) -->
+  <rect x="510" y="80" width="900" height="1000" fill="#CFE0EE" stroke="#3E6E96" stroke-width="4"/>
+  <text x="960" y="380" text-anchor="middle" class="lbl">Character sprite (half-body)</text>
+  <text x="960" y="420" text-anchor="middle" class="dim">510, 80 · 900 × 1000</text>
+  <text x="960" y="456" text-anchor="middle" class="dim">bottom part is behind the textbox</text>
+
+  <!-- Cat head icon -->
+  <rect x="1660" y="30" width="220" height="220" fill="#E3D6C3" stroke="#7A5A30" stroke-width="4"/>
+  <text x="1770" y="130" text-anchor="middle" class="lbl">Cat icon</text>
+  <text x="1770" y="166" text-anchor="middle" class="dim">1660, 30</text>
+  <text x="1770" y="196" text-anchor="middle" class="dim">220 × 220</text>
+
+  <!-- Textbox -->
+  <rect x="60" y="780" width="1800" height="220" fill="#B9A6CF" fill-opacity="0.75" stroke="#6A4A8C" stroke-width="4"/>
+  <text x="1860" y="1070" text-anchor="end" class="sm">Textbox 60, 780 · 1800 × 220 (semi-transparent, 9-slice)</text>
+
+  <!-- Name plate -->
+  <rect x="400" y="730" width="360" height="64" rx="8" fill="#F1ECF7" stroke="#6A4A8C" stroke-width="4"/>
+  <text x="580" y="772" text-anchor="middle" class="sm">Name plate 400, 730 · 360 × 64</text>
+
+  <!-- Line text area -->
+  <rect x="400" y="810" width="1440" height="110" fill="none" stroke="#333" stroke-width="2" stroke-dasharray="8 6"/>
+  <text x="420" y="855" class="lbl">Line text area</text>
+  <text x="420" y="892" class="dim">400, 810 · 1440 × 110</text>
+
+  <!-- Menu buttons -->
+  <g font-size="24" fill="#4B2E6B" font-weight="bold" text-anchor="middle">
+    <rect x="1020" y="945" width="120" height="40" fill="none" stroke="#4B2E6B" stroke-width="1.5" stroke-dasharray="5 4"/><text x="1080" y="973">Log</text>
+    <rect x="1160" y="945" width="120" height="40" fill="none" stroke="#4B2E6B" stroke-width="1.5" stroke-dasharray="5 4"/><text x="1220" y="973">Auto</text>
+    <rect x="1300" y="945" width="120" height="40" fill="none" stroke="#4B2E6B" stroke-width="1.5" stroke-dasharray="5 4"/><text x="1360" y="973">Skip</text>
+    <rect x="1440" y="945" width="120" height="40" fill="none" stroke="#4B2E6B" stroke-width="1.5" stroke-dasharray="5 4"/><text x="1500" y="973">Save</text>
+    <rect x="1580" y="945" width="120" height="40" fill="none" stroke="#4B2E6B" stroke-width="1.5" stroke-dasharray="5 4"/><text x="1640" y="973">Load</text>
+    <rect x="1720" y="945" width="120" height="40" fill="none" stroke="#4B2E6B" stroke-width="1.5" stroke-dasharray="5 4"/><text x="1780" y="973">Settings</text>
+  </g>
+  <text x="400" y="1040" class="sm">Menu: text-only buttons, no background. Dashed = invisible click area 120 × 40, from 1020, 945, step 140</text>
+
+  <!-- Heroine portrait -->
+  <rect x="60" y="600" width="320" height="420" fill="#8E73AD" stroke="#4B2E6B" stroke-width="4"/>
+  <rect x="70" y="610" width="300" height="400" fill="#E9D3DC" stroke="#9A4A6A" stroke-width="3"/>
+  <text x="220" y="790" text-anchor="middle" class="lbl">Heroine</text>
+  <text x="220" y="826" text-anchor="middle" class="lbl">portrait</text>
+  <text x="220" y="866" text-anchor="middle" class="dim">70, 610 · 300 × 400</text>
+  <text x="220" y="950" text-anchor="middle" class="sm">frame 60, 600 · 320 × 420</text>
+</svg>

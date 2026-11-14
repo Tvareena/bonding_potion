@@ -1,0 +1,9 @@
+{
+  "heroine":     { "name": "Heroine", "kind": "portrait", "default": "neutral",
+                   "expressions": ["neutral", "happy", "sad", "angry", "surprised", "embarrassed"] },
+  "chad":        { "name": "Chad", "kind": "sprite", "default": "neutral",
+                   "expressions": ["neutral", "smile", "cold", "obsessed"] },
+  "jaros":       { "name": "Jaros", "kind": "cat" },
+  "jaros_human": { "name": "Jaros", "kind": "sprite", "default": "neutral",
+                   "expressions": ["neutral", "smile", "embarrassed"] }
+}

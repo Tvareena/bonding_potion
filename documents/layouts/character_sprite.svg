@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="1100" viewBox="0 0 1500 1100" font-family="Arial, sans-serif">
+  <style>
+    .lbl { font-size: 28px; font-weight: bold; fill: #333; }
+    .dim { font-size: 22px; fill: #555; }
+  </style>
+  <rect x="0" y="0" width="1500" height="1100" fill="#FFFFFF"/>
+
+  <!-- Sprite canvas at 1:1 -->
+  <g transform="translate(40,50)">
+    <rect x="0" y="0" width="900" height="1000" fill="#EAF2F8" stroke="#3E6E96" stroke-width="4"/>
+    <!-- centre line -->
+    <line x1="450" y1="370" x2="450" y2="1000" stroke="#3E6E96" stroke-width="2" stroke-dasharray="10 8"/>
+    <!-- head zone -->
+    <rect x="300" y="60" width="300" height="300" fill="none" stroke="#C0392B" stroke-width="3" stroke-dasharray="12 8"/>
+    <text x="450" y="100" text-anchor="middle" class="dim" fill="#C0392B">Head zone</text>
+    <text x="450" y="128" text-anchor="middle" class="dim" fill="#C0392B">300, 60 · 300 × 300</text>
+    <!-- rough half-body silhouette -->
+    <path d="M365 300 Q345 150 450 150 Q555 150 535 300 Q525 350 500 370 L515 420 Q700 450 760 600 L800 1000 L100 1000 L140 600 Q200 450 385 420 L400 370 Q375 350 365 300 Z" fill="#C7D7E6" stroke="#3E6E96" stroke-width="2"/>
+    <!-- area behind textbox -->
+    <rect x="0" y="700" width="900" height="300" fill="#B9A6CF" fill-opacity="0.55"/>
+    <line x1="0" y1="700" x2="900" y2="700" stroke="#6A4A8C" stroke-width="3"/>
+    <text x="450" y="830" text-anchor="middle" class="lbl">Behind the textbox</text>
+    <text x="450" y="866" text-anchor="middle" class="dim">y 700–1000: partly visible through it,</text>
+    <text x="450" y="894" text-anchor="middle" class="dim">keep important details above this line</text>
+  </g>
+
+  <g transform="translate(980,0)">
+    <text x="0" y="90" class="lbl">Character sprite, half-body</text>
+    <text x="0" y="124" class="dim">900 × 1000 px, PNG with transparency</text>
+    <text x="0" y="152" class="dim">(shown at 1:1)</text>
+    <text x="0" y="220" class="dim">On screen: top-left at 510, 80,</text>
+    <text x="0" y="248" class="dim">bottom edge touches the screen bottom.</text>
+    <text x="0" y="306" class="dim">Centred horizontally (centre line</text>
+    <text x="0" y="334" class="dim">= screen x 960).</text>
+    <text x="0" y="392" class="dim">Textbox top is at screen y 780,</text>
+    <text x="0" y="420" class="dim">i.e. y 700 inside the sprite.</text>
+    <text x="0" y="478" class="dim">Keep the face inside the head zone</text>
+    <text x="0" y="506" class="dim">so all characters line up the same.</text>
+    <text x="0" y="564" class="dim">Same canvas, size and position</text>
+    <text x="0" y="592" class="dim">for every character and every</text>
+    <text x="0" y="620" class="dim">expression, so they swap cleanly.</text>
+    <text x="0" y="678" class="dim">Used for: Chad (4), Jaros human (3).</text>
+  </g>
+</svg>

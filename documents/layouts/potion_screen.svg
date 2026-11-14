@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" font-family="Arial, sans-serif">
+  <style>
+    .lbl { font-size: 30px; font-weight: bold; fill: #333; }
+    .dim { font-size: 24px; fill: #555; }
+    .sm { font-size: 20px; fill: #333; }
+    .xs { font-size: 17px; fill: #333; }
+  </style>
+  <!-- Background -->
+  <rect x="0" y="0" width="1920" height="1080" fill="#ECECEC"/>
+  <rect x="4" y="4" width="1912" height="1072" fill="none" stroke="#999" stroke-width="4" stroke-dasharray="20 12"/>
+  <text x="640" y="60" class="lbl">Workshop background</text>
+  <text x="640" y="96" class="dim">0, 0 · 1920 × 1080</text>
+
+  <!-- Recipe page -->
+  <rect x="40" y="40" width="560" height="580" fill="#F3EBD8" stroke="#8A6D3B" stroke-width="4"/>
+  <text x="320" y="300" text-anchor="middle" class="lbl">Recipe book page</text>
+  <text x="320" y="340" text-anchor="middle" class="dim">40, 40 · 560 × 580</text>
+  <text x="320" y="376" text-anchor="middle" class="sm">(text and element icons drawn in code)</text>
+
+  <!-- Next arrow -->
+  <rect x="1760" y="40" width="120" height="120" rx="10" fill="#F6E3A8" stroke="#B8902A" stroke-width="4"/>
+  <text x="1820" y="96" text-anchor="middle" class="sm">Next</text>
+  <text x="1820" y="122" text-anchor="middle" class="xs">120 × 120</text>
+  <text x="1880" y="188" text-anchor="end" class="xs">Next arrow 1760, 40</text>
+  <rect x="1620" y="80" width="120" height="40" fill="none" stroke="#4B2E6B" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="1680" y="108" text-anchor="middle" font-size="24" font-weight="bold" fill="#4B2E6B">Menu</text>
+  <text x="1600" y="108" text-anchor="end" class="xs">text-only 1620, 80 · 120 × 40</text>
+
+  <!-- Cat on the table -->
+  <rect x="1140" y="230" width="340" height="520" fill="#E3D6C3" stroke="#7A5A30" stroke-width="4"/>
+  <text x="1310" y="270" text-anchor="middle" class="lbl">Cat on table</text>
+  <text x="1310" y="306" text-anchor="middle" class="dim">1140, 230</text>
+  <text x="1310" y="338" text-anchor="middle" class="dim">340 × 520</text>
+
+  <!-- Cauldron -->
+  <rect x="600" y="300" width="620" height="500" fill="#C9B6DE" stroke="#4B2E6B" stroke-width="4"/>
+  <rect x="660" y="340" width="500" height="140" fill="#9FD3C7" stroke="#2E7D6B" stroke-width="3"/>
+  <text x="910" y="405" text-anchor="middle" class="sm">Liquid layer 660, 340 · 500 × 140</text>
+  <text x="910" y="440" text-anchor="middle" class="xs">(tinted in code)</text>
+  <text x="910" y="545" text-anchor="middle" class="lbl">Cauldron</text>
+  <text x="910" y="581" text-anchor="middle" class="dim">600, 300 · 620 × 500</text>
+  <rect x="700" y="620" width="420" height="70" fill="#FFFFFF" fill-opacity="0.7" stroke="#333" stroke-width="2" stroke-dasharray="8 6"/>
+  <text x="910" y="662" text-anchor="middle" class="xs">Element counter 700, 620 · 420 × 70 (icons 64 × 64)</text>
+
+  <!-- Brew / Empty -->
+  <rect x="1240" y="760" width="220" height="90" rx="10" fill="#F6E3A8" stroke="#B8902A" stroke-width="4"/>
+  <text x="1350" y="802" text-anchor="middle" class="sm">Brew</text>
+  <text x="1350" y="830" text-anchor="middle" class="xs">1240, 760 · 220 × 90</text>
+  <rect x="1240" y="870" width="220" height="90" rx="10" fill="#F6E3A8" stroke="#B8902A" stroke-width="4"/>
+  <text x="1350" y="912" text-anchor="middle" class="sm">Empty</text>
+  <text x="1350" y="940" text-anchor="middle" class="xs">1240, 870 · 220 × 90</text>
+
+  <!-- Ingredient menu -->
+  <rect x="1480" y="230" width="420" height="820" fill="#DDD3E8" stroke="#6A4A8C" stroke-width="4"/>
+  <rect x="1500" y="250" width="185" height="60" fill="#F1ECF7" stroke="#6A4A8C" stroke-width="2"/>
+  <text x="1592" y="288" text-anchor="middle" class="sm">Crystals</text>
+  <rect x="1695" y="250" width="185" height="60" fill="#F1ECF7" stroke="#6A4A8C" stroke-width="2"/>
+  <text x="1787" y="288" text-anchor="middle" class="sm">Potions</text>
+  <rect x="1500" y="322" width="380" height="54" fill="#FFFFFF" stroke="#6A4A8C" stroke-width="2"/>
+  <text x="1690" y="356" text-anchor="middle" class="xs">Sort: element icons 48 × 48</text>
+  <g fill="#FFFFFF" stroke="#888" stroke-width="2">
+    <rect x="1500" y="390" width="120" height="120"/><rect x="1630" y="390" width="120" height="120"/><rect x="1760" y="390" width="120" height="120"/>
+    <rect x="1500" y="520" width="120" height="120"/><rect x="1630" y="520" width="120" height="120"/><rect x="1760" y="520" width="120" height="120"/>
+    <rect x="1500" y="650" width="120" height="120"/><rect x="1630" y="650" width="120" height="120"/><rect x="1760" y="650" width="120" height="120"/>
+    <rect x="1500" y="780" width="120" height="120"/><rect x="1630" y="780" width="120" height="120"/><rect x="1760" y="780" width="120" height="120"/>
+    <rect x="1500" y="910" width="120" height="120"/><rect x="1630" y="910" width="120" height="120"/><rect x="1760" y="910" width="120" height="120"/>
+  </g>
+  <text x="1560" y="446" text-anchor="middle" class="xs">crystal cell</text>
+  <text x="1560" y="470" text-anchor="middle" class="xs">120 × 120</text>
+  <text x="1480" y="218" class="xs">Ingredient menu 1480, 230 · 420 × 820</text>
+
+  <!-- Textbox -->
+  <rect x="380" y="840" width="840" height="200" fill="#B9A6CF" fill-opacity="0.75" stroke="#6A4A8C" stroke-width="4"/>
+  <rect x="400" y="810" width="300" height="56" rx="8" fill="#F1ECF7" stroke="#6A4A8C" stroke-width="4"/>
+  <text x="550" y="846" text-anchor="middle" class="xs">Name plate 400, 810 · 300 × 56</text>
+  <text x="420" y="930" class="lbl">Textbox (all characters' lines)</text>
+  <text x="420" y="968" class="dim">380, 840 · 840 × 200</text>
+
+  <!-- Heroine portrait -->
+  <rect x="40" y="650" width="320" height="420" fill="#8E73AD" stroke="#4B2E6B" stroke-width="4"/>
+  <rect x="50" y="660" width="300" height="400" fill="#E9D3DC" stroke="#9A4A6A" stroke-width="3"/>
+  <text x="200" y="840" text-anchor="middle" class="lbl">Heroine</text>
+  <text x="200" y="876" text-anchor="middle" class="lbl">portrait</text>
+  <text x="200" y="916" text-anchor="middle" class="dim">50, 660 · 300 × 400</text>
+  <text x="200" y="1010" text-anchor="middle" class="sm">frame 40, 650 · 320 × 420</text>
+</svg>

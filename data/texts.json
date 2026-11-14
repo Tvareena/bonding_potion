@@ -1,0 +1,59 @@
+{
+  "title.start": "Start",
+  "title.continue": "Continue",
+  "title.settings": "Settings",
+  "title.endingsSeen": "Endings found: {n} of 3",
+
+  "menu.log": "Log",
+  "menu.auto": "Auto",
+  "menu.skip": "Skip",
+  "menu.save": "Save",
+  "menu.load": "Load",
+  "menu.settings": "Settings",
+  "menu.menu": "Menu",
+
+  "hint.click": "Click to continue",
+  "hint.tap": "Tap to continue",
+
+  "potion.brew": "Brew",
+  "potion.empty": "Empty",
+  "potion.tabCrystals": "Crystals",
+  "potion.tabPotions": "Potions",
+  "potion.mixRecipe": "One of each potion",
+
+  "pause.title": "Paused",
+  "pause.resume": "Resume",
+  "pause.toTitle": "Title",
+  "panel.close": "Close",
+  "log.title": "Log",
+  "log.empty": "Nothing yet.",
+
+  "settings.title": "Settings",
+  "settings.textSpeed": "Text speed",
+  "settings.slow": "Slow",
+  "settings.normal": "Normal",
+  "settings.fast": "Fast",
+  "settings.music": "Music",
+  "settings.sound": "Sound",
+  "settings.fullscreen": "Fullscreen",
+  "settings.on": "On",
+  "settings.off": "Off",
+
+  "confirm.newGame": "Start a new game? Your progress will be lost.",
+  "confirm.load": "Load your saved game? Unsaved progress will be lost.",
+  "confirm.toTitle": "Return to the title screen?",
+  "confirm.yes": "Yes",
+  "confirm.no": "No",
+
+  "toast.saved": "Game saved",
+  "toast.noSave": "No saved game",
+
+  "ending.romance": "Spellbound",
+  "ending.friendship": "A Friend in Black Fur",
+  "ending.bad": "Be Careful What You Brew",
+  "ending.counter": "Ending {n} of 3",
+  "ending.toTitle": "Title",
+
+  "loading": "Loading…",
+  "rotate.message": "Please rotate your device"
+}

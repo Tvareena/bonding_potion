@@ -1,0 +1,56 @@
+{
+  "_note": "All rectangles are [x, y, width, height] of the top-left corner at 1920 x 1080. See documents/Screen Layouts.md.",
+  "title": {
+    "logo": [100, 100, 800, 320],
+    "buttons": [[300, 520, 400, 100], [300, 650, 400, 100], [300, 780, 400, 100]],
+    "endingsSeen": [500, 930]
+  },
+  "dialogue": {
+    "sprite": [510, 80, 900, 1000],
+    "catIcon": [1660, 30, 220, 220],
+    "catPivot": [110, 196],
+    "textbox": [60, 780, 1800, 220],
+    "nameplate": [400, 730, 360, 64],
+    "text": [400, 810, 1440, 110],
+    "menu": { "x": 1020, "y": 945, "w": 120, "h": 40, "step": 140 },
+    "hint": [1840, 918],
+    "portraitFrame": [60, 600, 320, 420],
+    "portrait": [70, 610, 300, 400]
+  },
+  "potion": {
+    "recipe": [40, 40, 560, 580],
+    "recipeTitle": [80, 75, 480, 60],
+    "recipeRows": { "x": 150, "y": 175, "step": 82, "icon": 64 },
+    "recipeFlavour": [80, 520, 480, 80],
+    "next": [1760, 40, 120, 120],
+    "menuText": [1620, 80, 120, 40],
+    "cat": [1140, 230, 340, 520],
+    "cauldron": [600, 300, 620, 500],
+    "liquid": [660, 340, 500, 140],
+    "counter": [700, 620, 420, 70],
+    "dropZone": [640, 280, 540, 380],
+    "brew": [1240, 760, 220, 90],
+    "empty": [1240, 870, 220, 90],
+    "panel": [1480, 230, 420, 820],
+    "tabs": [[1500, 250, 185, 60], [1695, 250, 185, 60]],
+    "sortRow": [1500, 322, 380, 54],
+    "sortIcon": 48,
+    "grid": { "x": 1500, "y": 390, "cols": 3, "rows": 5, "cell": 120, "step": 130, "item": 112 },
+    "portraitFrame": [40, 650, 320, 420],
+    "portrait": [50, 660, 300, 400],
+    "textbox": [380, 840, 840, 200],
+    "nameplate": [400, 810, 300, 56],
+    "text": [400, 878, 800, 148],
+    "loveBottle": [832, 412, 256, 256],
+    "cursorHotspot": [8, 8]
+  },
+  "ending": {
+    "name": [960, 430],
+    "counter": [960, 530],
+    "button": [760, 880, 400, 100]
+  },
+  "panel": {
+    "rect": [360, 140, 1200, 800],
+    "button": [220, 90]
+  }
+}

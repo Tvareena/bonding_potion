@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" font-family="Arial, sans-serif">
+  <style>
+    .lbl { font-size: 30px; font-weight: bold; fill: #333; }
+    .dim { font-size: 24px; fill: #555; }
+  </style>
+  <!-- Background -->
+  <rect x="0" y="0" width="1920" height="1080" fill="#ECECEC"/>
+  <rect x="4" y="4" width="1912" height="1072" fill="none" stroke="#999" stroke-width="4" stroke-dasharray="20 12"/>
+  <text x="40" y="1010" class="lbl">Title background</text>
+  <text x="40" y="1048" class="dim">0, 0 · 1920 × 1080</text>
+
+  <!-- Logo -->
+  <rect x="100" y="100" width="800" height="320" fill="#D8CDE6" stroke="#6A4A8C" stroke-width="4"/>
+  <text x="500" y="250" text-anchor="middle" class="lbl">Logo "Bonding Potion"</text>
+  <text x="500" y="290" text-anchor="middle" class="dim">100, 100 · 800 × 320</text>
+
+  <!-- Buttons -->
+  <rect x="300" y="520" width="400" height="100" rx="12" fill="#F6E3A8" stroke="#B8902A" stroke-width="4"/>
+  <text x="500" y="565" text-anchor="middle" class="lbl">Start</text>
+  <text x="500" y="600" text-anchor="middle" class="dim">300, 520 · 400 × 100</text>
+
+  <rect x="300" y="650" width="400" height="100" rx="12" fill="#F6E3A8" stroke="#B8902A" stroke-width="4"/>
+  <text x="500" y="695" text-anchor="middle" class="lbl">Continue</text>
+  <text x="500" y="730" text-anchor="middle" class="dim">300, 650 · 400 × 100</text>
+
+  <rect x="300" y="780" width="400" height="100" rx="12" fill="#F6E3A8" stroke="#B8902A" stroke-width="4"/>
+  <text x="500" y="825" text-anchor="middle" class="lbl">Settings</text>
+  <text x="500" y="860" text-anchor="middle" class="dim">300, 780 · 400 × 100</text>
+
+  <text x="1880" y="1072" text-anchor="end" class="dim" font-size="20">MAIN MENU · 1920 × 1080</text>
+</svg>

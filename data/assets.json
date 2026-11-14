@@ -1,0 +1,93 @@
+{
+  "_note": "Every image the game uses. 'size' is the required size from documents/Art List.md. 'ph' only describes how the temporary image is drawn by tools/make_placeholders.ps1.",
+  "images": {
+    "bg_title":     { "path": "assets/images/backgrounds/bg_title.jpg",    "size": [1920, 1080], "group": "Backgrounds", "ph": { "color": "#cdbfdc", "shape": "titlebg" } },
+    "bg_shop":      { "path": "assets/images/backgrounds/bg_shop.jpg",     "size": [1920, 1080], "group": "Backgrounds", "ph": { "color": "#d9cbb8", "shape": "shopbg" } },
+    "bg_workshop":  { "path": "assets/images/backgrounds/bg_workshop.jpg", "size": [1920, 1080], "group": "Backgrounds", "ph": { "color": "#bfae98", "shape": "workshopbg" } },
+
+    "ending_romance":    { "path": "assets/images/endings/ending_romance.jpg",    "size": [1920, 1080], "group": "Ending illustrations", "ph": { "color": "#e7b9c9" } },
+    "ending_friendship": { "path": "assets/images/endings/ending_friendship.jpg", "size": [1920, 1080], "group": "Ending illustrations", "ph": { "color": "#b9d6e7" } },
+    "ending_bad":        { "path": "assets/images/endings/ending_bad.jpg",        "size": [1920, 1080], "group": "Ending illustrations", "ph": { "color": "#5a4a5e" } },
+
+    "heroine_neutral":     { "path": "assets/images/characters/heroine_neutral.png",     "size": [300, 400], "group": "Heroine portraits", "ph": { "color": "#e9d3dc", "shape": "portrait", "label": "neutral" } },
+    "heroine_happy":       { "path": "assets/images/characters/heroine_happy.png",       "size": [300, 400], "group": "Heroine portraits", "ph": { "color": "#f3e0b5", "shape": "portrait", "label": "happy" } },
+    "heroine_sad":         { "path": "assets/images/characters/heroine_sad.png",         "size": [300, 400], "group": "Heroine portraits", "ph": { "color": "#c9d4e6", "shape": "portrait", "label": "sad" } },
+    "heroine_angry":       { "path": "assets/images/characters/heroine_angry.png",       "size": [300, 400], "group": "Heroine portraits", "ph": { "color": "#eab8b0", "shape": "portrait", "label": "angry" } },
+    "heroine_surprised":   { "path": "assets/images/characters/heroine_surprised.png",   "size": [300, 400], "group": "Heroine portraits", "ph": { "color": "#d8e8c9", "shape": "portrait", "label": "surprised" } },
+    "heroine_embarrassed": { "path": "assets/images/characters/heroine_embarrassed.png", "size": [300, 400], "group": "Heroine portraits", "ph": { "color": "#f2c4d6", "shape": "portrait", "label": "embarrassed" } },
+
+    "chad_neutral":            { "path": "assets/images/characters/chad_neutral.png",            "size": [900, 1000], "group": "Character sprites", "ph": { "color": "#7d95b3", "shape": "silhouette", "label": "Chad: neutral" } },
+    "chad_smile":              { "path": "assets/images/characters/chad_smile.png",              "size": [900, 1000], "group": "Character sprites", "ph": { "color": "#8fa9c7", "shape": "silhouette", "label": "Chad: smile" } },
+    "chad_cold":               { "path": "assets/images/characters/chad_cold.png",               "size": [900, 1000], "group": "Character sprites", "ph": { "color": "#5f7088", "shape": "silhouette", "label": "Chad: cold" } },
+    "chad_obsessed":           { "path": "assets/images/characters/chad_obsessed.png",           "size": [900, 1000], "group": "Character sprites", "ph": { "color": "#8a5a6e", "shape": "silhouette", "label": "Chad: obsessed" } },
+    "jaros_human_neutral":     { "path": "assets/images/characters/jaros_human_neutral.png",     "size": [900, 1000], "group": "Character sprites", "ph": { "color": "#3d3550", "shape": "silhouette", "label": "Jaros (human): neutral" } },
+    "jaros_human_smile":       { "path": "assets/images/characters/jaros_human_smile.png",       "size": [900, 1000], "group": "Character sprites", "ph": { "color": "#4a4163", "shape": "silhouette", "label": "Jaros (human): smile" } },
+    "jaros_human_embarrassed": { "path": "assets/images/characters/jaros_human_embarrassed.png", "size": [900, 1000], "group": "Character sprites", "ph": { "color": "#5a3f5e", "shape": "silhouette", "label": "Jaros (human): embarrassed" } },
+
+    "cat_icon":  { "path": "assets/images/characters/cat_icon.png",  "size": [220, 220], "group": "Cat", "ph": { "color": "#2e2a33", "shape": "cathead" } },
+    "cat_table": { "path": "assets/images/characters/cat_table.png", "size": [340, 520], "group": "Cat", "ph": { "color": "#2e2a33", "shape": "catbody" } },
+
+    "cauldron":        { "path": "assets/images/potion/cauldron.png",        "size": [620, 500], "group": "Potion screen objects", "ph": { "color": "#4a3f52", "shape": "cauldron" } },
+    "cauldron_liquid": { "path": "assets/images/potion/cauldron_liquid.png", "size": [500, 140], "group": "Potion screen objects", "ph": { "color": "#eeeeee", "shape": "ellipse" } },
+    "recipe_page":     { "path": "assets/images/potion/recipe_page.png",     "size": [560, 580], "group": "Potion screen objects", "ph": { "color": "#f3e9d2", "shape": "page" } },
+
+    "crystal_ember_shard":    { "path": "assets/images/crystals/crystal_ember_shard.png",    "size": [128, 128], "group": "Crystals", "ph": { "shapes": [["triangle", "#E8C547"]] } },
+    "crystal_root_stone":     { "path": "assets/images/crystals/crystal_root_stone.png",     "size": [128, 128], "group": "Crystals", "ph": { "shapes": [["square", "#4E9A4B"]] } },
+    "crystal_lava_garnet":    { "path": "assets/images/crystals/crystal_lava_garnet.png",    "size": [128, 128], "group": "Crystals", "ph": { "shapes": [["triangle", "#E8C547"], ["square", "#4E9A4B"]] } },
+    "crystal_tide_pearl":     { "path": "assets/images/crystals/crystal_tide_pearl.png",     "size": [128, 128], "group": "Crystals", "ph": { "shapes": [["circle", "#3A6FD8"]] } },
+    "crystal_wisp_quartz":    { "path": "assets/images/crystals/crystal_wisp_quartz.png",    "size": [128, 128], "group": "Crystals", "ph": { "shapes": [["rhombus", "#8E5BC8"]] } },
+    "crystal_storm_opal":     { "path": "assets/images/crystals/crystal_storm_opal.png",     "size": [128, 128], "group": "Crystals", "ph": { "shapes": [["circle", "#3A6FD8"], ["rhombus", "#8E5BC8"]] } },
+    "crystal_deep_sapphire":  { "path": "assets/images/crystals/crystal_deep_sapphire.png",  "size": [128, 128], "group": "Crystals", "ph": { "shapes": [["circle", "#3A6FD8"]], "big": true } },
+    "crystal_marsh_jade":     { "path": "assets/images/crystals/crystal_marsh_jade.png",     "size": [128, 128], "group": "Crystals", "ph": { "shapes": [["circle", "#3A6FD8"], ["square", "#4E9A4B"]] } },
+    "crystal_sun_citrine":    { "path": "assets/images/crystals/crystal_sun_citrine.png",    "size": [128, 128], "group": "Crystals", "ph": { "shapes": [["triangle", "#E8C547"], ["rhombus", "#8E5BC8"]] } },
+    "crystal_blaze_ruby":     { "path": "assets/images/crystals/crystal_blaze_ruby.png",     "size": [128, 128], "group": "Crystals", "ph": { "shapes": [["triangle", "#E8C547"]], "big": true } },
+    "crystal_sky_amethyst":   { "path": "assets/images/crystals/crystal_sky_amethyst.png",   "size": [128, 128], "group": "Crystals", "ph": { "shapes": [["rhombus", "#8E5BC8"]], "big": true } },
+    "crystal_mountain_amber": { "path": "assets/images/crystals/crystal_mountain_amber.png", "size": [128, 128], "group": "Crystals", "ph": { "shapes": [["square", "#4E9A4B"]], "big": true } },
+    "crystal_dusk_prism":     { "path": "assets/images/crystals/crystal_dusk_prism.png",     "size": [128, 128], "group": "Crystals", "ph": { "shapes": [["triangle", "#E8C547"], ["square", "#4E9A4B"], ["rhombus", "#8E5BC8"]] } },
+
+    "element_fire":  { "path": "assets/images/elements/element_fire.png",  "size": [64, 64], "group": "Element icons", "ph": { "shapes": [["triangle", "#E8C547"]], "big": true } },
+    "element_water": { "path": "assets/images/elements/element_water.png", "size": [64, 64], "group": "Element icons", "ph": { "shapes": [["circle", "#3A6FD8"]], "big": true } },
+    "element_earth": { "path": "assets/images/elements/element_earth.png", "size": [64, 64], "group": "Element icons", "ph": { "shapes": [["square", "#4E9A4B"]], "big": true } },
+    "element_air":   { "path": "assets/images/elements/element_air.png",   "size": [64, 64], "group": "Element icons", "ph": { "shapes": [["rhombus", "#8E5BC8"]], "big": true } },
+
+    "bottle_fun":        { "path": "assets/images/bottles/bottle_fun.png",        "size": [128, 128], "group": "Bottles", "ph": { "shape": "bottle", "colors": ["#E8C547", "#4E9A4B"] } },
+    "bottle_courage":    { "path": "assets/images/bottles/bottle_courage.png",    "size": [128, 128], "group": "Bottles", "ph": { "shape": "bottle", "colors": ["#3A6FD8", "#8E5BC8"] } },
+    "bottle_trust":      { "path": "assets/images/bottles/bottle_trust.png",      "size": [128, 128], "group": "Bottles", "ph": { "shape": "bottle", "colors": ["#3A6FD8", "#4E9A4B"] } },
+    "bottle_hope":       { "path": "assets/images/bottles/bottle_hope.png",       "size": [128, 128], "group": "Bottles", "ph": { "shape": "bottle", "colors": ["#E8C547", "#8E5BC8", "#3A6FD8"] } },
+    "bottle_confidence": { "path": "assets/images/bottles/bottle_confidence.png", "size": [128, 128], "group": "Bottles", "ph": { "shape": "bottle", "colors": ["#4E9A4B", "#8E5BC8", "#E8C547"] } },
+    "bottle_gratitude":  { "path": "assets/images/bottles/bottle_gratitude.png",  "size": [128, 128], "group": "Bottles", "ph": { "shape": "bottle", "colors": ["#E8C547", "#3A6FD8", "#4E9A4B", "#8E5BC8"] } },
+    "bottle_love":       { "path": "assets/images/bottles/bottle_love.png",       "size": [256, 256], "group": "Bottles", "ph": { "shape": "bottle", "colors": ["#e05a8a", "#f2a2c0"] } },
+
+    "ui_logo":                  { "path": "assets/images/ui/ui_logo.png",                  "size": [800, 320], "group": "UI", "ph": { "color": "#b9a6cf", "shape": "logo" } },
+    "ui_portrait_frame":        { "path": "assets/images/ui/ui_portrait_frame.png",        "size": [320, 420], "group": "UI", "ph": { "color": "#6a4a8c", "shape": "frame", "inset": 10 } },
+    "ui_button_large_normal":   { "path": "assets/images/ui/ui_button_large_normal.png",   "size": [400, 100], "group": "UI", "ph": { "color": "#f6e3a8", "shape": "button", "border": "#b8902a" } },
+    "ui_button_large_hover":    { "path": "assets/images/ui/ui_button_large_hover.png",    "size": [400, 100], "group": "UI", "ph": { "color": "#fbeec4", "shape": "button", "border": "#d1a634" } },
+    "ui_button_large_pressed":  { "path": "assets/images/ui/ui_button_large_pressed.png",  "size": [400, 100], "group": "UI", "ph": { "color": "#e6cc80", "shape": "button", "border": "#9a7620" } },
+    "ui_button_small_normal":   { "path": "assets/images/ui/ui_button_small_normal.png",   "size": [220, 90],  "group": "UI", "ph": { "color": "#f6e3a8", "shape": "button", "border": "#b8902a" } },
+    "ui_button_small_hover":    { "path": "assets/images/ui/ui_button_small_hover.png",    "size": [220, 90],  "group": "UI", "ph": { "color": "#fbeec4", "shape": "button", "border": "#d1a634" } },
+    "ui_button_small_pressed":  { "path": "assets/images/ui/ui_button_small_pressed.png",  "size": [220, 90],  "group": "UI", "ph": { "color": "#e6cc80", "shape": "button", "border": "#9a7620" } },
+    "ui_next_normal":           { "path": "assets/images/ui/ui_next_normal.png",           "size": [120, 120], "group": "UI", "ph": { "color": "#f6e3a8", "shape": "arrow", "border": "#b8902a" } },
+    "ui_next_hover":            { "path": "assets/images/ui/ui_next_hover.png",            "size": [120, 120], "group": "UI", "ph": { "color": "#fbeec4", "shape": "arrow", "border": "#d1a634" } },
+    "ui_next_pressed":          { "path": "assets/images/ui/ui_next_pressed.png",          "size": [120, 120], "group": "UI", "ph": { "color": "#e6cc80", "shape": "arrow", "border": "#9a7620" } },
+    "ui_next_disabled":         { "path": "assets/images/ui/ui_next_disabled.png",         "size": [120, 120], "group": "UI", "ph": { "color": "#cfcac0", "shape": "arrow", "border": "#9a958c" } },
+    "ui_tab_normal":            { "path": "assets/images/ui/ui_tab_normal.png",            "size": [185, 60],  "group": "UI", "ph": { "color": "#e4dcef", "shape": "button", "border": "#6a4a8c" } },
+    "ui_tab_hover":             { "path": "assets/images/ui/ui_tab_hover.png",             "size": [185, 60],  "group": "UI", "ph": { "color": "#efe9f7", "shape": "button", "border": "#8a6ab0" } },
+    "ui_tab_selected":          { "path": "assets/images/ui/ui_tab_selected.png",          "size": [185, 60],  "group": "UI", "ph": { "color": "#fdfbff", "shape": "button", "border": "#4b2e6b" } },
+    "ui_ingredient_panel":      { "path": "assets/images/ui/ui_ingredient_panel.png",      "size": [420, 820], "group": "UI", "ph": { "color": "#d6c9e4", "shape": "button", "border": "#6a4a8c" } },
+    "ui_cell":                  { "path": "assets/images/ui/ui_cell.png",                  "size": [120, 120], "group": "UI", "ph": { "color": "#f7f3fb", "shape": "button", "border": "#a894c2" } },
+    "ui_cursor":                { "path": "assets/images/ui/ui_cursor.png",                "size": [64, 64],   "group": "UI", "ph": { "color": "#ffffff", "shape": "cursor", "border": "#2b1d3a" } },
+
+    "ui_textbox":   { "path": "assets/images/ui/ui_textbox.png",   "size": [192, 192], "group": "UI frames", "nineSlice": [48, 48, 48, 48], "ph": { "color": "#cbb9df", "alpha": 0.8, "shape": "button", "border": "#6a4a8c" } },
+    "ui_nameplate": { "path": "assets/images/ui/ui_nameplate.png", "size": [192, 64],  "group": "UI frames", "nineSlice": [24, 24, 0, 0],   "ph": { "color": "#f4eff9", "shape": "button", "border": "#6a4a8c" } },
+    "ui_panel":     { "path": "assets/images/ui/ui_panel.png",     "size": [192, 192], "group": "UI frames", "nineSlice": [48, 48, 48, 48], "ph": { "color": "#efe7f6", "shape": "button", "border": "#4b2e6b" } },
+
+    "fx_bubble":  { "path": "assets/images/effects/fx_bubble.png",  "size": [128, 128], "group": "Effects", "ph": { "color": "#ffffff", "shape": "bubble" } },
+    "fx_sparkle": { "path": "assets/images/effects/fx_sparkle.png", "size": [128, 128], "group": "Effects", "ph": { "color": "#ffffff", "shape": "star" } },
+    "fx_smoke":   { "path": "assets/images/effects/fx_smoke.png",   "size": [128, 128], "group": "Effects", "ph": { "color": "#9a9a9a", "shape": "smoke" } },
+
+    "favicon": { "path": "favicon.png", "size": [64, 64], "group": "Other", "ph": { "color": "#2e2a33", "shape": "cathead" } }
+  },
+  "audio": {
+    "_note": "Add audio files here when they exist, e.g. \"music_shop\": \"assets/audio/music/shop.mp3\". Expected keys: music_shop, music_brewing, music_romance, music_friendship, music_bad, sfx_click, sfx_pickup, sfx_splash, sfx_bubbling, sfx_success, sfx_fizzle, sfx_slip, sfx_meow, sfx_clink. Missing sounds are simply silent."
+  }
+}

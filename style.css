@@ -1,0 +1,45 @@
+/* Optional web font: put a font file into assets/fonts/ and uncomment.
+@font-face {
+  font-family: "GameFont";
+  src: url("assets/fonts/GameFont.woff2") format("woff2");
+  font-display: block;
+}
+Then set "family" in data/config.json to: "GameFont, Arial, sans-serif"
+*/
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #1a1424;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#game {
+  width: 100%;
+  height: 100%;
+}
+
+#rotate {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: #1a1424;
+  color: #f4eff9;
+  font: 600 24px Arial, Helvetica, sans-serif;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+@media (orientation: portrait) and (pointer: coarse) {
+  #rotate { display: flex; }
+}

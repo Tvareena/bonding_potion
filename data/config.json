@@ -1,0 +1,85 @@
+{
+  "saveVersion": 1,
+  "letterboxColor": "#1a1424",
+  "font": {
+    "family": "Arial, Helvetica, sans-serif",
+    "line": 36,
+    "lineMin": 24,
+    "potionLine": 30,
+    "potionLineMin": 22,
+    "name": 30,
+    "potionName": 26,
+    "menu": 24,
+    "button": 34,
+    "buttonSmall": 30,
+    "recipeTitle": 38,
+    "recipeAmount": 40,
+    "recipeFlavour": 24,
+    "counter": 34,
+    "hint": 24,
+    "panelTitle": 44,
+    "panelText": 30,
+    "endingName": 72,
+    "endingCounter": 36
+  },
+  "colors": {
+    "text": "#2b1d3a",
+    "name": "#2b1d3a",
+    "menu": "#4b2e6b",
+    "menuHover": "#8a4fc4",
+    "menuActive": "#c0396b",
+    "buttonText": "#3a2a12",
+    "buttonTextDisabled": "#8a8070",
+    "recipeText": "#3b2a14",
+    "recipeHighlight": "#ffe27a",
+    "outline": "#ffe27a",
+    "panelText": "#2b1d3a",
+    "endingText": "#ffffff",
+    "endingStroke": "#2b1d3a",
+    "dim": "#000000"
+  },
+  "elements": {
+    "order": ["fire", "water", "earth", "air"],
+    "colors": {
+      "fire": "#E8C547",
+      "water": "#3A6FD8",
+      "earth": "#4E9A4B",
+      "air": "#8E5BC8"
+    }
+  },
+  "text": {
+    "speeds": { "slow": 25, "normal": 45, "fast": 90 },
+    "autoDelayBase": 1.2,
+    "autoDelayPerChar": 0.03
+  },
+  "hints": {
+    "idleAdvance": 5,
+    "idleAdvanceMaxShows": 3
+  },
+  "guidance": {
+    "glowDelay": 10
+  },
+  "resist": {
+    "heavyLerp": { "1": 1, "2": 0.25, "3": 0.15 },
+    "freeLerp": 0.6,
+    "slipChance": 0.5,
+    "slipDelayMin": 0.3,
+    "slipDelayMax": 0.7,
+    "driftMax": 60,
+    "driftSpeed": 4
+  },
+  "potion": {
+    "lineAutoHide": 4,
+    "tapMaxMove": 12,
+    "tapMaxTime": 0.25
+  },
+  "endings": {
+    "romanceMin": 5,
+    "friendshipMin": 3,
+    "order": ["romance", "friendship", "bad"]
+  },
+  "audio": {
+    "musicVolume": 0.6,
+    "sfxVolume": 0.8
+  }
+}

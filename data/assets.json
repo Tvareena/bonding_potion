@@ -1,7 +1,7 @@
 {
   "_note": "Every image the game uses. 'size' is the required size from documents/Art List.md. 'ph' only describes how the temporary image is drawn by tools/make_placeholders.ps1.",
   "images": {
-    "bg_title":     { "path": "assets/images/backgrounds/bg_title.jpg",    "size": [1920, 1080], "group": "Backgrounds", "ph": { "color": "#cdbfdc", "shape": "titlebg" } },
+    "bg_title":     { "path": "assets/images/backgrounds/bg_title.jpg",    "size": [1920, 1080], "group": "Backgrounds", "ph": { "color": "#2c2329", "shape": "titlebg" } },
     "bg_shop":      { "path": "assets/images/backgrounds/bg_shop.jpg",     "size": [1920, 1080], "group": "Backgrounds", "ph": { "color": "#d9cbb8", "shape": "shopbg" } },
     "bg_workshop":  { "path": "assets/images/backgrounds/bg_workshop.jpg", "size": [1920, 1080], "group": "Backgrounds", "ph": { "color": "#bfae98", "shape": "workshopbg" } },
 
@@ -9,7 +9,7 @@
     "ending_friendship": { "path": "assets/images/endings/ending_friendship.jpg", "size": [1920, 1080], "group": "Ending illustrations", "ph": { "color": "#b9d6e7" } },
     "ending_bad":        { "path": "assets/images/endings/ending_bad.jpg",        "size": [1920, 1080], "group": "Ending illustrations", "ph": { "color": "#5a4a5e" } },
 
-    "heroine":     { "path": "assets/images/characters/heroine.png",     "size": [300, 400],  "group": "Heroine portrait",  "ph": { "color": "#e9d3dc", "shape": "portrait", "label": "portrait" } },
+    "heroine":     { "path": "assets/images/characters/heroine.png",     "size": [320, 420],  "group": "Heroine portrait",  "ph": { "color": "#e9d3dc", "shape": "portrait", "label": "portrait" } },
 
     "chad":        { "path": "assets/images/characters/chad.png",        "size": [900, 1000], "group": "Character sprites", "ph": { "color": "#7d95b3", "shape": "silhouette", "label": "Chad" } },
     "jaros_human": { "path": "assets/images/characters/jaros_human.png", "size": [900, 1000], "group": "Character sprites", "ph": { "color": "#3d3550", "shape": "silhouette", "label": "Jaros (human)" } },
@@ -47,7 +47,12 @@
     "bottle_gratitude":  { "path": "assets/images/bottles/bottle_gratitude.png",  "size": [128, 128], "group": "Bottles", "ph": { "shape": "bottle", "colors": ["#E8C547", "#3A6FD8", "#4E9A4B", "#8E5BC8"] } },
     "bottle_love":       { "path": "assets/images/bottles/bottle_love.png",       "size": [256, 256], "group": "Bottles", "ph": { "shape": "bottle", "colors": ["#e05a8a", "#f2a2c0"] } },
 
-    "ui_logo":                  { "path": "assets/images/ui/ui_logo.png",                  "size": [800, 320], "group": "UI", "ph": { "color": "#b9a6cf", "shape": "logo" } },
+    "ui_logo":                  { "path": "assets/images/ui/ui_logo.png",                  "size": [810, 110], "group": "Title screen", "ph": { "shape": "textlabel", "text": "BONDING POTION", "textColor": "#efe6ee", "underline": true } },
+    "ui_menu_panel":            { "path": "assets/images/ui/ui_menu_panel.png",            "size": [490, 535], "group": "Title screen", "ph": { "color": "#e3d6dc", "alpha": 0.85, "shape": "softpanel" } },
+    "ui_title_start":           { "path": "assets/images/ui/ui_title_start.png",           "size": [440, 100], "group": "Title screen", "ph": { "shape": "textlabel", "text": "START", "textColor": "#2f2a2e" } },
+    "ui_title_continue":        { "path": "assets/images/ui/ui_title_continue.png",        "size": [440, 100], "group": "Title screen", "ph": { "shape": "textlabel", "text": "CONTINUE", "textColor": "#2f2a2e" } },
+    "ui_title_load":            { "path": "assets/images/ui/ui_title_load.png",            "size": [440, 100], "group": "Title screen", "ph": { "shape": "textlabel", "text": "LOAD", "textColor": "#2f2a2e" } },
+    "ui_title_credits":         { "path": "assets/images/ui/ui_title_credits.png",         "size": [440, 100], "group": "Title screen", "ph": { "shape": "textlabel", "text": "CREDITS", "textColor": "#2f2a2e" } },
     "ui_portrait_frame":        { "path": "assets/images/ui/ui_portrait_frame.png",        "size": [320, 420], "group": "UI", "ph": { "color": "#6a4a8c", "shape": "frame", "inset": 10 } },
     "ui_button_large_normal":   { "path": "assets/images/ui/ui_button_large_normal.png",   "size": [400, 100], "group": "UI", "ph": { "color": "#f6e3a8", "shape": "button", "border": "#b8902a" } },
     "ui_button_large_hover":    { "path": "assets/images/ui/ui_button_large_hover.png",    "size": [400, 100], "group": "UI", "ph": { "color": "#fbeec4", "shape": "button", "border": "#d1a634" } },

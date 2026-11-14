@@ -132,7 +132,7 @@ bonding_potion/
 |---|---|
 | `BootScene` | Loads `config.json`, `layout.json`, `assets.json`; starts Preload. |
 | `PreloadScene` | Loads every asset in `assets.json`, the data files and the script. Shows a progress bar (drawn in code). Missing images are replaced by a generated coloured rectangle of the expected size with the asset name on it, and a warning is logged. Parses the script. |
-| `TitleScene` | Background, logo, Start / Continue / Settings. Unlocks audio on the first click. |
+| `TitleScene` | Background, logo image, menu panel, word-image buttons Start / Continue / Load / Credits (layout `title.menuButtons`). Unlocks audio on the first click. |
 | `DialogueScene` | Runs a dialogue section of the script with `StoryRunner`. |
 | `PotionScene` | Runs one potion step: recipe, cauldron, menu, Brew/Empty, events from the script, resistance. |
 | `EndingScene` | Runs the chosen ending section, then shows the ending card. |
@@ -332,7 +332,7 @@ Positions and sizes of every on-screen element, using the same numbers as [Scree
 {
   "images": {
     "bg_shop":       { "path": "assets/images/backgrounds/bg_shop.jpg", "size": [1920, 1080], "group": "Backgrounds" },
-    "heroine":       { "path": "assets/images/characters/heroine.png", "size": [300, 400], "group": "Heroine portrait" },
+    "heroine":       { "path": "assets/images/characters/heroine.png", "size": [320, 420], "group": "Heroine portrait" },
     "ui_textbox":    { "path": "assets/images/ui/ui_textbox.png", "size": [192, 192], "group": "UI frames", "nineSlice": [48, 48, 48, 48] }
   },
   "audio": { "music_shop": "assets/audio/music/shop.mp3" }
@@ -547,6 +547,8 @@ A separate page for the team to change texts and replace art without touching co
 **Importing a scenario:** *Import text…* accepts a plain-text file written in the script format (for example a finished scenario prepared outside the editor) and shows the differences before replacing the script.
 
 ### 13.3 Art tab
+
+> **Status:** built as `editor.html` (Art tab only; the Texts tab is still to do). Differences from the plan below: an image's **Temporary / Final** status is decided by comparing its SHA-256 with `assets/placeholders.json` (the file isn't edited), so Rescan and Restore need no bookkeeping; files dropped anywhere on the page are matched to images by file name; the size dialog offers Fit, Crop and Stretch; "Show in place" is not built yet. Works from the live site too, since it only reads and writes the folder the user picks.
 
 | Feature | Behaviour |
 |---|---|

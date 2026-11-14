@@ -1,8 +1,9 @@
 {
   "_note": "All rectangles are [x, y, width, height] of the top-left corner at 1920 x 1080. See documents/Screen Layouts.md.",
   "title": {
-    "logo": [100, 100, 800, 320],
-    "buttons": [[300, 460, 400, 100], [300, 575, 400, 100], [300, 690, 400, 100], [300, 805, 400, 100], [300, 920, 400, 100]]
+    "logo": [88, 194, 810, 110],
+    "menuPanel": [255, 455, 490, 535],
+    "menuButtons": { "x": 280, "y": 470, "w": 440, "h": 100, "step": 135, "padding": 15 }
   },
   "dialogue": {
     "sprite": [510, 80, 900, 1000],
@@ -17,7 +18,7 @@
     "potionHint": [1160, 988],
     "potionMore": [1190, 972],
     "portraitFrame": [60, 600, 320, 420],
-    "portrait": [70, 610, 300, 400]
+    "portrait": [60, 600, 320, 420]
   },
   "potion": {
     "recipe": [40, 40, 560, 580],
@@ -42,7 +43,7 @@
     "sortIcon": 48,
     "grid": { "x": 1500, "y": 390, "cols": 3, "rows": 5, "cell": 120, "step": 130, "item": 112 },
     "portraitFrame": [40, 650, 320, 420],
-    "portrait": [50, 660, 300, 400],
+    "portrait": [40, 650, 320, 420],
     "textbox": [380, 840, 840, 200],
     "nameplate": [400, 810, 300, 56],
     "text": [400, 878, 800, 104],

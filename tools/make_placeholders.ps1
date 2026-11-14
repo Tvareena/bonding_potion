@@ -211,6 +211,36 @@ function Draw($key, $e) {
         $pen = New-Object Drawing.Pen($bc, 4); $g.DrawPath($pen, $p); $pen.Dispose()
         $showLabel = ($w -ge 400 -and $h -ge 400)
       }
+      'textlabel' {
+        # Transparent image with only text (and an optional underline), sized to fit.
+        $txt = [string]$ph.text
+        $tc = Col $ph.textColor
+        $size = [float]($h * 0.62)
+        $fmt = New-Object Drawing.StringFormat; $fmt.Alignment = 'Center'; $fmt.LineAlignment = 'Center'
+        do {
+          $font = New-Object Drawing.Font('Courier New', $size, [Drawing.FontStyle]::Regular, [Drawing.GraphicsUnit]::Pixel)
+          $m = $g.MeasureString($txt, $font)
+          if ($m.Width -gt ($w - 16)) { $font.Dispose(); $size -= 2 } else { break }
+        } while ($size -gt 10)
+        $br = New-Object Drawing.SolidBrush($tc)
+        $ty = $(if ($ph.underline) { $h * 0.42 } else { $h / 2 })
+        $g.DrawString($txt, $font, $br, (New-Object Drawing.RectangleF(0, ($ty - $h), $w, ($h * 2))), $fmt)
+        if ($ph.underline) { $g.FillRectangle($br, 4, ($h - 14), ($w - 8), 4) }
+        $br.Dispose(); $font.Dispose()
+        $showLabel = $false
+      }
+      'softpanel' {
+        # Semi-transparent light panel with blurred edges (layers of rounded rects, more opaque towards the middle).
+        $steps = 14
+        for ($i = 0; $i -lt $steps; $i++) {
+          $inset = $i * 2
+          $a = [int](255 * $alpha * (($i + 1) / $steps) * 0.22)
+          $br = New-Object Drawing.SolidBrush([Drawing.Color]::FromArgb([Math]::Min(255, $a), $base.R, $base.G, $base.B))
+          $p = RoundRect $inset $inset ($w - 2 * $inset) ($h - 2 * $inset) 30
+          $g.FillPath($br, $p); $br.Dispose()
+        }
+        $showLabel = $false
+      }
       'speech' {
         $p = RoundRect 4 4 ($w - 8) ($h - 44) 28
         $tail = [Drawing.PointF[]]@((New-Object Drawing.PointF(($w * 0.55), ($h - 42))), (New-Object Drawing.PointF(($w * 0.72), ($h - 42))), (New-Object Drawing.PointF(($w * 0.62), ($h - 3))))

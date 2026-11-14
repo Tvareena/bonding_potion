@@ -295,7 +295,7 @@ Esc (PC) opens the pause panel on dialogue and potion screens: Resume, Save, Loa
 
 ### 4.2 Title screen
 
-Background picture on the right; logo and up to five buttons on the left: Start, Continue (only if there is a save), Load, Credits, Settings. A short fade to the first scene on Start.
+Matches the artist's mockup: dark patterned background with the potion bottle on the right; on the left the logo "BONDING POTION" (an image with an underline), and a soft semi-transparent panel with four buttons, each an image of its word: START, CONTINUE (only if there is a save), LOAD, CREDITS. Words turn pink and grow slightly on hover. Settings is not on the title screen; it's in the dialogue menu and the pause panel. A short fade to the first scene on Start.
 
 ### 4.3 Dialogue screen
 

@@ -64,17 +64,43 @@ Moving sections in the file changes the order of the story. Mistakes don't crash
 
 ## Replace the art
 
-Every image already exists as a temporary picture with its final name and size (list: `documents/Art List.md`, or `data/assets.json`).
+Every image already exists as a temporary picture with its final name and size (list: `documents/Art List.md`).
 
-To put in final art: save the new file **with the same name, the same size, into the same folder** (backgrounds and ending illustrations as `.jpg`, everything else as `.png` with transparency). Reload the game.
+### With the art editor (recommended)
 
-Optional: remove the file's line from `assets/placeholders.json` (that list marks images that are still temporary).
+1. Open **https://tvareena.github.io/bonding_potion/editor.html** in **Chrome or Edge** on your computer (or `http://localhost:8080/editor.html` when running locally).
+2. Click **Choose project folder…**, select your `bonding_potion` folder (the one from GitHub Desktop) and allow editing. Next time the editor remembers it: just click **Reconnect**.
+3. Drop a finished image onto its card, or drop many files anywhere on the page: files named like the Art List (`heroine.png`, `crystal_marsh_jade.png`, …) are matched automatically.
+4. The editor:
+   - checks the size; if it's wrong, it shows **Fit / Crop / Stretch** previews so you choose;
+   - saves under the right name and folder, as PNG (or JPG for backgrounds and endings);
+   - warns if a sprite has no transparent pixels (background layer not hidden?);
+   - copies the old file to `.backup/<date-time>/` first (not uploaded to GitHub). **Restore previous** undoes a replacement.
+5. Each card shows **Temporary** or **Final**; the bar on top counts final images. **Show → Temporary only** lists what's left.
+6. In **GitHub Desktop**, commit and **Push origin**. The live game updates in about a minute.
+
+The editor only changes files in the folder you pick; nothing is uploaded until you push. Firefox and Safari can't save to a folder, so use Chrome or Edge for the editor (the game itself works everywhere).
+
+### By hand
+
+Save the new file **with the same name, the same size, into the same folder** (backgrounds and ending illustrations as `.jpg`, everything else as `.png` with transparency), then commit and push.
 
 To recreate any missing temporary images:
 ```
 powershell -ExecutionPolicy Bypass -File tools\make_placeholders.ps1
 ```
-It never overwrites existing files. With `-Refresh` it also redraws images that are still unchanged temporary ones.
+It never overwrites final art: with `-Refresh` it only redraws images that are still unchanged temporary ones.
+## Fonts
+
+The title screen logo and buttons are images (`assets/images/ui/ui_logo.png`, `ui_title_*.png`), so they need no font. The settings `font.titleFamily` / `fontFiles` in `data/config.json` are only needed if some other text should use a special font. To load a font file:
+1. Put the file (`.ttf`, `.otf` or `.woff2`) into `assets/fonts/`, for example `assets/fonts/title.ttf`.
+2. In `data/config.json` set
+   ```json
+   "fontFiles": [ { "family": "BondingTitle", "url": "assets/fonts/title.ttf" } ],
+   ```
+   and change `"titleFamily"` to `"BondingTitle, 'Courier New', monospace"`.
+
+Check that the font's licence allows using it in a web game.
 
 ## Sound
 

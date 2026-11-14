@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bonding Potion — Art editor</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="editor/editor.css">
+</head>
+<body>
+  <header>
+    <h1>Bonding Potion · Art editor</h1>
+    <div id="folder-bar">
+      <button id="btn-pick" class="primary">Choose project folder…</button>
+      <button id="btn-reconnect" hidden>Reconnect to “<span id="last-folder"></span>”</button>
+      <span id="folder-status"></span>
+    </div>
+  </header>
+
+  <section id="unsupported" class="notice" hidden>
+    This editor needs <b>Chrome</b> or <b>Edge</b> on a computer (it saves files into your project folder).
+    Firefox and Safari can't do that. The game itself works in every browser.
+  </section>
+
+  <section id="intro" class="notice">
+    <p><b>How it works</b></p>
+    <ol>
+      <li>Click <b>Choose project folder…</b> and select the <code>bonding_potion</code> folder (the one with <code>index.html</code> and <code>data</code>). Allow the browser to edit files.</li>
+      <li>Drop a finished image onto its card, or drop many files anywhere on the page: files named like the Art List (e.g. <code>heroine.png</code>) are matched automatically.</li>
+      <li>The editor checks the size, offers to fit or crop if needed, saves the file under the right name and format, and keeps a backup in <code>.backup/</code>.</li>
+      <li>When you're done, commit and push in GitHub Desktop. The live game updates in about a minute.</li>
+    </ol>
+  </section>
+
+  <section id="toolbar" hidden>
+    <div class="progress"><span id="progress-text"></span><div class="bar"><div id="progress-bar"></div></div></div>
+    <div class="filters">
+      <label>Show
+        <select id="f-status"><option value="all">All</option><option value="temp">Temporary only</option><option value="final">Final only</option><option value="problem">Wrong size</option></select>
+      </label>
+      <label>Group <select id="f-group"><option value="all">All groups</option></select></label>
+      <input id="f-search" type="search" placeholder="Search by name…">
+      <button id="btn-rescan" title="Read all images from the folder again (e.g. after replacing files by hand)">Rescan</button>
+    </div>
+  </section>
+
+  <main id="cards"></main>
+
+  <section id="log-wrap" hidden>
+    <h2>Changes in this session</h2>
+    <ul id="log"></ul>
+  </section>
+
+  <div id="drop-overlay" hidden><div>Drop images to replace them<br><small>Files are matched by name, e.g. <code>crystal_marsh_jade.png</code></small></div></div>
+
+  <dialog id="resize-dialog">
+    <h2 id="rd-title">Wrong size</h2>
+    <p id="rd-text"></p>
+    <div class="rd-previews">
+      <figure><canvas id="rd-fit"></canvas><figcaption><b>Fit</b> — whole image, transparent margins</figcaption></figure>
+      <figure><canvas id="rd-fill"></canvas><figcaption><b>Crop</b> — fills the size, cuts the edges</figcaption></figure>
+      <figure><canvas id="rd-stretch"></canvas><figcaption><b>Stretch</b> — fills the size, may distort</figcaption></figure>
+    </div>
+    <div class="rd-buttons">
+      <button data-mode="fit" class="primary">Fit</button>
+      <button data-mode="fill">Crop</button>
+      <button data-mode="stretch">Stretch</button>
+      <button data-mode="">Cancel</button>
+    </div>
+  </dialog>
+
+  <div id="toast"></div>
+
+  <script type="module" src="editor/editor.js"></script>
+</body>
+</html>

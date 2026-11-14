@@ -14,7 +14,7 @@
                   "assets/images/characters/cat_icon.png":  "8C89C4346AC6E8702C1D3A40142F28F98DC8AFFD3520F9DD89FC9DCF89A1DB5F",
                   "assets/images/characters/cat_table.png":  "2724BF99A0E9B0476097192BF3AFBD159256CDD6EC4D166C589EC1164ADAA7A4",
                   "assets/images/characters/chad.png":  "A845FE4FD61DC679644979F9FECDCC1610AA3FA9A40FD4BB2ED629D2ADA1723E",
-                  "assets/images/characters/heroine.png":  "8A928B9A7CD470AD18A9721420F9A6BC8589F9FA1D566609ACEB5FB4B7A20279",
+                  "assets/images/characters/heroine.png":  "3E012743EB929259072744C8B17E4930716B2220E4821028081C29BF97E13413",
                   "assets/images/characters/jaros_human.png":  "F9114DA22943F034D21D5AB9661BE0242C37EC6AD3B4EF839CA90B99C1649F59",
                   "assets/images/crystals/crystal_blaze_ruby.png":  "DD9BBA0C34CB318C1879530082868E0E4C38C5E269AD5E253FC796C05DE5ACB5",
                   "assets/images/crystals/crystal_deep_sapphire.png":  "4D1E9BEA2780F6BC0D70C79F7B7BCFEC19462817804B36D9ECCDFD34EA8107A4",
@@ -39,7 +39,7 @@
                   "assets/images/endings/ending_bad.jpg":  "2B283AE3426B7755651F43EFCEE2FB8615DA18C04856AEDBFDFD6569009ED32D",
                   "assets/images/endings/ending_friendship.jpg":  "02267142E7FB4B17FDCED6112BFD2CC6C47A32AACE9120464F5B41DB799E649D",
                   "assets/images/endings/ending_romance.jpg":  "43246ED58B96C5ED64083BDA815545607A51354D3255695671E4EE9238ACEC1D",
-                  "assets/images/potion/cauldron.png":  "6CE82D13ADE15F05DE078BAA3E7C0AABF809C8F5CF55ACBDC0CDAEB51F485254",
+                  "assets/images/potion/cauldron.png":  "2938E55F1DE7A2C3E90631B14D283959DE9C1DC2ACA3B0AF445A63873FF069B5",
                   "assets/images/potion/cauldron_liquid.png":  "890150B40A32A337CDE084EBC2855EB977E982592D947C7DF1B46EE3B379FB3A",
                   "assets/images/potion/recipe_page.png":  "B22FD5057590A69D98A58000AD87BE28FBA11A8AD425A0CCC28DF9E4FAB56839",
                   "assets/images/ui/ui_button_large_hover.png":  "F14D4F86391CB74CB51EF9D62BA43A2F9030B60E218D51BDB70F8A886D2D4C96",
@@ -53,7 +53,8 @@
                   "assets/images/ui/ui_cell.png":  "901B4BCCF1F1B976AC0BAEE87ED3EF94E46BDDB1F3765AC3769B49B21B6E5E68",
                   "assets/images/ui/ui_cursor.png":  "3AC32D0C060A2504342816D419F42176E411B0D19755C123E18BCC1E16C65862",
                   "assets/images/ui/ui_ingredient_panel.png":  "3DF2FF300E48631B00ABD3478369B26513E5578F14B5AAB5B8FB9A1D1B580251",
-                  "assets/images/ui/ui_logo.png":  "D324ECF5941370CAFCF25D2A99351A684300E550CF4B87DB6B99E699312E0C0B",
+                  "assets/images/ui/ui_logo.png":  "633B9B74F22CC89C9C39DF6BFA38C10E74BF0C305B302E69170C954F1E181EC2",
+                  "assets/images/ui/ui_menu_panel.png":  "292A80A5017D8160517DF4DEEA2AD544E847DD7E67F4AF40FE3CD3CAC03D3890",
                   "assets/images/ui/ui_nameplate.png":  "7FE26B268E8F2D8D75010C6D7D50C26BC077AB24A106AEFE882D8F740DD7F07F",
                   "assets/images/ui/ui_next_disabled.png":  "3FEB65026B351384BC3A148C30C7CBA13A02EF432EBD6CA6FC558B64DB6A294A",
                   "assets/images/ui/ui_next_hover.png":  "73A8EB5F212F63F9C4D9A8C71F1A38C1DF82C9489AA9861044C771AF02CBD36F",
@@ -65,6 +66,10 @@
                   "assets/images/ui/ui_tab_normal.png":  "EEE50460BEBC87973999E3A38CDC9F3B60243700F0DC9205CDCB4AB3FCA20A56",
                   "assets/images/ui/ui_tab_selected.png":  "51F68C9CB08C8782F382439D9A2A1752B792EC55802FBE8DE63F847C5F4E6FE8",
                   "assets/images/ui/ui_textbox.png":  "0F5BE45AC6F99572DD55F6E6348F4C29C6067C72B57BE787F8A756B1BB832081",
+                  "assets/images/ui/ui_title_continue.png":  "322AE39BF5C1C0FD317896DDE8194A94A6477A9E5ACD947454EB2090751E2A8B",
+                  "assets/images/ui/ui_title_credits.png":  "2AE6EF3E3BD8AABAEF2C4C1ACD347DDB8E3D0CFC4949299C0AFAACF1DF12984D",
+                  "assets/images/ui/ui_title_load.png":  "78FD6A38A4F5A57B162B16D8B269FCA30B7BC8EBD68B82C9F2607CEA96BDCADA",
+                  "assets/images/ui/ui_title_start.png":  "B61D699414CEEF1B92C128A5EB3B934715FEA20106D13F8BD87A0E1E3919687D",
                   "favicon.png":  "5B4CF949A8330CD0644C4056E0846CF2C17226EED7E0D6234ABF4EBF100BBBCA"
               }
 }

@@ -75,7 +75,7 @@ All tasks except drawing the art. Art *integration* (placeholders, replacing fil
 
 | ID | Task | Owner | Priority | Depends on | Done when |
 |---|---|---|---|---|---|
-| T1 | `TitleScene`: background, logo, Start / Continue / Settings on the left; Continue hidden without a save; confirm before overwriting a save; fade to D1 | Dev | Must | U1, C5 | Matches the main menu layout. |
+| T1 | `TitleScene`: background, logo image, menu panel and word-image buttons Start / Continue / Load / Credits on the left; Continue hidden without a save; confirm before overwriting a save; fade to D1 | Dev | Must | U1, C5 | Matches the main menu layout. |
 | T2 | `DialogueScene`: background cross-fade, sprite show/hide with fades, textbox, portrait, cat icon, text menu, advance (click, tap, Space, Enter) | Dev | Must | U2–U4, C4 | D1 plays fully with placeholders. |
 | T3 | Idle hint "Click to continue" / "Tap to continue" after 5 s; stops after 3 advances | Dev | Must | T2 | Works on desktop and touch. |
 | T4 | Cat icon swing: ±8° around pivot 110, 196 while a `jaros` line is shown | Dev | Should | T2 | Swings only on Jaros lines. |

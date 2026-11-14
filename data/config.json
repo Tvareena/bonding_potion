@@ -2,8 +2,12 @@
   "saveVersion": 2,
   "saveSlots": { "pages": 3, "perPage": 6 },
   "letterboxColor": "#1a1424",
+  "fontFiles": [],
   "font": {
     "family": "Arial, Helvetica, sans-serif",
+    "titleFamily": "'American Typewriter', 'AmericanTypewriter', 'Courier New', Courier, monospace",
+    "titleSize": 84,
+    "titleMenuSize": 68,
     "line": 36,
     "lineMin": 24,
     "potionLine": 30,
@@ -38,7 +42,10 @@
     "panelText": "#2b1d3a",
     "endingText": "#ffffff",
     "endingStroke": "#2b1d3a",
-    "dim": "#000000"
+    "dim": "#000000",
+    "titleText": "#efe6ee",
+    "titleMenu": "#2f2a2e",
+    "titleMenuHover": "#b0558a"
   },
   "elements": {
     "order": ["fire", "water", "earth", "air"],

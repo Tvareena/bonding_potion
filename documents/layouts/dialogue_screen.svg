@@ -51,6 +51,6 @@
   <rect x="70" y="610" width="300" height="400" fill="#E9D3DC" stroke="#9A4A6A" stroke-width="3"/>
   <text x="220" y="790" text-anchor="middle" class="lbl">Heroine</text>
   <text x="220" y="826" text-anchor="middle" class="lbl">portrait</text>
-  <text x="220" y="866" text-anchor="middle" class="dim">70, 610 · 300 × 400</text>
+  <text x="220" y="866" text-anchor="middle" class="dim">60, 600 · 320 × 420</text>
   <text x="220" y="950" text-anchor="middle" class="sm">frame 60, 600 · 320 × 420</text>
 </svg>

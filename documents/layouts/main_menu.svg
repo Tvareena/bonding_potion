@@ -3,41 +3,36 @@
     .lbl { font-size: 30px; font-weight: bold; fill: #333; }
     .dim { font-size: 24px; fill: #555; }
     .sm { font-size: 20px; fill: #555; }
+    .menu { font-family: 'Courier New', monospace; font-size: 60px; fill: #2f2a2e; text-anchor: middle; }
+    .box { fill: none; stroke: #b0558a; stroke-width: 2; stroke-dasharray: 8 6; }
   </style>
   <!-- Background -->
   <rect x="0" y="0" width="1920" height="1080" fill="#ECECEC"/>
   <rect x="4" y="4" width="1912" height="1072" fill="none" stroke="#999" stroke-width="4" stroke-dasharray="20 12"/>
-  <text x="1880" y="1010" text-anchor="end" class="lbl">Title background</text>
-  <text x="1880" y="1048" text-anchor="end" class="dim">0, 0 · 1920 × 1080</text>
+  <text x="1880" y="1010" text-anchor="end" class="lbl">Title background bg_title (bottle on the right)</text>
+  <text x="1880" y="1048" text-anchor="end" class="dim">0, 0 · 1920 × 1080 · no title, no panel</text>
 
   <!-- Logo -->
-  <rect x="100" y="100" width="800" height="320" fill="#D8CDE6" stroke="#6A4A8C" stroke-width="4"/>
-  <text x="500" y="250" text-anchor="middle" class="lbl">Logo "Bonding Potion"</text>
-  <text x="500" y="290" text-anchor="middle" class="dim">100, 100 · 800 × 320</text>
+  <rect x="88" y="194" width="810" height="110" class="box"/>
+  <text x="493" y="268" text-anchor="middle" font-family="Courier New, monospace" font-size="84" fill="#333">BONDING POTION</text>
+  <rect x="110" y="284" width="766" height="4" fill="#333"/>
+  <text x="88" y="336" class="sm">ui_logo 88, 194 · 810 × 110 (transparent)</text>
 
-  <!-- Buttons -->
-  <g>
-    <rect x="300" y="460" width="400" height="100" rx="12" fill="#F6E3A8" stroke="#B8902A" stroke-width="4"/>
-    <text x="500" y="503" text-anchor="middle" class="lbl">Start</text>
-    <text x="500" y="537" text-anchor="middle" class="sm">300, 460 · 400 × 100</text>
-
-    <rect x="300" y="575" width="400" height="100" rx="12" fill="#F6E3A8" stroke="#B8902A" stroke-width="4" stroke-dasharray="12 6"/>
-    <text x="500" y="618" text-anchor="middle" class="lbl">Continue</text>
-    <text x="500" y="652" text-anchor="middle" class="sm">300, 575 · only when a save exists</text>
-
-    <rect x="300" y="690" width="400" height="100" rx="12" fill="#F6E3A8" stroke="#B8902A" stroke-width="4"/>
-    <text x="500" y="733" text-anchor="middle" class="lbl">Load</text>
-    <text x="500" y="767" text-anchor="middle" class="sm">300, 690 · 400 × 100</text>
-
-    <rect x="300" y="805" width="400" height="100" rx="12" fill="#F6E3A8" stroke="#B8902A" stroke-width="4"/>
-    <text x="500" y="848" text-anchor="middle" class="lbl">Credits</text>
-    <text x="500" y="882" text-anchor="middle" class="sm">300, 805 · 400 × 100</text>
-
-    <rect x="300" y="920" width="400" height="100" rx="12" fill="#F6E3A8" stroke="#B8902A" stroke-width="4"/>
-    <text x="500" y="963" text-anchor="middle" class="lbl">Settings</text>
-    <text x="500" y="997" text-anchor="middle" class="sm">300, 920 · 400 × 100</text>
-  </g>
-  <text x="730" y="625" class="sm">Without a save the buttons below</text>
-  <text x="730" y="650" class="sm">Continue move up one place.</text>
-
+  <!-- Menu panel -->
+  <rect x="255" y="455" width="490" height="535" rx="30" fill="#E3D6DC" stroke="#9a8a96" stroke-width="3" stroke-dasharray="12 8"/>
+  <rect x="280" y="470" width="440" height="100" class="box"/>
+  <rect x="280" y="605" width="440" height="100" class="box"/>
+  <rect x="280" y="740" width="440" height="100" class="box"/>
+  <rect x="280" y="875" width="440" height="100" class="box"/>
+  <text x="500" y="540" class="menu">START</text>
+  <text x="500" y="675" class="menu">CONTINUE</text>
+  <text x="500" y="810" class="menu">LOAD</text>
+  <text x="500" y="945" class="menu">CREDITS</text>
+  <text x="255" y="1020" class="sm">ui_menu_panel 255, 455 · 490 × 535</text>
+  <text x="780" y="500" class="sm">Buttons = images of the words (ui_title_*),</text>
+  <text x="780" y="528" class="sm">440 × 100 each, transparent, at x 280,</text>
+  <text x="780" y="556" class="sm">y 470, 605, 740, 875 (every 135 px).</text>
+  <text x="780" y="584" class="sm">Pink + slightly bigger on hover (by the game).</text>
+  <text x="780" y="612" class="sm">Continue only with a save; without it the</text>
+  <text x="780" y="640" class="sm">others move up and the panel is 400 high.</text>
 </svg>

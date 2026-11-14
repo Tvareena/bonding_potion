@@ -39,6 +39,25 @@ export class BootScene extends Phaser.Scene {
     const params = new URLSearchParams(window.location.search);
     G.debug = params.get('debug') === '1';
     G.startScene = params.get('scene');
-    this.scene.start('Preload');
+    this.loadFonts().then(() => this.scene.start('Preload'));
+  }
+
+  /**
+   * Loads font files listed in config.json → fontFiles, e.g.
+   *   "fontFiles": [ { "family": "BondingTitle", "url": "assets/fonts/title.ttf" } ]
+   * and then "titleFamily": "BondingTitle, 'Courier New', monospace".
+   * A missing or broken font just falls back to the next font in the list.
+   */
+  async loadFonts() {
+    const list = (G.config.fontFiles || []).filter(f => f && f.family && f.url);
+    await Promise.all(list.map(async (f) => {
+      try {
+        const face = new FontFace(f.family, `url(${f.url})`);
+        await face.load();
+        document.fonts.add(face);
+      } catch (e) {
+        console.warn('[Bonding Potion] Could not load font ' + f.url);
+      }
+    }));
   }
 }

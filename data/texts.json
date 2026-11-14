@@ -1,9 +1,10 @@
 {
-  "title.start": "Start",
-  "title.continue": "Continue",
-  "title.load": "Load",
-  "title.credits": "Credits",
-  "title.settings": "Settings",
+  "title.name": "BONDING POTION",
+  "title.start": "START",
+  "title.continue": "CONTINUE",
+  "title.load": "LOAD",
+  "title.credits": "CREDITS",
+  "title.settings": "SETTINGS",
 
   "menu.log": "Log",
   "menu.auto": "Auto",

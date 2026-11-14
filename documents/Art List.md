@@ -32,8 +32,8 @@
 | Size | Export each file **exactly** at the listed size. |
 | File names | Exactly as listed: lowercase, underscores, no spaces. Saving a file with the same name into the same folder replaces the temporary image in the game. |
 | Folder | `assets/images/<folder>/` as listed. |
-| Replacing files | Easiest: the **Art tab of the content editor** (`editor.html`, Chrome or Edge). Drag the finished image onto its card; the editor checks size and format, offers to resize, and saves it under the right name. By hand also works: same name, same size, same folder. |
-| Text | **Don't paint text** on buttons, the recipe page, panels or the textbox: the game writes it. The logo is the only image with lettering. |
+| Replacing files | Easiest: the **art editor** at https://tvareena.github.io/bonding_potion/editor.html (Chrome or Edge; choose your project folder). Drag the finished image onto its card; the editor checks size and format, offers to resize, and saves it under the right name. By hand also works: same name, same size, same folder. |
+| Text | **Don't paint text** on buttons, the recipe page, panels or the textbox: the game writes it. No image has lettering (the title is drawn by the game too). |
 | Characters | Each human character (Heroine, Chad, Jaros in human form) has **one image with one emotion**: no expression variants. Chad and Jaros use the same canvas, size and framing, so they line up. |
 | Stretchable frames (9-slice) | Some UI frames are stretched by the game. Their corners (the "slice" width given in the table) are never stretched; the edges stretch in one direction; the centre stretches in both. Keep corner decoration inside the slice area and keep edges and centre plain enough to stretch. |
 | File size | Compress PNGs (e.g. TinyPNG). Total art should stay under ~25 MB. |
@@ -46,7 +46,7 @@
 
 | File | Size | Position | Priority | Notes |
 |---|---|---|---|---|
-| `bg_title.jpg` | 1920 × 1080 | 0, 0 | Must | Title screen. A picture on the **right** side (for example the Heroine and the cat). The logo (100, 100 · 800 × 320) and up to five buttons (300, 460–1020 · 400 wide) sit on the **left**, so keep the left side calm. |
+| `bg_title.jpg` | 1920 × 1080 | 0, 0 | Must | Title screen (final art delivered: dark lace pattern, potion bottle and heart-shaped smoke on the right). **No title and no menu panel in it**: the logo (88, 194), menu panel (255, 455) and menu buttons are separate images on the left. |
 | `bg_shop.jpg` | 1920 × 1080 | 0, 0 | Must | Shop interior: all dialogue scenes and endings. The bottom area (y 780–1000) is under the semi-transparent textbox; the centre (x 510–1410) is behind character sprites; the top-right corner (1660, 30 · 220 × 220) has the cat icon. |
 | `bg_workshop.jpg` | 1920 × 1080 | 0, 0 | Must | Potion screen: the workshop table, where the cauldron and the cat stand. The table surface should be roughly under the cauldron (600–1220 × 300–800) and the cat (1140–1480 × 230–750). Most of the screen is covered by UI; the background can be fairly simple. |
 
@@ -66,7 +66,7 @@ The ending card writes the ending's name and "Ending X of 3" over the illustrati
 
 | File | Size | Position | Priority | Notes |
 |---|---|---|---|---|
-| `heroine.png` | 300 × 400 | Dialogue: 70, 610 · Potion screen: 50, 660 | Must | Head and shoulders, facing slightly right (toward the textbox). One image for the whole game, so a calm, friendly look that suits every scene works best. |
+| `heroine.png` | 320 × 420 | Dialogue: 60, 600 · Potion screen: 40, 650 (same size and place as the frame) | Must | Head and shoulders, facing slightly right (toward the textbox). One image for the whole game, so a calm, friendly look that suits every scene works best. |
 
 The portrait sits inside the frame `ui_portrait_frame` (section 7). The frame covers the outer 10 px, so keep the face well inside.
 
@@ -150,9 +150,14 @@ The six bottles should look like one set (similar shape family, different detail
 
 | File | Size | Position | States | Priority | Notes |
 |---|---|---|---|---|---|
-| `ui_logo.png` | 800 × 320 | 100, 100 (title) | — | Must | "Bonding Potion" lettering. The only image with text. |
-| `ui_portrait_frame.png` | 320 × 420 | Dialogue: 60, 600 · Potion: 40, 650 | — | Must | Frame around the Heroine portrait, drawn on top of it. **Transparent window 300 × 400 at 10, 10 inside the image.** |
-| `ui_button_large_normal.png` | 400 × 100 | Title: 300, 460 / 575 / 690 / 805 / 920 · Ending card: 760, 880 | normal | Must | Button **without text** (Start, Continue, Load, Credits, Settings, Title are written by the game). |
+| `ui_logo.png` | 810 × 110 | 88, 194 (title screen) | — | Must | The title "BONDING POTION" with the underline, as in the mockup. **Transparent background.** |
+| `ui_menu_panel.png` | 490 × 535 | 255, 455 (title screen) | — | Must | Soft, semi-transparent light panel behind the menu buttons, with blurred edges (as in the mockup). **No text.** When Continue is hidden the game squeezes it to 490 × 400, so keep the top and bottom edges similar. |
+| `ui_title_start.png` | 440 × 100 | 280, 470 (title screen) | — | Must | The word **START**, dark, centred, **transparent background** (no button shape). The game makes it pink on hover, so one image is enough. |
+| `ui_title_continue.png` | 440 × 100 | 280, 605 | — | Must | The word **CONTINUE**, same style. Shown only when there is a save. |
+| `ui_title_load.png` | 440 × 100 | 280, 740 (605 without Continue) | — | Must | The word **LOAD**, same style. |
+| `ui_title_credits.png` | 440 × 100 | 280, 875 (740 without Continue) | — | Must | The word **CREDITS**, same style. |
+| `ui_portrait_frame.png` | 320 × 420 | Dialogue: 60, 600 · Potion: 40, 650 | — | Must | Frame around the Heroine portrait, drawn on top of it. **Transparent window 300 × 400 at 10, 10 inside the image**; the frame covers the outer 10 px of the 320 × 420 portrait. |
+| `ui_button_large_normal.png` | 400 × 100 | Ending card: 760, 880 | normal | Must | Button **without text** ("Title" is written by the game). The main menu doesn't use it: its buttons are word images (`ui_title_*`). |
 | `ui_button_large_hover.png` | 400 × 100 | same | hover | Should | Mouse over (PC only). |
 | `ui_button_large_pressed.png` | 400 × 100 | same | pressed | Should | |
 | `ui_button_small_normal.png` | 220 × 90 | Brew: 1240, 760 · Empty: 1240, 870 · panels | normal | Must | Button **without text**. Also used in panels (Yes/No, Resume…). |
@@ -220,11 +225,11 @@ The six bottles should look like one set (similar shape family, different detail
 | Crystals | 13 |
 | Element icons | 4 |
 | Bottles | 7 |
-| UI fixed images | 20 |
+| UI fixed images | 25 |
 | UI 9-slice frames | 3 |
 | Effects | 3 |
 | Other | 1 |
-| **Total** | **65** |
+| **Total** | **70** |
 
 **Suggested order:** element icons and crystals (they define the puzzle) → cauldron, liquid, cat on the table, recipe page, ingredient panel → Heroine portrait, cat icon, textbox, name plate, portrait frame → backgrounds → Chad and Jaros human sprites → bottles → buttons and their states → ending illustrations, logo, title background → effects, cursor, panel, favicon.
 

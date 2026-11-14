@@ -227,7 +227,7 @@ The layout follows the sketch below. Puzzle elements must never be covered by th
 | Cauldron | 600, 300, 620 × 500 | Drop target. The liquid colour changes with the mix; the element counter sits on its front. |
 | Brew and Empty buttons | 1240, 760 and 1240, 870, 220 × 90 (each) | Stacked next to the cauldron. |
 | Ingredient menu | 1480, 230, 420 × 820 | Tabs (Crystals / Potions), sorting, grid of 3 columns. |
-| Heroine portrait | Frame 40, 650, 320 × 420; portrait 50, 660, 300 × 400 | Same frame and portrait files as in dialogue. |
+| Heroine portrait | Frame 40, 650, 320 × 420; portrait 40, 650, 320 × 420 | Same frame and portrait files as in dialogue. |
 | Textbox | 380, 840, 840 × 200 (name plate 400, 810, 300 × 56) | Lines of all characters (the Heroine and Jaros) with the speaker's name, plus fizzle messages. Advancing is optional; the puzzle stays playable. |
 
 ### 4.4 Other screens
@@ -251,7 +251,7 @@ Every image in the game is a separate file in the assets folder, with a clear na
 |---|---|---|---|
 | Background: dialogue (shop) | 1920 × 1080 | 1–2 | JPG or PNG. Shop interior; optionally a street or doorway for Chad's scenes. |
 | Background: potion screen (workshop table) | 1920 × 1080 | 1 | The table surface where the cat sits. |
-| Heroine portrait | 300 × 400 | 1 | One image, one emotion. Fits the frame left of the textbox. |
+| Heroine portrait | 320 × 420 | 1 | One image, one emotion. Fits the frame left of the textbox. |
 | Portrait frame | 320 × 420 | 1 | Separate so portraits can be swapped. |
 | Character sprite: Chad (half-body) | 900 × 1000 | 1 | One image, one emotion. |
 | Character sprite: Jaros, human (half-body) | 900 × 1000 | 1 | One image, one emotion. |

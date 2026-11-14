@@ -17,12 +17,9 @@ Source files are in [layouts/](layouts/). Each layout has an `.svg` file (exact,
 | Element | Position | Size | Notes |
 |---|---|---|---|
 | Title background | 0, 0 | 1920 × 1080 | One image. The left part sits under the logo and buttons, so keep it calm enough for them to read well. |
-| Logo "Bonding Potion" | 100, 100 | 800 × 320 | Left side. |
-| Start button | 300, 460 | 400 × 100 | Centred under the logo. Normal, hover and pressed states. |
-| Continue button | 300, 575 | 400 × 100 | Only when a save exists. Without it, the buttons below move up one place. |
-| Load button | 300, 690 | 400 × 100 | |
-| Credits button | 300, 805 | 400 × 100 | |
-| Settings button | 300, 920 | 400 × 100 | |
+| Logo "BONDING POTION" | 88, 194 | 810 × 110 | Image `ui_logo.png`: title text with the underline, transparent around it. |
+| Menu panel | 255, 455 | 490 × 535 | Soft semi-transparent panel (`ui_menu_panel`). With Continue hidden the game shortens it to 490 × 400. |
+| Menu buttons START, CONTINUE, LOAD, CREDITS | 280, 470 · then every 135 px down (470, 605, 740, 875) | 440 × 100 each | Each button is an image of its word (`ui_title_start/continue/load/credits.png`), transparent around the word. The game turns the word pink and grows it a little on hover. Continue only when a save exists (then the others move up). Settings is not on the title screen (it's in the game's menus). |
 
 ## 2. Dialogue screen
 
@@ -41,7 +38,7 @@ Drawing order, back to front: background → character sprite → textbox → na
 | "More" arrow ▼ | centred at 1826, 908 | 32 × 20 | Bobbing triangle drawn by the game when a line waits for a click. "Click to continue" hint ends just left of it (1796, 918). |
 | Text menu (Log, Auto, Skip, Save, Load, Settings) | first at 1020, 945, then every 140 px to the right | 120 × 40 click area each | Text-only buttons: no background or frame, the player sees and clicks just the words. The click area is invisible. Hover and pressed states are shown by the game (text colour or underline). **No art needed.** |
 | Heroine portrait frame | 60, 600 | 320 × 420 | Overlaps the left end of the textbox. |
-| Heroine portrait | 70, 610 | 300 × 400 | Inside the frame. One image (one emotion). |
+| Heroine portrait | 60, 600 | 320 × 420 | Same size and place as the frame, under it (the frame covers its outer 10 px). One image (one emotion). |
 
 ## 3. Cat head icon
 
@@ -91,7 +88,7 @@ Drawing order, back to front: background → cat → cauldron → everything els
 | Sort row | 1500, 322 | 380 × 54 | Holds 48 × 48 element icons used as sort buttons. |
 | Crystal cells | 3 columns from x 1500, every 130 px; 5 rows from y 390, every 130 px | 120 × 120 each | Crystal art is 128 × 128, shown slightly smaller in the cells. |
 | Heroine portrait frame | 40, 650 | 320 × 420 | Same frame as on the dialogue screen. |
-| Heroine portrait | 50, 660 | 300 × 400 | Same portrait files as on the dialogue screen. |
+| Heroine portrait | 40, 650 | 320 × 420 | Same portrait file as on the dialogue screen, under the frame. |
 | Textbox | 380, 840 | 840 × 200 | Lines of all characters (text area 400, 878 · 800 × 104). Same frame style as on the dialogue screen. |
 | "More" arrow ▼ | centred at 1190, 972 | 32 × 20 | Drawn by the game when another line is waiting. |
 | Text menu (Log, Auto, Skip, Save, Load, Settings) | first at 402, 992, then every 135 px | 120 × 40 click area each | Text only, same as the dialogue screen. No art needed. |
@@ -114,7 +111,7 @@ Drawing order, back to front: background → cat → cauldron → everything els
 Drawing the potion screen at full size showed overlaps in the first numbers. The concept document has been updated to match these layouts:
 
 - Recipe page height: 680 → 580, to make room for the portrait.
-- Heroine portrait on the potion screen: same 320 × 420 frame and 300 × 400 portrait as on the dialogue screen.
+- Heroine portrait on the potion screen: same 320 × 420 frame and 320 × 420 portrait as on the dialogue screen.
 - Textbox on the potion screen: 380, 840 · 840 × 200, so it ends before the buttons.
 - Brew and Empty buttons: stacked at 1240, 760 and 1240, 870.
 - Main menu buttons: 400 × 100. The dialogue menu is text-only (120 × 40 click areas) and needs no button art.

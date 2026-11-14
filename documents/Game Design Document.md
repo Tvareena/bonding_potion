@@ -244,8 +244,9 @@ The six menu items are text-only (no button art), under the text in the textbox.
 - **The cat's recipe bubble.** When Jaros gives his advice, a speech bubble pops up above him showing his alternative recipe the same way the book does: element icons in a row with the ratio numbers below (for example 2 : 1 : 3 : 2). It stays until the player leaves the screen, so the book's recipe and the cat's can be compared at a glance. Clicking the cat repeats his advice line and the bubble bounces.
 - His spoken advice is a short remark without numbers ("Try my way. A drop of water keeps confidence from turning into pride.").
 - In P6 the cat is gone: the bubble still appears, slightly faded and **without the tail** (a separate image), when the Heroine remembers his recipe. P7 has no bubble.
-- When the game pushes back (a heavy or slipping crystal) and the Heroine comments, her line shows; after the player clicks (or by itself in Auto mode) the textbox returns to the cat's advice line. It reappears instantly and isn't added to the Log again.
-- Other lines (fizzles, success) show in the textbox as usual; the last line stays until a new one replaces it or the player leaves.
+- When the game pushes back (a heavy or slipping crystal) and the Heroine comments, her line shows; after the player clicks (or by itself in Auto mode) the textbox returns to the cat's advice line. It reappears instantly, isn't added to the Log again, and disappears on the next tap.
+- Other lines (fizzles, success) show in the textbox as usual.
+- **The last line disappears after a tap**, like every other line: the textbox empties (the cat's recipe stays visible in his bubble).
 - There is no Heroine "hint" line when the player is idle; only the recipe glows.
 - Lines advance exactly like on the dialogue screen: a click or tap on the textbox or on any free spot (not a crystal, button or tab), or Space / Enter. In Auto mode they advance by themselves. The "Click to continue" hint works the same way.
 - The puzzle stays playable while a line is waiting.
@@ -298,7 +299,7 @@ Background picture on the right; logo and up to five buttons on the left: Start,
 
 ### 4.3 Dialogue screen
 
-Background, centred half-body sprite (0–1 at a time), semi-transparent textbox with name plate, Heroine portrait on the left, cat head icon top-right, text-only menu inside the textbox. Characters fade in and out when shown or hidden; backgrounds cross-fade.
+Background, centred half-body sprite (0–1 at a time), semi-transparent textbox with name plate, Heroine portrait on the left (hidden, with its frame, on narration lines that have no speaker name; the same on the potion screen), cat head icon top-right, text-only menu inside the textbox. Characters fade in and out when shown or hidden; backgrounds cross-fade.
 
 ### 4.4 Potion screen
 

@@ -90,6 +90,9 @@ export class DialogueScene extends Phaser.Scene {
     this.autoTimer = null;
     this.restoring = false;
     if (typeof data.resumeRow === 'number' && data.resumeRow > 0) this.fastForward(data.resumeRow);
+    // If the next line is narration, start without the portrait so it doesn't flash in and out.
+    const nextLine = this.rows.slice(this.i).find(r => r.kind === 'line');
+    if (nextLine && !nextLine.speaker) this.portrait.show(false, true);
     this.time.delayedCall(350, () => this.run());
     setupDebug(this, () => `section: ${this.section.id}  row ${this.i}/${this.rows.length}`);
   }
@@ -199,6 +202,8 @@ export class DialogueScene extends Phaser.Scene {
       name = charName(r.speaker);
     }
     this.setSwing(r.speaker && G.characters[r.speaker] && G.characters[r.speaker].kind === 'cat');
+    // Narration (no speaker name): the Heroine's portrait disappears.
+    this.portrait.show(!!r.speaker, this.skip);
     G.session.log.push({ name, text: r.text });
     this.lineIndex = this.i - 1;
     this.waiting = true;

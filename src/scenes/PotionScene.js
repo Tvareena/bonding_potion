@@ -1007,31 +1007,34 @@ export class PotionScene extends Phaser.Scene {
       if (r.speaker) {
         name = charName(r.speaker);
       }
-      G.session.log.push({ name, text: r.text });
+      if (!item.repeat) G.session.log.push({ name, text: r.text });
+      this.portrait.show(!!r.speaker); // narration: no portrait
       this.lineActive = true;
       this.refreshButtons();
-      if (item.ev === 'advice') this.showCatBubble();
+      if (item.ev === 'advice' && !item.repeat) this.showCatBubble();
       this.currentEv = item.ev;
-      this.textbox.show(name, r.text, { instant: this.skip, onDone: () => this.lineDone() });
+      this.textbox.show(name, r.text, { instant: this.skip || !!item.repeat, onDone: () => this.lineDone() });
       this.startIdle();
       return;
     }
     // No more lines: the last one stays until a new line replaces it or the player leaves.
     // The cat's recipe stays visible in his bubble.
+    // After the Heroine reacts to the game pushing back (heavy or slipping crystal),
+    // the textbox goes back to the advice line (shown again like a normal line, then cleared on tap).
+    if (this.adviceRow && !this.done && (this.currentEv === 'resist_heavy' || this.currentEv === 'resist_slip')) { this.showAdvice(); return; }
+    // No more lines: the textbox empties after the last line is tapped, like on the dialogue screen.
     this.lineActive = false;
     this.textbox.setMore(false);
+    this.textbox.clear();
+    this.currentEv = null;
     this.refreshButtons();
     if (this.skip) this.toggleSkip(); // nothing left to skip
-    // After the Heroine reacts to the game pushing back (heavy or slipping crystal),
-    // the textbox goes back to the advice line.
-    if (this.adviceRow && !this.done && (this.currentEv === 'resist_heavy' || this.currentEv === 'resist_slip')) this.showAdvice();
   }
 
-  /** Shows the advice line again, instantly and without adding it to the Log. */
+  /** Shows the advice line again: instantly, not added to the Log again, and cleared on the next tap. */
   showAdvice() {
-    const r = this.adviceRow;
-    this.currentEv = 'advice';
-    this.textbox.show(r.speaker ? charName(r.speaker) : null, r.text, { instant: true });
+    this.queue.push({ row: this.adviceRow, ev: 'advice', repeat: true });
+    this.nextLine();
   }
 
   /** A line is fully shown: wait for a click/tap, or continue by itself in Auto mode (same as the dialogue screen). */

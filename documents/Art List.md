@@ -167,6 +167,7 @@ The six bottles should look like one set (similar shape family, different detail
 | `ui_tab_selected.png` | 185 × 60 | same | selected | Should | The open tab. |
 | `ui_ingredient_panel.png` | 420 × 820 | 1480, 230 | — | Must | Background of the ingredient menu (shelf, box or cabinet). Tabs sit at the top (inside the image: 20, 20 · 380 × 60), the sort row below (20, 92 · 380 × 54), then a 3 × 5 grid of cells (from 20, 160; cells 120 × 120 every 130 px). |
 | `ui_cell.png` | 120 × 120 | grid in the ingredient panel | — | Should | One slot for a crystal or bottle. The game highlights it in code. |
+| `ui_cat_bubble.png` | 440 × 200 | 1040, 22 (potion screen) | — | Must | Speech bubble for the cat's recipe, **without text or icons** (the game draws the element icons and ratio numbers inside). Body about 440 × 160 at the top; the tail points **down** at the cat from the bottom edge, tip at about 273, 200 inside the image. Keep the inside plain and light so icons read well. |
 | `ui_cursor.png` | 64 × 64 | follows the mouse (potion screen, PC) | — | Should | Custom cursor (for example a hand or a pointer). **The tip (click point) at 8, 8 inside the image.** |
 
 ### 7.2 Stretchable frames (9-slice)
@@ -217,11 +218,11 @@ The six bottles should look like one set (similar shape family, different detail
 | Crystals | 13 |
 | Element icons | 4 |
 | Bottles | 7 |
-| UI fixed images | 18 |
+| UI fixed images | 19 |
 | UI 9-slice frames | 3 |
 | Effects | 3 |
 | Other | 1 |
-| **Total** | **63** |
+| **Total** | **64** |
 
 **Suggested order:** element icons and crystals (they define the puzzle) → cauldron, liquid, cat on the table, recipe page, ingredient panel → Heroine portrait, cat icon, textbox, name plate, portrait frame → backgrounds → Chad and Jaros human sprites → bottles → buttons and their states → ending illustrations, logo, title background → effects, cursor, panel, favicon.
 

@@ -78,6 +78,7 @@ Drawing order, back to front: background → cat → cauldron → everything els
 | Recipe book page | 40, 40 | 560 × 580 | Empty page; the game writes the potion name, a row of element icons (64 × 64, starting at y 240) with the ratio numbers under them (e.g. 2 : 3 : 2), and the flavour line. |
 | Next arrow | 1760, 40 | 120 × 120 | Normal, hover, pressed and disabled states. |
 | Menu (text-only) | 1620, 80 | 120 × 40 click area | Opens the pause panel. No art needed. |
+| Cat recipe bubble | 1040, 22 | 440 × 200 | Speech bubble with its tail pointing down at the cat (tail tip around x 1313, y 220). The game draws the cat's recipe inside: element icons 56 × 56 in a row with ratio numbers below. Appears with the cat's advice. |
 | Cat on the table | 1140, 230 | 340 × 520 | One pose, partly hidden behind the cauldron. Not shown in potion 6. |
 | Cauldron | 600, 300 | 620 × 500 | |
 | Liquid layer | 660, 340 | 500 × 140 | Light grey; the game tints it to the mix colour. Separate file. |

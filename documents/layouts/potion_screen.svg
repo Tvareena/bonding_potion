@@ -24,13 +24,19 @@
   <text x="1880" y="188" text-anchor="end" class="xs">Next arrow 1760, 40</text>
   <rect x="1620" y="80" width="120" height="40" fill="none" stroke="#4B2E6B" stroke-width="1.5" stroke-dasharray="5 4"/>
   <text x="1680" y="108" text-anchor="middle" font-size="24" font-weight="bold" fill="#4B2E6B">Menu</text>
-  <text x="1600" y="108" text-anchor="end" class="xs">text-only 1620, 80 · 120 × 40</text>
+  <text x="1680" y="146" text-anchor="middle" class="xs">text-only 1620, 80 · 120 × 40</text>
 
   <!-- Cat on the table -->
   <rect x="1140" y="230" width="340" height="520" fill="#E3D6C3" stroke="#7A5A30" stroke-width="4"/>
   <text x="1310" y="270" text-anchor="middle" class="lbl">Cat on table</text>
   <text x="1310" y="306" text-anchor="middle" class="dim">1140, 230</text>
   <text x="1310" y="338" text-anchor="middle" class="dim">340 × 520</text>
+
+  <!-- Cat recipe bubble -->
+  <path d="M1068 26 H1452 Q1476 26 1476 50 V158 Q1476 182 1452 182 H1357 L1313 220 L1282 182 H1068 Q1044 182 1044 158 V50 Q1044 26 1068 26 Z" fill="#FFFAF0" stroke="#2E2A33" stroke-width="4"/>
+  <text x="1260" y="88" text-anchor="middle" class="sm">Cat recipe bubble</text>
+  <text x="1260" y="118" text-anchor="middle" class="xs">1040, 22 · 440 × 200</text>
+  <text x="1260" y="146" text-anchor="middle" class="xs">(icons + ratio drawn by the game)</text>
 
   <!-- Cauldron -->
   <rect x="600" y="300" width="620" height="500" fill="#C9B6DE" stroke="#4B2E6B" stroke-width="4"/>

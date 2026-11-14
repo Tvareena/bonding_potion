@@ -44,7 +44,7 @@ jaros: Drag a crystal into the cauldron. Go on, it won't bite.
 @on tutorial_brew
 jaros: When the proportion is right, press Brew. If it's wrong, it fizzles and you start again. No harm done.
 @on advice
-jaros: Between you and me, the book is too careful. Add air: one fire, one earth, one air. That's real fun.
+jaros: Between you and me, the book is too careful. Here's my recipe. A breath of air is what makes it fun.
 @on fizzle random
 heroine: That's… not a potion.
 jaros: Smells like a burnt sock.
@@ -68,7 +68,7 @@ heroine: Next is the Potion of Courage. I'll need it to give him the love potion
 @on start
 heroine: Courage. Water and air.
 @on advice
-jaros: One water, two air… and one fire. Courage needs a spark, not just wind.
+jaros: Or try mine. Courage needs a spark, not just wind.
 @on fizzle random
 heroine: It just went flat.
 jaros: Like your plan.
@@ -90,7 +90,7 @@ jaros: Trust, then.
 @on start
 heroine: Trust. Water and earth.
 @on advice
-jaros: Two water, one earth, one fire. Trust needs a little warmth, or it's just cold mud.
+jaros: Mine's better. Trust needs a little warmth, or it's just cold mud.
 @on resist_heavy
 heroine: Huh? Why is this one so heavy?
 jaros: Interesting. The book doesn't like being argued with.
@@ -119,7 +119,7 @@ jaros: …
 @on start
 heroine: Hope. I could use some.
 @on advice
-jaros: Two fire, two air, one water… and one earth. Hope needs something to stand on.
+jaros: Here's how I'd do it. Hope needs something to stand on.
 @on resist_heavy
 heroine: Why is this crystal so heavy?
 jaros: The book has opinions, it seems.
@@ -146,7 +146,7 @@ jaros: …Confidence next. Don't make it a big deal.
 @on start
 heroine: Confidence. Earth, air and fire.
 @on advice
-jaros: Two fire, three earth, two air… and one water. A drop of water keeps confidence from turning into pride.
+jaros: Try my way. A drop of water keeps confidence from turning into pride.
 @on resist_heavy
 heroine: This one feels heavier than it should.
 @on resist_slip
@@ -175,7 +175,7 @@ heroine: Jaros?
 heroine: It's so quiet without him.
 heroine: Gratitude. All four elements.
 @on advice
-heroine: Jaros would say… one fire, three water, three earth, one air. Something you can hold on to.
+heroine: I still remember how Jaros would make it. Something you can hold on to.
 @on resist_heavy
 heroine: Why is this so heavy?
 @on resist_slip

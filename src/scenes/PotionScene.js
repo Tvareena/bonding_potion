@@ -112,6 +112,7 @@ export class PotionScene extends Phaser.Scene {
     this.cat = this.add.image(ct.x, ct.y, 'cat_table').setOrigin(0, 0).setDisplaySize(ct.w, ct.h).setDepth(D.cat);
     if (!this.potion.catPresent) this.cat.setVisible(false);
     else this.cat.setInteractive({ pixelPerfect: true }).on('pointerup', () => this.onCatClick());
+    this.buildCatBubble();
 
     // Cauldron, liquid, counter
     const cd = rect(L.cauldron), lq = rect(L.liquid);
@@ -245,6 +246,54 @@ export class PotionScene extends Phaser.Scene {
     const fl = rect(L.recipeFlavour);
     this.add.text(fl.x + fl.w / 2, fl.y + fl.h / 2, this.potion.flavour || '',
       font(c.font.recipeFlavour, { color: c.colors.recipeText, fontStyle: 'italic', align: 'center', wordWrap: { width: fl.w } })).setOrigin(0.5).setDepth(D.recipeText);
+  }
+
+  /**
+   * The cat's alternative recipe, shown in a speech bubble above him like the book shows its recipe:
+   * element icons in a row with the ratio numbers below. Hidden until he gives his advice.
+   * In P6 (cat absent) it shows as the Heroine's memory of it: same bubble, slightly faded.
+   */
+  buildCatBubble() {
+    this.catBubble = null;
+    if (this.isMix || !this.potion.cat) return;
+    const B = this.L.catBubble, r = rect(B.rect), c = this.cfg;
+    const box = this.add.container(r.x + r.w / 2, r.y + r.h).setDepth(D.cat + 1).setAlpha(0).setScale(0.6);
+    // Container origin is the bottom-centre (tail end), so the pop-in grows out of the cat.
+    box.add(this.add.image(0, 0, 'ui_cat_bubble').setOrigin(0.5, 1).setDisplaySize(r.w, r.h));
+    const ratio = reduceRatio(this.potion.cat);
+    const els = c.elements.order.filter(e => ratio[e]);
+    const n = els.length;
+    const totalW = n * B.icon + (n - 1) * B.gap;
+    const top = -r.h + B.contentY;
+    let x = -totalW / 2;
+    els.forEach((e, i) => {
+      const colX = x + B.icon / 2;
+      box.add(this.add.image(colX, top + B.icon / 2, 'element_' + e).setDisplaySize(B.icon, B.icon));
+      box.add(this.add.text(colX, top + B.icon + B.numberGap, String(ratio[e]),
+        font(c.font.recipeAmount - 4, { color: c.colors.recipeText, fontStyle: 'bold' })).setOrigin(0.5, 0));
+      if (i < n - 1) {
+        box.add(this.add.text(x + B.icon + B.gap / 2, top + B.icon + B.numberGap, ':',
+          font(c.font.recipeAmount - 4, { color: c.colors.recipeText, fontStyle: 'bold' })).setOrigin(0.5, 0));
+      }
+      x += B.icon + B.gap;
+    });
+    this.catBubble = box;
+    this.catBubbleAlpha = this.potion.catPresent ? 1 : 0.8;
+    this.catBubbleShown = false;
+  }
+
+  showCatBubble() {
+    const b = this.catBubble;
+    if (!b) return;
+    this.tweens.killTweensOf(b);
+    if (!this.catBubbleShown) {
+      this.catBubbleShown = true;
+      this.tweens.add({ targets: b, alpha: this.catBubbleAlpha, scale: 1, duration: 380, ease: 'Back.easeOut' });
+    } else {
+      // Already visible (the cat repeats his advice): a small bounce.
+      b.setScale(1).setAlpha(this.catBubbleAlpha);
+      this.tweens.add({ targets: b, scale: 1.08, duration: 140, yoyo: true, ease: 'Sine.easeOut' });
+    }
   }
 
   // ---------------------------------------------------------------- inventory grid
@@ -739,26 +788,11 @@ export class PotionScene extends Phaser.Scene {
         rows = lines.length ? [lines[Math.floor(Math.random() * lines.length)]] : [];
       }
       rows.forEach(r => this.queue.push({ row: r, ev: name }));
-      // The advice (the cat's suggestion, or the Heroine remembering it in P6) is the "resting" line:
-      // the screen goes back to it after other lines.
-      if (name === 'advice') {
-        const lines = rows.filter(r => r.kind === 'line');
-        if (lines.length) this.adviceRow = lines[lines.length - 1];
-      }
     }
+    // The cat's recipe bubble appears with his advice (or right away if the advice has no lines).
+    if (name === 'advice' && !this.queue.some(q => q.ev === 'advice')) this.showCatBubble();
     if (cb) this.queue.push({ cb });
     if (!this.lineActive) this.nextLine();
-  }
-
-  /** Shows the advice line again, instantly and without adding it to the log. */
-  showAdvice() {
-    const r = this.adviceRow;
-    let name = null;
-    if (r.speaker) {
-      name = charName(r.speaker);
-    }
-    this.currentEv = 'advice';
-    this.textbox.show(name, r.text, { instant: true });
   }
 
   nextLine() {
@@ -775,16 +809,14 @@ export class PotionScene extends Phaser.Scene {
       }
       G.session.log.push({ name, text: r.text });
       this.lineActive = true;
-      this.currentEv = item.ev;
+      if (item.ev === 'advice') this.showCatBubble();
       this.textbox.show(name, r.text, { onDone: () => this.lineDone() });
       this.startIdle();
       return;
     }
+    // No more lines: the last one stays until a new line replaces it or the player leaves.
+    // The cat's recipe stays visible in his bubble.
     this.lineActive = false;
-    // No more lines. Once the advice has been given, the screen returns to it after any other lines
-    // (resistance comments, fizzles), so the suggestion stays next to the recipe.
-    // After a successful brew the success line stays instead. Otherwise the last line stays.
-    if (this.adviceRow && !this.done && this.currentEv !== 'advice') this.showAdvice();
   }
 
   /** A line is fully shown: wait for a click/tap, or continue by itself in Auto mode (same as the dialogue screen). */

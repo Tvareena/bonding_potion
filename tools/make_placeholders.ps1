@@ -211,6 +211,17 @@ function Draw($key, $e) {
         $pen = New-Object Drawing.Pen($bc, 4); $g.DrawPath($pen, $p); $pen.Dispose()
         $showLabel = ($w -ge 400 -and $h -ge 400)
       }
+      'speech' {
+        $p = RoundRect 4 4 ($w - 8) ($h - 44) 28
+        $tail = [Drawing.PointF[]]@((New-Object Drawing.PointF(($w * 0.55), ($h - 42))), (New-Object Drawing.PointF(($w * 0.72), ($h - 42))), (New-Object Drawing.PointF(($w * 0.62), ($h - 3))))
+        $br = New-Object Drawing.SolidBrush($base); $g.FillPath($br, $p); $g.FillPolygon($br, $tail); $br.Dispose()
+        $pen = New-Object Drawing.Pen((Col $ph.border), 5)
+        $g.DrawPath($pen, $p)
+        $g.DrawLine($pen, ($w * 0.55), ($h - 40), ($w * 0.62), ($h - 3)); $g.DrawLine($pen, ($w * 0.72), ($h - 40), ($w * 0.62), ($h - 3))
+        $pen.Dispose()
+        $cover = New-Object Drawing.SolidBrush($base); $g.FillRectangle($cover, ($w * 0.55 + 3), ($h - 46), ($w * 0.17 - 6), 8); $cover.Dispose()
+        $showLabel = $false
+      }
       'arrow' {
         $p = RoundRect 3 3 ($w - 6) ($h - 6) 18
         $br = New-Object Drawing.SolidBrush($base); $g.FillPath($br, $p); $br.Dispose()

@@ -235,10 +235,10 @@ The six menu items are text-only (no button art) in the bottom-right of the text
 
 - All lines (Heroine, Jaros, recollections) appear in the potion screen textbox with the speaker's name.
 - Lines are triggered by events from the script: start of the potion, the cat's advice, first resistance, fizzle, success.
-- The cat's advice (in P6, the Heroine remembering it) is the "resting" line. Once it has been said, it stays in the textbox next to the recipe until the player leaves the screen.
-- If the game interrupts (a heavy or slipping crystal, a fizzle) and the Heroine or the cat comments, that line is shown; after the player clicks (or by itself in Auto mode), the textbox returns to the advice. The returning advice appears instantly and isn't added to the Log again.
-- After a successful brew, the success line stays instead.
-- Before the advice has been said (opening lines, P1 tutorial), the last line stays.
+- **The cat's recipe bubble.** When Jaros gives his advice, a speech bubble pops up above him showing his alternative recipe the same way the book does: element icons in a row with the ratio numbers below (for example 2 : 1 : 3 : 2). It stays until the player leaves the screen, so the book's recipe and the cat's can be compared at a glance. Clicking the cat repeats his advice line and the bubble bounces.
+- His spoken advice is a short remark without numbers ("Try my way. A drop of water keeps confidence from turning into pride.").
+- In P6 the cat is gone: the bubble still appears (slightly faded) when the Heroine remembers his recipe. P7 has no bubble.
+- Other lines (resistance comments, fizzles, success) show in the textbox as usual; the last line stays until a new one replaces it or the player leaves.
 - There is no Heroine "hint" line when the player is idle; only the recipe glows.
 - Lines advance exactly like on the dialogue screen: a click or tap on the textbox or on any free spot (not a crystal, button or tab), or Space / Enter. In Auto mode they advance by themselves. The "Click to continue" hint works the same way.
 - The puzzle stays playable while a line is waiting.
@@ -295,7 +295,7 @@ Background, centred half-body sprite (0–1 at a time), semi-transparent textbox
 
 ### 4.4 Potion screen
 
-Recipe page (top-left), Next arrow (top-right) with a text-only **Menu** button to its left, cat on the table behind the cauldron, cauldron in the centre with the element counter, Brew and Empty buttons, ingredient menu on the right (tabs Crystals/Potions, sort row, 3 × 5 grid), Heroine portrait and textbox at the bottom-left.
+Recipe page (top-left), Next arrow (top-right) with a text-only **Menu** button to its left, cat on the table behind the cauldron with his recipe bubble above him, cauldron in the centre with the element counter, Brew and Empty buttons, ingredient menu on the right (tabs Crystals/Potions, sort row, 3 × 5 grid), Heroine portrait and textbox at the bottom-left.
 
 **Sorting:** the sort row has four element icons. Tapping one shows only crystals that contain that element (tap again to clear). Default order: single-element, then double, then triple.
 

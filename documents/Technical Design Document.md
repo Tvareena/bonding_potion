@@ -257,6 +257,8 @@ heroine: It worked!
 | `@wait <seconds>` | Pause. |
 | `@on <event> [random]` | Potion sections only. The lines below play when `<event>` happens. With `random`, one line is picked each time instead of all. |
 
+**Cat recipe bubble:** when the `advice` event plays, the potion screen shows `potions.json → cat` in a speech bubble (`ui_cat_bubble`, layout `potion.catBubble`) as icons with reduced ratio numbers. It stays visible until the screen is left.
+
 **Potion events:** `start`, `tutorial_recipe`, `tutorial_elements`, `tutorial_drag`, `tutorial_brew`, `advice` (also played when the cat is clicked), `resist_heavy`, `resist_slip`, `fizzle`, `success`.
 
 Unknown commands, speakers or images don't stop the game: they're skipped and reported in the browser console and the debug overlay.
@@ -550,7 +552,7 @@ A separate page for the team to change texts and replace art without touching co
 |---|---|
 | **Grid** | Every image from `assets.json`, grouped as in the Art List. Each card: thumbnail, file name, required size, folder, status **Temporary** / **Final** (from `assets/placeholders.json`). |
 | **Filters** | All / Temporary only / Final only; search by name; filter by group. |
-| **Progress** | "41 of 63 final" overall and per group. |
+| **Progress** | "41 of 64 final" overall and per group. |
 | **Replace** | Drag a file onto a card (or click *Replace…*). The editor checks: format (PNG, JPG, WEBP accepted), size, transparency (warns if a sprite has no transparent pixels or a background has transparency). |
 | **Wrong size** | If the size doesn't match, a dialog shows both sizes and offers: *Resize to fit* (keeps proportions, transparent margins), *Crop to fill* (keeps proportions, cuts the edges), or *Cancel*. Different aspect ratio → a clear warning. Resizing uses a high-quality canvas downscale. |
 | **Format conversion** | Saved as PNG, or as JPG (quality 0.85) for backgrounds and illustrations, according to the path in `assets.json`, whatever format was dropped. |

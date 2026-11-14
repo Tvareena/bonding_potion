@@ -2,8 +2,8 @@
   "_note": "All rectangles are [x, y, width, height] of the top-left corner at 1920 x 1080. See documents/Screen Layouts.md.",
   "title": {
     "logo": [88, 194, 810, 110],
-    "menuPanel": [255, 455, 490, 535],
-    "menuButtons": { "x": 280, "y": 470, "w": 440, "h": 100, "step": 135, "padding": 15 }
+    "menuPanel": [255, 420, 490, 570],
+    "menuButtons": { "x": 280, "y": 435, "w": 440, "h": 100, "step": 110, "padding": 15 }
   },
   "dialogue": {
     "sprite": [510, 80, 900, 1000],

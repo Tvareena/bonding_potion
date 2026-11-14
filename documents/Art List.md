@@ -46,7 +46,7 @@
 
 | File | Size | Position | Priority | Notes |
 |---|---|---|---|---|
-| `bg_title.jpg` | 1920 × 1080 | 0, 0 | Must | Title screen (final art delivered: dark lace pattern, potion bottle and heart-shaped smoke on the right). **No title and no menu panel in it**: the logo (88, 194), menu panel (255, 455) and menu buttons are separate images on the left. |
+| `bg_title.jpg` | 1920 × 1080 | 0, 0 | Must | Title screen (final art delivered: dark lace pattern, potion bottle and heart-shaped smoke on the right). **No title and no menu panel in it**: the logo (88, 194), menu panel (255, 420) and menu buttons are separate images on the left. |
 | `bg_shop.jpg` | 1920 × 1080 | 0, 0 | Must | Shop interior: all dialogue scenes and endings. The bottom area (y 780–1000) is under the semi-transparent textbox; the centre (x 510–1410) is behind character sprites; the top-right corner (1660, 30 · 220 × 220) has the cat icon. |
 | `bg_workshop.jpg` | 1920 × 1080 | 0, 0 | Must | Potion screen: the workshop table, where the cauldron and the cat stand. The table surface should be roughly under the cauldron (600–1220 × 300–800) and the cat (1140–1480 × 230–750). Most of the screen is covered by UI; the background can be fairly simple. |
 
@@ -151,11 +151,12 @@ The six bottles should look like one set (similar shape family, different detail
 | File | Size | Position | States | Priority | Notes |
 |---|---|---|---|---|---|
 | `ui_logo.png` | 810 × 110 | 88, 194 (title screen) | — | Must | The title "BONDING POTION" with the underline, as in the mockup. **Transparent background.** |
-| `ui_menu_panel.png` | 490 × 535 | 255, 455 (title screen) | — | Must | Soft, semi-transparent light panel behind the menu buttons, with blurred edges (as in the mockup). **No text.** When Continue is hidden the game squeezes it to 490 × 400, so keep the top and bottom edges similar. |
-| `ui_title_start.png` | 440 × 100 | 280, 470 (title screen) | — | Must | The word **START**, dark, centred, **transparent background** (no button shape). The game makes it pink on hover, so one image is enough. |
-| `ui_title_continue.png` | 440 × 100 | 280, 605 | — | Must | The word **CONTINUE**, same style. Shown only when there is a save. |
-| `ui_title_load.png` | 440 × 100 | 280, 740 (605 without Continue) | — | Must | The word **LOAD**, same style. |
-| `ui_title_credits.png` | 440 × 100 | 280, 875 (740 without Continue) | — | Must | The word **CREDITS**, same style. |
+| `ui_menu_panel.png` | 490 × 570 | 255, 420 (title screen) | — | Must | Soft, semi-transparent light panel behind the menu buttons, with blurred edges (as in the mockup). **No text.** When Continue is hidden the game squeezes it to 490 × 460, so keep the top and bottom edges similar. |
+| `ui_title_start.png` | 440 × 100 | 280, 435 (title screen) | — | Must | The word **START**, dark, centred, **transparent background** (no button shape). The game makes it pink on hover, so one image is enough. |
+| `ui_title_continue.png` | 440 × 100 | 280, 545 | — | Must | The word **CONTINUE**, same style. Shown only when there is a save. |
+| `ui_title_load.png` | 440 × 100 | 280, 655 (545 without Continue) | — | Must | The word **LOAD**, same style. |
+| `ui_title_settings.png` | 440 × 100 | 280, 765 (655 without Continue) | — | Must | The word **SETTINGS**, same style. |
+| `ui_title_credits.png` | 440 × 100 | 280, 875 (765 without Continue) | — | Must | The word **CREDITS**, same style. |
 | `ui_portrait_frame.png` | 320 × 420 | Dialogue: 60, 600 · Potion: 40, 650 | — | Must | Frame around the Heroine portrait, drawn on top of it. **Transparent window 300 × 400 at 10, 10 inside the image**; the frame covers the outer 10 px of the 320 × 420 portrait. |
 | `ui_button_large_normal.png` | 400 × 100 | Ending card: 760, 880 | normal | Must | Button **without text** ("Title" is written by the game). The main menu doesn't use it: its buttons are word images (`ui_title_*`). |
 | `ui_button_large_hover.png` | 400 × 100 | same | hover | Should | Mouse over (PC only). |
@@ -225,11 +226,11 @@ The six bottles should look like one set (similar shape family, different detail
 | Crystals | 13 |
 | Element icons | 4 |
 | Bottles | 7 |
-| UI fixed images | 25 |
+| UI fixed images | 26 |
 | UI 9-slice frames | 3 |
 | Effects | 3 |
 | Other | 1 |
-| **Total** | **70** |
+| **Total** | **71** |
 
 **Suggested order:** element icons and crystals (they define the puzzle) → cauldron, liquid, cat on the table, recipe page, ingredient panel → Heroine portrait, cat icon, textbox, name plate, portrait frame → backgrounds → Chad and Jaros human sprites → bottles → buttons and their states → ending illustrations, logo, title background → effects, cursor, panel, favicon.
 

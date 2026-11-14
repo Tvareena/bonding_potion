@@ -132,7 +132,7 @@ bonding_potion/
 |---|---|
 | `BootScene` | Loads `config.json`, `layout.json`, `assets.json`; starts Preload. |
 | `PreloadScene` | Loads every asset in `assets.json`, the data files and the script. Shows a progress bar (drawn in code). Missing images are replaced by a generated coloured rectangle of the expected size with the asset name on it, and a warning is logged. Parses the script. |
-| `TitleScene` | Background, logo image, menu panel, word-image buttons Start / Continue / Load / Credits (layout `title.menuButtons`). Unlocks audio on the first click. |
+| `TitleScene` | Background, logo image, menu panel, word-image buttons Start / Continue / Load / Settings / Credits (layout `title.menuButtons`). Unlocks audio on the first click. |
 | `DialogueScene` | Runs a dialogue section of the script with `StoryRunner`. |
 | `PotionScene` | Runs one potion step: recipe, cauldron, menu, Brew/Empty, events from the script, resistance. |
 | `EndingScene` | Runs the chosen ending section, then shows the ending card. |

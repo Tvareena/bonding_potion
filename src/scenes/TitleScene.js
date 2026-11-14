@@ -5,7 +5,7 @@ import { openOverlay } from './OverlayScene.js';
 import { setupDebug } from '../systems/Debug.js';
 
 // Title screen (artist's mockup): background, logo image, a light panel, and buttons that are
-// transparent PNG images of their words: START, CONTINUE (only with a save), LOAD, CREDITS.
+// transparent PNG images of their words: START, CONTINUE (only with a save), LOAD, SETTINGS, CREDITS.
 export class TitleScene extends Phaser.Scene {
   constructor() { super('Title'); }
 
@@ -23,6 +23,7 @@ export class TitleScene extends Phaser.Scene {
       { key: 'ui_title_start', fn: () => this.start() },
       latest ? { key: 'ui_title_continue', fn: () => Flow.load(this, SaveSystem.latest()) } : null,
       { key: 'ui_title_load', fn: () => openOverlay(this, 'load') },
+      { key: 'ui_title_settings', fn: () => openOverlay(this, 'settings') },
       { key: 'ui_title_credits', fn: () => openOverlay(this, 'credits') }
     ].filter(Boolean);
 

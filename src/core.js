@@ -64,6 +64,12 @@ export function charName(id) {
   return c ? c.name : id;
 }
 
+/** Image key of a character (each human character has one image). */
+export function charImage(id) {
+  const c = G.characters[id];
+  return (c && c.image) || id;
+}
+
 export function potionById(id) {
   return G.potions.find(p => p.id === id);
 }

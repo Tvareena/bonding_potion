@@ -71,7 +71,7 @@ export class PreloadScene extends Phaser.Scene {
     this.scene.start('Title');
   }
 
-  /** Reports unknown speakers, expressions, backgrounds and potions in the script. */
+  /** Reports unknown speakers, backgrounds, images and potions in the script. */
   checkScript() {
     const imgs = G.assets.images;
     for (const s of G.script.sections) {
@@ -80,12 +80,12 @@ export class PreloadScene extends Phaser.Scene {
         if (r.kind === 'line' && r.speaker) {
           const c = G.characters[r.speaker];
           if (!c) warn(`script.txt line ${r.line}: unknown speaker "${r.speaker}"`);
-          else if (r.expr && !imgs[`${r.speaker}_${r.expr}`]) warn(`script.txt line ${r.line}: unknown expression "${r.speaker} ${r.expr}"`);
+          else if (r.expr) warn(`script.txt line ${r.line}: "${r.speaker} ${r.expr}:" — characters have one image, the word "${r.expr}" is ignored`);
         }
         if (r.kind === 'cmd') {
           if (r.name === 'bg' && !imgs['bg_' + r.args[0]]) warn(`script.txt line ${r.line}: unknown background "${r.args[0]}"`);
-          if ((r.name === 'show' || r.name === 'expr') && r.args[1] && !imgs[`${r.args[0]}_${r.args[1]}`]) warn(`script.txt line ${r.line}: unknown image "${r.args[0]}_${r.args[1]}"`);
-          if (!['bg', 'show', 'hide', 'expr', 'music', 'sfx', 'wait', 'on'].includes(r.name)) warn(`script.txt line ${r.line}: unknown command "@${r.name}"`);
+          if (r.name === 'show' && (!G.characters[r.args[0]] || G.characters[r.args[0]].kind !== 'sprite')) warn(`script.txt line ${r.line}: @show "${r.args[0]}" is not a sprite character`);
+          if (!['bg', 'show', 'hide', 'music', 'sfx', 'wait', 'on'].includes(r.name)) warn(`script.txt line ${r.line}: unknown command "@${r.name}"`);
         }
       }
     }

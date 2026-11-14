@@ -3,7 +3,7 @@ import { G, T, potionById } from '../core.js';
 // Visual-novel style saving (GDD §3.10, TDD §4.4).
 // - Autosave at the start of every step.
 // - Numbered slots (pages × perPage), each with a screenshot, time and the exact position.
-// Save data: { version, time, kind, sectionId, row, endingId, text, state, session, shot }
+// Save data: { version, time, kind, sectionId, row, endingId, text, state, session: { bg, music }, shot }
 //   row = index of the dialogue line to resume at (null = start of the section / potion).
 
 const KEYS = {
@@ -37,7 +37,7 @@ function base(extra) {
     version: G.config.saveVersion,
     time: Date.now(),
     state: G.state.toJSON(),
-    session: { bg: G.session.bg, heroineExpr: G.session.heroineExpr || null, music: G.session.music || null }
+    session: { bg: G.session.bg, music: G.session.music || null }
   }, extra);
 }
 

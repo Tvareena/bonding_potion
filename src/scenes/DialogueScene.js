@@ -1,4 +1,4 @@
-import { G, T, font, rect, charName, hasTexture, warn, isTouchDevice, goTo, autoDelayMs } from '../core.js';
+import { G, T, font, rect, charName, charImage, hasTexture, warn, isTouchDevice, goTo, autoDelayMs } from '../core.js';
 import { TextBox } from '../ui/TextBox.js';
 import { Portrait } from '../ui/Portrait.js';
 import { TextMenu } from '../ui/TextMenu.js';
@@ -26,7 +26,7 @@ export class DialogueScene extends Phaser.Scene {
     // Character sprite
     const sp = rect(L.sprite);
     this.spriteRect = sp;
-    this.sprite = this.add.image(sp.x, sp.y, 'chad_neutral').setOrigin(0, 0).setDepth(10).setVisible(false).setAlpha(0);
+    this.sprite = this.add.image(sp.x, sp.y, charImage('chad')).setOrigin(0, 0).setDepth(10).setVisible(false).setAlpha(0);
     this.spriteChar = null;
 
     // Textbox
@@ -101,18 +101,14 @@ export class DialogueScene extends Phaser.Scene {
 
   // ---- Script execution ----
 
-  /** Loading a save: replays backgrounds, sprites and expressions up to the saved line, without showing lines. */
+  /** Loading a save: replays backgrounds, sprites and music up to the saved line, without showing lines. */
   fastForward(target) {
     this.restoring = true;
     target = Math.min(target, this.rows.length);
     while (this.i < target) {
       const r = this.rows[this.i++];
       if (r.kind === 'cmd') {
-        if (['bg', 'show', 'hide', 'expr', 'music'].includes(r.name)) this.command(r);
-      } else if (r.kind === 'line' && r.speaker) {
-        const ch = G.characters[r.speaker];
-        if (ch && ch.kind === 'portrait' && r.expr) this.portrait.set(r.expr);
-        if (ch && ch.kind === 'sprite' && r.expr) this.showSprite(r.speaker, r.expr);
+        if (['bg', 'show', 'hide', 'music'].includes(r.name)) this.command(r);
       }
     }
     this.restoring = false;
@@ -149,12 +145,8 @@ export class DialogueScene extends Phaser.Scene {
     const a = r.args;
     switch (r.name) {
       case 'bg': this.setBackground(a[0]); break;
-      case 'show': this.showSprite(a[0], a[1]); break;
+      case 'show': this.showSprite(a[0]); break;
       case 'hide': this.hideSprite(); break;
-      case 'expr':
-        if (a[0] === 'heroine') this.portrait.set(a[1]);
-        else if (a[0] === this.spriteChar) this.showSprite(a[0], a[1]);
-        break;
       case 'music': G.audio.music(a[0]); break;
       case 'sfx': G.audio.sfx(a[0]); break;
       case 'wait': {
@@ -176,11 +168,10 @@ export class DialogueScene extends Phaser.Scene {
     this.tweens.add({ targets: this.bg, alpha: 1, duration: this.dur(500), onComplete: () => { old.destroy(); this.bg.setDepth(0); } });
   }
 
-  showSprite(id, expr) {
+  showSprite(id) {
     const ch = G.characters[id];
     if (!ch || ch.kind !== 'sprite') { warn(`@show: "${id}" is not a sprite character`); return; }
-    expr = expr || (this.spriteChar === id && this.spriteExpr) || ch.default || 'neutral';
-    const key = `${id}_${expr}`;
+    const key = charImage(id);
     if (!hasTexture(this, key)) { warn(`Unknown image "${key}"`); return; }
     const sp = this.spriteRect;
     if (this.spriteChar === id && this.sprite.visible) {
@@ -191,7 +182,6 @@ export class DialogueScene extends Phaser.Scene {
       this.tweens.add({ targets: this.sprite, alpha: 1, duration: this.dur(350) });
     }
     this.spriteChar = id;
-    this.spriteExpr = expr;
     this.catIcon.setVisible(id !== 'jaros_human');
   }
 
@@ -206,12 +196,7 @@ export class DialogueScene extends Phaser.Scene {
   showLine(r) {
     let name = null;
     if (r.speaker) {
-      const ch = G.characters[r.speaker];
       name = charName(r.speaker);
-      if (ch) {
-        if (ch.kind === 'portrait' && r.expr) this.portrait.set(r.expr);
-        if (ch.kind === 'sprite' && r.expr) this.showSprite(r.speaker, r.expr);
-      }
     }
     this.setSwing(r.speaker && G.characters[r.speaker] && G.characters[r.speaker].kind === 'cat');
     G.session.log.push({ name, text: r.text });

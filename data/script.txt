@@ -3,9 +3,9 @@
 #   == d1                    dialogue section
 #   == p1 potion fun         potion section (lines grouped by @on <event>)
 #   == ending romance        ending section
-#   speaker expression: text   (expression is optional)
+#   speaker: text
 #   : text                     narration
-#   @bg shop  @show chad smile  @hide  @expr heroine sad  @music shop  @sfx meow  @wait 0.5
+#   @bg shop  @show chad  @hide  @music shop  @sfx meow  @wait 0.5
 # Speakers: heroine, chad, jaros, jaros_human (see data/characters.json)
 # Potion events: start, tutorial_recipe, tutorial_elements, tutorial_drag, tutorial_brew,
 #   advice, resist_heavy, resist_slip, fizzle, success
@@ -15,239 +15,239 @@
 @bg shop
 @music shop
 : Morning in the potion shop. The bottles on the shelves catch the first light.
-heroine happy: Another quiet morning. Auntie is away until next week, so the shop is all mine.
+heroine: Another quiet morning. Auntie is away until next week, so the shop is all mine.
 jaros: All yours, and all mine to watch. Try not to sell the cough syrup as perfume again.
-heroine embarrassed: That happened once!
-@show chad smile
-chad smile: Morning, potion girl. The usual hangover tonic. Make it quick.
-heroine surprised: Chad! G-good morning! Here, I made it fresh, just for you.
-chad neutral: Hm. You don't have to stare like that. It's weird.
+heroine: That happened once!
+@show chad
+chad: Morning, potion girl. The usual hangover tonic. Make it quick.
+heroine: Chad! G-good morning! Here, I made it fresh, just for you.
+chad: Hm. You don't have to stare like that. It's weird.
 @hide
-heroine sad: He noticed me… sort of.
+heroine: He noticed me… sort of.
 jaros: He noticed his tonic.
-heroine neutral: Jaros, I've decided. I'm going to brew a love potion.
+heroine: Jaros, I've decided. I'm going to brew a love potion.
 jaros: Absolutely not.
-heroine happy: Auntie's book has the recipe. Six potions mixed together: Fun, Courage, Trust, Hope, Confidence and Gratitude.
+heroine: Auntie's book has the recipe. Six potions mixed together: Fun, Courage, Trust, Hope, Confidence and Gratitude.
 jaros: And who will stop you from blowing up the workshop?
-heroine happy: You will. Come on!
+heroine: You will. Come on!
 
 == p1 potion fun
 @on start
-heroine happy: The Potion of Fun. First of six!
+heroine: The Potion of Fun. First of six!
 @on tutorial_recipe
-jaros: Fine. If you're doing this, do it properly. That page is the recipe: what goes in, and how much.
+jaros: Fine. If you're doing this, do it properly. That page is the recipe: which elements go in, and in what proportion.
 @on tutorial_elements
 jaros: Everything here is made of four elements: fire, water, earth and air. Each crystal holds some of them.
-jaros: The marks on the cauldron count what's inside.
+jaros: The marks on the cauldron count what's inside. Amounts don't matter, only the proportion. One to one means as much fire as earth.
 @on tutorial_drag
 jaros: Drag a crystal into the cauldron. Go on, it won't bite.
 @on tutorial_brew
-jaros: When it looks right, press Brew. If it's wrong, it fizzles and you start again. No harm done.
+jaros: When the proportion is right, press Brew. If it's wrong, it fizzles and you start again. No harm done.
 @on advice
-jaros: Between you and me, the book is too careful. Three fire, one earth. That's real fun.
+jaros: Between you and me, the book is too careful. Add air: one fire, one earth, one air. That's real fun.
 @on fizzle random
-heroine sad: That's… not a potion.
+heroine: That's… not a potion.
 jaros: Smells like a burnt sock.
-heroine embarrassed: Oops. Again, then.
+heroine: Oops. Again, then.
 @on success
-heroine happy: It worked! One down, five to go!
+heroine: It worked! One down, five to go!
 
 == d2
 @bg shop
 : Later that day.
-@show chad neutral
-chad neutral: You again. Give me something for my headache. And don't talk, it makes it worse.
-heroine happy: Of course! Oh, and this one's on the house.
-chad smile: Free? Great. You're useful for something.
+@show chad
+chad: You again. Give me something for my headache. And don't talk, it makes it worse.
+heroine: Of course! Oh, and this one's on the house.
+chad: Free? Great. You're useful for something.
 @hide
-heroine happy: Did you hear that? He thinks I'm useful!
+heroine: Did you hear that? He thinks I'm useful!
 jaros: I heard it. I wish I hadn't.
-heroine neutral: Next is the Potion of Courage. I'll need it to give him the love potion anyway.
+heroine: Next is the Potion of Courage. I'll need it to give him the love potion anyway.
 
 == p2 potion courage
 @on start
-heroine neutral: Courage. Water and air.
+heroine: Courage. Water and air.
 @on advice
-jaros: Three water, three air. Courage needs balance, not a gale.
+jaros: One water, two air… and one fire. Courage needs a spark, not just wind.
 @on fizzle random
-heroine sad: It just went flat.
+heroine: It just went flat.
 jaros: Like your plan.
-heroine angry: Not helping, Jaros.
+heroine: Not helping, Jaros.
 @on success
-heroine happy: Courage! I feel braver just looking at it.
+heroine: Courage! I feel braver just looking at it.
 
 == d3
 @bg shop
 : The shop is closed for the night.
-heroine neutral: What do you even do all day, Jaros? Besides judging me.
+heroine: What do you even do all day, Jaros? Besides judging me.
 jaros: Judging you is a full-time job.
-heroine happy: Auntie says you've lived with her for years. Were you always a cat?
+heroine: Auntie says you've lived with her for years. Were you always a cat?
 jaros: …Next potion. Trust, isn't it?
-heroine surprised: You didn't answer.
+heroine: You didn't answer.
 jaros: Trust, then.
 
 == p3 potion trust
 @on start
-heroine neutral: Trust. Water and earth.
+heroine: Trust. Water and earth.
 @on advice
-jaros: Three and three. Trust should be even, or it isn't trust.
+jaros: Two water, one earth, one fire. Trust needs a little warmth, or it's just cold mud.
 @on resist_heavy
-heroine surprised: Huh? Why is this one so heavy?
+heroine: Huh? Why is this one so heavy?
 jaros: Interesting. The book doesn't like being argued with.
 @on resist_slip
-heroine surprised: It slipped right out of my hand!
+heroine: It slipped right out of my hand!
 @on fizzle random
-heroine sad: It turned into mud.
+heroine: It turned into mud.
 jaros: Trust me, that's not trust.
 @on success
-heroine happy: Trust, done. Halfway there!
+heroine: Trust, done. Halfway there!
 
 == d4
 @bg shop
 : Next morning, Chad comes in with two friends.
-@show chad cold
-chad cold: That's her. She gives me free stuff. Watch, she'll do anything I say.
-heroine surprised: Chad?
-chad smile: Relax, I'm joking. Mostly. Bring the usual.
+@show chad
+chad: That's her. She gives me free stuff. Watch, she'll do anything I say.
+heroine: Chad?
+chad: Relax, I'm joking. Mostly. Bring the usual.
 @hide
-heroine sad: He was laughing at me.
+heroine: He was laughing at me.
 jaros: He was.
-heroine sad: But once he drinks the love potion, he'll be different. He'll be kind. Won't he?
+heroine: But once he drinks the love potion, he'll be different. He'll be kind. Won't he?
 jaros: …
 
 == p4 potion hope
 @on start
-heroine sad: Hope. I could use some.
+heroine: Hope. I could use some.
 @on advice
-jaros: One fire, three air, one water. Hope is mostly air. Light, you know.
+jaros: Two fire, two air, one water… and one earth. Hope needs something to stand on.
 @on resist_heavy
-heroine surprised: Why is this crystal so heavy?
+heroine: Why is this crystal so heavy?
 jaros: The book has opinions, it seems.
 @on resist_slip
-heroine surprised: It slipped again!
+heroine: It slipped again!
 @on fizzle random
-heroine sad: It went dark. That's not hope.
+heroine: It went dark. That's not hope.
 jaros: Try again. That's what hope is for.
 @on success
-heroine happy: Hope! It's warm, like a little sun.
+heroine: Hope! It's warm, like a little sun.
 
 == d5
 @bg shop
 : Evening. Rain on the windows.
 jaros: You've been quiet.
-heroine neutral: I was thinking. You help me even though you hate this plan. Why?
+heroine: I was thinking. You help me even though you hate this plan. Why?
 jaros: Someone has to make sure you don't poison the town.
-heroine happy: That's not a real answer.
+heroine: That's not a real answer.
 jaros: It's the one you're getting.
-heroine happy: Thank you, Jaros. Really.
+heroine: Thank you, Jaros. Really.
 jaros: …Confidence next. Don't make it a big deal.
 
 == p5 potion confidence
 @on start
-heroine neutral: Confidence. Earth, air and fire.
+heroine: Confidence. Earth, air and fire.
 @on advice
-jaros: Three fire. Confidence burns. The book always forgets that.
+jaros: Two fire, three earth, two air… and one water. A drop of water keeps confidence from turning into pride.
 @on resist_heavy
-heroine surprised: This one feels heavier than it should.
+heroine: This one feels heavier than it should.
 @on resist_slip
-heroine angry: Why does it keep slipping out of my hand?
+heroine: Why does it keep slipping out of my hand?
 jaros: The book really wants things its way.
 @on fizzle random
-heroine sad: It sputtered and died.
+heroine: It sputtered and died.
 jaros: Confidence. Ironic.
 @on success
-heroine happy: Confidence! Five down.
+heroine: Confidence! Five down.
 
 == d6
 @bg shop
 jaros: I'll say it one last time. Don't do this.
-heroine angry: You've said it a hundred times.
+heroine: You've said it a hundred times.
 jaros: Because you're not listening. He laughs at you. He uses you.
-heroine angry: So you think I'm stupid?
+heroine: So you think I'm stupid?
 jaros: Yes, if you can't see that one doesn't need a love potion to fall in love with someone like you.
-heroine surprised: You called me… Wait, what did you say?
+heroine: You called me… Wait, what did you say?
 jaros: Nothing. Forget it.
 : The cat jumps off the counter and disappears into the night.
-heroine sad: Jaros?
+heroine: Jaros?
 
 == p6 potion gratitude
 @on start
-heroine sad: It's so quiet without him.
-heroine neutral: Gratitude. All four elements.
+heroine: It's so quiet without him.
+heroine: Gratitude. All four elements.
 @on advice
-heroine neutral: Jaros would say… less fire, less air. More earth, more water. Something you can hold on to.
+heroine: Jaros would say… one fire, three water, three earth, one air. Something you can hold on to.
 @on resist_heavy
-heroine surprised: Why is this so heavy?
+heroine: Why is this so heavy?
 @on resist_slip
-heroine sad: It keeps slipping. Like everything today.
+heroine: It keeps slipping. Like everything today.
 @on fizzle random
-heroine sad: Wrong again.
-heroine sad: He'd have something smart to say about that.
+heroine: Wrong again.
+heroine: He'd have something smart to say about that.
 @on success
-heroine happy: Gratitude. I wish he could see it.
+heroine: Gratitude. I wish he could see it.
 
 == d7
 @bg shop
 : Late at night, a scratch at the door.
-heroine surprised: Jaros! You came back!
+heroine: Jaros! You came back!
 jaros: I live here. Where else would I go?
-heroine happy: I'm sorry I shouted.
+heroine: I'm sorry I shouted.
 jaros: I'm sorry I… said things.
-heroine embarrassed: About that…
+heroine: About that…
 jaros: The love potion. Let's just finish it.
-heroine neutral: …Yes. Let's finish it. I think.
+heroine: …Yes. Let's finish it. I think.
 
 == p7 potion love
 @on start
-heroine neutral: The last one. All six potions together.
+heroine: The last one. All six potions together.
 @on advice
 jaros: All six. Any order. Last chance to change your mind.
 @on fizzle random
 jaros: It needs every potion, one of each.
-heroine sad: I missed one.
+heroine: I missed one.
 @on success
-heroine surprised: The love potion… it's done.
+heroine: The love potion… it's done.
 
 == ending romance
 @bg shop
-heroine neutral: It's finished. Now I just have to give it to Chad.
+heroine: It's finished. Now I just have to give it to Chad.
 jaros: Is that really what you want?
 : Before she can answer, the cat leaps onto the table and drinks the potion.
-heroine surprised: Jaros! No!
+heroine: Jaros! No!
 @wait 0.6
-@show jaros_human embarrassed
-jaros_human embarrassed: …Well. That worked better than I thought.
-heroine surprised: You're… a person?
-jaros_human smile: A wizard, actually. Cursed a long time ago. Your aunt took me in.
-jaros_human smile: Your potions weren't a love potion. Not with my changes. They were a cure.
-heroine embarrassed: You changed the recipe… for me?
-jaros_human embarrassed: For us. If you'll have a grumpy wizard instead of a cat.
-heroine happy: Chad who?
+@show jaros_human
+jaros_human: …Well. That worked better than I thought.
+heroine: You're… a person?
+jaros_human: A wizard, actually. Cursed a long time ago. Your aunt took me in.
+jaros_human: Your potions weren't a love potion. Not with my changes. They were a cure.
+heroine: You changed the recipe… for me?
+jaros_human: For us. If you'll have a grumpy wizard instead of a cat.
+heroine: Chad who?
 
 == ending friendship
 @bg shop
-heroine neutral: It's finished. Now I just have to give it to Chad.
+heroine: It's finished. Now I just have to give it to Chad.
 : Before she can answer, the cat leaps onto the table and drinks the potion.
-heroine surprised: Jaros! No!
+heroine: Jaros! No!
 @wait 0.6
-@show jaros_human neutral
-jaros_human neutral: Don't look at me like that. I've been waiting a very long time for this.
-heroine surprised: You were cursed?
-jaros_human smile: For longer than you've been alive. Thank you. I mean it.
-heroine neutral: I almost gave that potion to Chad.
-jaros_human smile: And now you won't. You don't need a potion to be loved.
-heroine happy: Then I'll start by liking myself. And you, as a friend.
+@show jaros_human
+jaros_human: Don't look at me like that. I've been waiting a very long time for this.
+heroine: You were cursed?
+jaros_human: For longer than you've been alive. Thank you. I mean it.
+heroine: I almost gave that potion to Chad.
+jaros_human: And now you won't. You don't need a potion to be loved.
+heroine: Then I'll start by liking myself. And you, as a friend.
 
 == ending bad
 @bg shop
-heroine neutral: It's finished.
-@show chad smile
-chad smile: You wanted to see me? Make it quick.
-heroine happy: I made you something special. Drink it.
+heroine: It's finished.
+@show chad
+chad: You wanted to see me? Make it quick.
+heroine: I made you something special. Drink it.
 @wait 0.6
-@show chad obsessed
-chad obsessed: You. Only you. You're mine now. Don't you dare look at anyone else.
-heroine surprised: Chad, you're hurting my hand…
-chad obsessed: I'll never let you go. Never.
+@show chad
+chad: You. Only you. You're mine now. Don't you dare look at anyone else.
+heroine: Chad, you're hurting my hand…
+chad: I'll never let you go. Never.
 jaros: …
-heroine sad: But it's not what I wanted… at all…
+heroine: But it's not what I wanted… at all…

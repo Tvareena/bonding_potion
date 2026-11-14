@@ -1,4 +1,4 @@
-import { G, T, font, rect } from '../core.js';
+import { G, T, rect } from '../core.js';
 import { Button } from '../ui/Button.js';
 import { SaveSystem } from '../systems/SaveSystem.js';
 import { Flow } from '../systems/StoryRunner.js';
@@ -30,12 +30,6 @@ export class TitleScene extends Phaser.Scene {
       const r = rect(L.buttons[i]);
       new Button(this, 'ui_button_large', r.x, r.y, r.w, r.h, it.label, it.fn);
     });
-
-    const seen = SaveSystem.seenEndings().length;
-    if (seen > 0) {
-      this.add.text(L.endingsSeen[0], L.endingsSeen[1], T('title.endingsSeen', { n: seen }),
-        font(28, { color: G.config.colors.menu, fontStyle: 'bold' })).setOrigin(0.5);
-    }
 
     G.audio.music('shop');
     setupDebug(this);

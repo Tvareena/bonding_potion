@@ -8,7 +8,7 @@
 | **Related** | [Technical Design Document](Technical%20Design%20Document.md), [Art List](Art%20List.md) |
 | **Repository** | https://github.com/Tvareena/bonding_potion |
 
-> Character names (Heroine, Chad) are working names. Dialogue lines are not final. Every line, speaker, expression and scene change lives in an editable script file (see the TDD), so the scenario can be rewritten without code changes. The lines quoted here only mark story beats.
+> Character names (Heroine, Chad) are working names. Dialogue lines are not final. Every line, speaker and scene change lives in an editable script file (see the TDD), so the scenario can be rewritten without code changes. The lines quoted here only mark story beats.
 
 ---
 
@@ -43,12 +43,12 @@ The Heroine sells potions in her aunt's shop. She is in love with Chad, a custom
 
 ### 2.2 Characters
 
-| ID | Name | Role | How shown | Expressions / variants |
+| ID | Name | Role | How shown | Images |
 |---|---|---|---|---|
-| `heroine` | Heroine *(working name)* | Protagonist | Portrait to the left of the textbox, on every screen | neutral, happy, sad, angry, surprised, embarrassed |
-| `chad` | Chad *(working name)* | Love interest; charming at first, then shows he's selfish and cruel | Half-body sprite, dialogue screen | neutral, smile, cold, obsessed |
+| `heroine` | Heroine *(working name)* | Protagonist | Portrait to the left of the textbox, on every screen | one image (one emotion) |
+| `chad` | Chad *(working name)* | Love interest; charming at first, then shows he's selfish and cruel | Half-body sprite, dialogue screen | one image (one emotion) |
 | `jaros` | Jaros | The aunt's black cat familiar; sarcastic, grumpy, caring. Secretly a wizard under a curse | Cat head icon (dialogue screen), cat on the table (potion screen) | one image each |
-| `jaros_human` | Jaros (human form) | The freed wizard, in two endings | Half-body sprite, dialogue screen | neutral, smile, embarrassed |
+| `jaros_human` | Jaros (human form) | The freed wizard, in two endings | Half-body sprite, dialogue screen | one image (one emotion) |
 | — | The Aunt | Potion maker, owner of the shop and the book | **Never appears on screen**, only mentioned | — |
 
 ### 2.3 Story structure
@@ -109,49 +109,59 @@ The shapes make elements readable for colour-blind players. Exact colour values 
 
 ### 3.3 Crystals (ingredients)
 
-Crystals are unlimited. Each adds fixed element units. New crystals unlock as the story goes on, and an unlocked crystal stays available.
+Crystals are unlimited. Each adds fixed element units. **Each potion has its own set of crystals** (`potions.json → crystals`): the first potions use simple crystals; later potions drop some simple ones and bring uneven mixes, so matching a ratio takes more thought.
 
-| ID | Crystal | Fire | Water | Earth | Air | Unlocks at |
-|---|---|---|---|---|---|---|
-| `ember_shard` | Ember Shard | 1 | | | | P1 |
-| `root_stone` | Root Stone | | | 1 | | P1 |
-| `lava_garnet` | Lava Garnet | 1 | | 1 | | P1 |
-| `tide_pearl` | Tide Pearl | | 1 | | | P2 |
-| `wisp_quartz` | Wisp Quartz | | | | 1 | P2 |
-| `storm_opal` | Storm Opal | | 1 | | 1 | P2 |
-| `deep_sapphire` | Deep Sapphire | | 2 | | | P3 |
-| `marsh_jade` | Marsh Jade | | 1 | 1 | | P3 |
-| `sun_citrine` | Sun Citrine | 1 | | | 1 | P4 |
-| `blaze_ruby` | Blaze Ruby | 2 | | | | P4 |
-| `sky_amethyst` | Sky Amethyst | | | | 2 | P4 |
-| `mountain_amber` | Mountain Amber | | | 2 | | P5 |
-| `dusk_prism` | Dusk Prism | 1 | | 1 | 1 | P5 |
+| ID | Crystal | Fire | Water | Earth | Air |
+|---|---|---|---|---|---|
+| `ember_shard` | Ember Shard | 10 | | | |
+| `root_stone` | Root Stone | | | 10 | |
+| `wisp_quartz` | Wisp Quartz | | | | 10 |
+| `tide_pearl` | Tide Pearl | | 10 | | |
+| `lava_garnet` | Lava Garnet | 10 | | 10 | |
+| `storm_opal` | Storm Opal | | 10 | | 10 |
+| `deep_sapphire` | Deep Sapphire | | 30 | | |
+| `marsh_jade` | Marsh Jade | | 10 | 20 | |
+| `sun_citrine` | Sun Citrine | 20 | | | 10 |
+| `blaze_ruby` | Blaze Ruby | 30 | | | |
+| `sky_amethyst` | Sky Amethyst | | | | 30 |
+| `mountain_amber` | Mountain Amber | | | 30 | |
+| `dusk_prism` | Dusk Prism | 20 | | 10 | 10 |
 
-Number of crystals in the menu: P1 = 3, P2 = 6, P3 = 8, P4 = 11, P5–P6 = 13.
+| Potion | Crystals in the menu |
+|---|---|
+| P1 Fun | Ember Shard, Root Stone, Wisp Quartz, Lava Garnet |
+| P2 Courage | Ember Shard, Root Stone, Wisp Quartz, Tide Pearl, Storm Opal |
+| P3 Trust | Ember Shard, Root Stone, Tide Pearl, Lava Garnet, Deep Sapphire, Marsh Jade |
+| P4 Hope | Ember Shard, Root Stone, Wisp Quartz, Tide Pearl, Storm Opal, Lava Garnet, Sun Citrine, Blaze Ruby |
+| P5 Confidence | Root Stone, Wisp Quartz, Tide Pearl, Marsh Jade, Sun Citrine, Sky Amethyst, Mountain Amber, Dusk Prism |
+| P6 Gratitude | Tide Pearl, Lava Garnet, Storm Opal, Deep Sapphire, Marsh Jade, Blaze Ruby, Sky Amethyst, Mountain Amber, Dusk Prism |
 
 ### 3.4 Recipes and the hidden check
 
-| # | ID | Potion | Book recipe | Cat's advice | Units (book / cat) |
-|---|---|---|---|---|---|
-| 1 | `fun` | Fun | Fire 2, Earth 2 | Fire 3, Earth 1 | 4 / 4 |
-| 2 | `courage` | Courage | Water 2, Air 4 | Water 3, Air 3 | 6 / 6 |
-| 3 | `trust` | Trust | Water 4, Earth 2 | Water 3, Earth 3 | 6 / 6 |
-| 4 | `hope` | Hope | Fire 2, Air 2, Water 1 | Fire 1, Air 3, Water 1 | 5 / 5 |
-| 5 | `confidence` | Confidence | Earth 3, Air 2, Fire 2 | Earth 2, Air 2, Fire 3 | 7 / 7 |
-| 6 | `gratitude` | Gratitude | Fire 2, Earth 2, Air 2, Water 2 | Fire 1, Earth 3, Air 1, Water 3 | 8 / 8 |
-| 7 | `love` | Love | One of each finished potion 1–6 | — | — |
+Recipes are **ratios**, not amounts. The recipe page shows the book recipe as element icons in a row with the ratio numbers below them (for example 2 : 3 : 2).
 
-**Check rule (potions 1–6).** On Brew, the game compares the cauldron's totals for all four elements with the book recipe and with the cat's version. They must match **exactly**, including zero for elements not in the recipe.
-- Exact match with the book → success, recorded as `book`.
-- Exact match with the cat → success, recorded as `cat`.
+Every cat recipe **adds an element the book doesn't use** (Gratitude can't: its book recipe already uses all four, so the cat changes only the proportions). That makes the cat's way clearly "against the book", which the resistance catches (3.6).
+
+| # | ID | Potion | Book ratio | Cat's ratio | Cat's extra element | Fewest crystals (book / cat) |
+|---|---|---|---|---|---|---|
+| 1 | `fun` | Fun | Fire 1 : Earth 1 | Fire 1 : Earth 1 : Air 1 | Air | 1 / 2 |
+| 2 | `courage` | Courage | Water 1 : Air 2 | Water 1 : Air 2 : Fire 1 | Fire | 2 / 3 |
+| 3 | `trust` | Trust | Water 2 : Earth 1 | Water 2 : Earth 1 : Fire 1 | Fire | 2 / 3 |
+| 4 | `hope` | Hope | Fire 2 : Air 2 : Water 1 | Fire 2 : Air 2 : Water 1 : Earth 1 | Earth | 2 / 3 |
+| 5 | `confidence` | Confidence | Fire 2 : Earth 3 : Air 2 | Fire 2 : Earth 3 : Air 2 : Water 1 | Water | 3 / 3 |
+| 6 | `gratitude` | Gratitude | 1 : 1 : 1 : 1 (all four) | Fire 1 : Water 3 : Earth 3 : Air 1 | — (proportions only) | 2 / 4 |
+| 7 | `love` | Love | One of each finished potion 1–6 | — | — | — |
+
+The last column was checked by searching every combination of each potion's crystals: all 12 recipes can be made.
+
+**Check rule (potions 1–6).** On Brew, the game compares the **ratio** of the four elements in the cauldron with the book ratio and the cat's ratio. Amounts don't matter, only proportions; elements not in a recipe must be 0. Example: a 1 : 1 recipe succeeds with 30 fire and 30 water (two 10-fire crystals plus one "10 fire + 30 water" crystal).
+- Same ratio as the book → success, recorded as `book`.
+- Same ratio as the cat → success, recorded as `cat`.
 - Otherwise → fizzle.
 
-Both successes look and sound the same. Book and cat totals are always the same size, so the counter alone doesn't give the choice away.
+Both successes look and sound the same.
 
 **Potion 7.** The **Potions** tab is active and the **Crystals** tab is locked. The cauldron must contain each of the six finished bottles exactly once (in any order). Brew → the love potion appears large on screen (256 × 256 bottle), and the game moves to D8. Adding a bottle twice isn't possible, since each bottle leaves the shelf when used. Empty puts them back.
-
-**Every cat recipe needs at least one element above the book amount** (Fun: Fire 3 > 2; Courage: Water 3 > 2; Trust: Earth 3 > 2; Hope: Air 3 > 2; Confidence: Fire 3 > 2; Gratitude: Earth 3, Water 3 > 2). This is what lets the resistance (3.6) catch the cat's way.
-
 ### 3.5 Brewing interactions
 
 | Action | Result |
@@ -173,11 +183,15 @@ The game "wants" the book recipe. It helps more and pushes back harder as the st
 | Level | Potions | Guidance | Resistance |
 |---|---|---|---|
 | 1 | P1, P2 | After 10 s without adding a crystal, the recipe page glows softly. | None. |
-| 2 | P3, P4 | Recipe lines glow; crystals that fit the book (don't exceed any book amount) get a soft outline in the menu. | **Heavy drag**: an off-recipe crystal lags behind the pointer while dragged. |
+| 2 | P3, P4 | Recipe elements whose share is still too small glow; crystals that follow the book get a soft outline in the menu. | **Heavy drag**: an off-recipe crystal lags behind the pointer while dragged. |
 | 3 | P5, P6 | Strong glow, the recipe pulses, fitting crystals nudge forward in their cells. | Heavy drag, plus **cursor drift** (PC) and **slipping** (3.6.1). The Heroine comments the first time. |
 | — | P7 | None. | None. |
 
-**Off-recipe crystal:** a crystal that would push any element **above** the book amount, given what's already in the cauldron. This is checked again on every drag, so the same crystal can be fine at first and off-recipe later.
+**Off-recipe crystal** ("against the book"), either:
+- it contains an element the book recipe doesn't use (the cat's extra element), or
+- adding it moves the mix **further from the book ratio** than it is now.
+
+This is checked again on every drag, so the same crystal can be fine at one moment and off-recipe the next. Building toward the book ratio sometimes needs a step that is briefly further away; that step is resisted too, but never blocked.
 
 #### 3.6.1 Resistance rules
 
@@ -186,7 +200,7 @@ The game "wants" the book recipe. It helps more and pushes back harder as the st
 - **Slipping** (level 3): an off-recipe crystal may fall out of the hand and fly back to its cell, even while the button is held. It never slips twice in a row for the same crystal, so the second try always works.
 - **Comments:** the first heavy drag in P3 and the first slip in P5 trigger a Heroine line (for example "Why is this one so heavy?" / "Why does it keep slipping?"). Each comment plays once per playthrough.
 - Mobile gets heavy drag and slipping; cursor drift is PC-only.
-- In P6 the cat is gone; his advice shows as the Heroine's recollection ("Jaros would say… more earth, more water."). Resistance stays at level 3.
+- In P6 the cat is gone; his advice shows as the Heroine's recollection ("Jaros would say… one fire, three water, three earth, one air."). Resistance stays at level 3.
 
 Exact timings and chances are in the TDD (config values) and tuned in playtesting. The goal: annoying enough to notice, never enough to stop the player.
 
@@ -209,7 +223,6 @@ After the tutorial, the player brews freely.
 | Advance | Click, tap, Space or Enter. While text is typing, the first click finishes the line instantly. Works the same on the dialogue and potion screens (3.9). | Must |
 | Typewriter text | Lines appear letter by letter; speed set in Settings. | Should |
 | Cat icon swing | The cat head icon rocks gently while a Jaros line is shown. | Should |
-| Expressions | Heroine portrait and character sprites change per line, from the script. | Must |
 | Log | Opens a panel with all lines seen in this session, scrollable. | Should |
 | Auto | Toggle (also in Settings). Lines advance by themselves after they finish; the pause depends on line length and the **Auto speed** setting (slow / normal / fast). One setting for the whole game, remembered between sessions. | Should |
 | Skip | Toggle. Fast-forwards dialogue until the next potion screen or the end of the scene. | Could |
@@ -236,7 +249,7 @@ The six menu items are text-only (no button art) in the bottom-right of the text
 Saving works like a standard visual novel. Everything is stored in the browser.
 
 - **Save slots:** 18 slots on 3 pages of 6. Each slot shows a screenshot, slot number, date and time, the scene name ("Scene 3", a potion name or an ending name) and the line on screen.
-- **Saving** (dialogue menu **Save**, or **Save** in the pause panel) stores the exact position: on the dialogue screen the current line, with background, sprite and Heroine expression; on the potion screen the potion (it restarts from its beginning when loaded). Saving over a used slot asks for confirmation.
+- **Saving** (dialogue menu **Save**, or **Save** in the pause panel) stores the exact position: on the dialogue screen the current line, with background and sprite; on the potion screen the potion (it restarts from its beginning when loaded). Saving over a used slot asks for confirmation.
 - **Loading** (dialogue menu **Load**, **Load** in the pause panel, or **Load** on the title screen) opens the same slot screen with an extra **Auto** page for the autosave. Loading during play asks for confirmation ("Unsaved progress will be lost").
 - **Autosave:** at the start of every step.
 - **Continue** on the title screen loads the most recent save (autosave or slot). It's hidden if there are no saves.
@@ -247,7 +260,7 @@ Saving works like a standard visual novel. Everything is stored in the browser.
 ### 3.11 Editing content (team tool)
 
 The team gets a separate **content editor** page (not part of the game the player sees), described in TDD §13:
-- **Texts tab:** change dialogue lines, speakers, expressions and scene commands; character names; potion and crystal names and flavour lines; all interface texts (buttons, menus, hints, ending names). Warns about lines too long for the textbox.
+- **Texts tab:** change dialogue lines, speakers and scene commands; character names; potion and crystal names and flavour lines; all interface texts (buttons, menus, hints, ending names). Warns about lines too long for the textbox.
 - **Art tab:** see which images are still temporary, and replace them with final art by drag-and-drop, with size checks and automatic resizing.
 
 It works in Chrome or Edge on a computer with the project folder. Player-visible text never lives in the game code.
@@ -274,7 +287,7 @@ Esc (PC) or the **Menu** text button opens the pause panel on dialogue and potio
 
 ### 4.2 Title screen
 
-Background picture on the right; logo and up to five buttons on the left: Start, Continue (only if there is a save), Load, Credits, Settings. "Endings found: N of 3" under the buttons once an ending has been seen. A short fade to the first scene on Start.
+Background picture on the right; logo and up to five buttons on the left: Start, Continue (only if there is a save), Load, Credits, Settings. A short fade to the first scene on Start.
 
 ### 4.3 Dialogue screen
 
@@ -329,7 +342,7 @@ Hand-drawn 2D. Expressive characters with simple silhouettes. The colour palette
 
 | Priority | Features |
 |---|---|
-| **Must** | Title (Start); dialogue screen with advance and idle hint; script file; expressions; potion screen with recipe, drag-and-drop, counter, Brew, Empty, fizzle, success, Next; all 7 potions; hidden book/cat record; 3 endings + ending card with ending illustrations; temporary art for every asset; GitHub Pages build. |
+| **Must** | Title (Start); dialogue screen with advance and idle hint; script file; potion screen with recipe, drag-and-drop, counter, Brew, Empty, fizzle, success, Next; all 7 potions; hidden book/cat record; 3 endings + ending card with ending illustrations; temporary art for every asset; GitHub Pages build. |
 | **Should** | Guidance and resistance (all levels); P1 tutorial sequence; typewriter text; cat icon swing; sorting; tap-to-place; Log; pause panel; save slots, Load and Continue; Auto with speed setting; Credits; content editor (Texts and Art tabs). |
 | **Could** | Skip, audio, seen-endings marks. |
 

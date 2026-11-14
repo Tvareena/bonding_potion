@@ -23,7 +23,6 @@ Source files are in [layouts/](layouts/). Each layout has an `.svg` file (exact,
 | Load button | 300, 690 | 400 × 100 | |
 | Credits button | 300, 805 | 400 × 100 | |
 | Settings button | 300, 920 | 400 × 100 | |
-| "Endings found: N of 3" | centred at 500, 1052 | — | Text drawn by the game, once an ending has been seen. |
 
 ## 2. Dialogue screen
 
@@ -41,7 +40,7 @@ Drawing order, back to front: background → character sprite → textbox → na
 | Line text area | 400, 810 | 1440 × 110 | Text only, no art. |
 | Text menu (Log, Auto, Skip, Save, Load, Settings) | first at 1020, 945, then every 140 px to the right | 120 × 40 click area each | Text-only buttons: no background or frame, the player sees and clicks just the words. The click area is invisible. Hover and pressed states are shown by the game (text colour or underline). **No art needed.** |
 | Heroine portrait frame | 60, 600 | 320 × 420 | Overlaps the left end of the textbox. |
-| Heroine portrait | 70, 610 | 300 × 400 | Inside the frame. 6 expressions, all the same size and framing. |
+| Heroine portrait | 70, 610 | 300 × 400 | Inside the frame. One image (one emotion). |
 
 ## 3. Cat head icon
 
@@ -61,11 +60,11 @@ Drawing order, back to front: background → character sprite → textbox → na
 
 | Property | Value |
 |---|---|
-| Canvas | 900 × 1000, the same for every character and expression |
+| Canvas | 900 × 1000, the same for every character |
 | Position on screen | 510, 80 (centre line at screen x 960) |
 | Head zone | 300, 60 · 300 × 300 inside the sprite. Keep the face here so all characters line up. |
 | Behind the textbox | y 700–1000 inside the sprite (screen y 780 and below). It shows through the semi-transparent textbox, so keep important details above this line. |
-| Used for | Chad (4 expressions), Jaros in human form (3 expressions) |
+| Used for | Chad and Jaros in human form, one image each (one emotion) |
 
 ## 5. Potion-brewing screen
 
@@ -76,7 +75,7 @@ Drawing order, back to front: background → cat → cauldron → everything els
 | Element | Position | Size | Notes |
 |---|---|---|---|
 | Workshop background | 0, 0 | 1920 × 1080 | Includes the table surface. |
-| Recipe book page | 40, 40 | 560 × 580 | Empty page; the game writes the potion name, element icons and text on it. |
+| Recipe book page | 40, 40 | 560 × 580 | Empty page; the game writes the potion name, a row of element icons (64 × 64, starting at y 240) with the ratio numbers under them (e.g. 2 : 3 : 2), and the flavour line. |
 | Next arrow | 1760, 40 | 120 × 120 | Normal, hover, pressed and disabled states. |
 | Menu (text-only) | 1620, 80 | 120 × 40 click area | Opens the pause panel. No art needed. |
 | Cat on the table | 1140, 230 | 340 × 520 | One pose, partly hidden behind the cauldron. Not shown in potion 6. |

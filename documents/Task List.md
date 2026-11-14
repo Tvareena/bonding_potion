@@ -30,19 +30,19 @@ All tasks except drawing the art. Art *integration* (placeholders, replacing fil
 
 | ID | Task | Owner | Priority | Depends on | Done when |
 |---|---|---|---|---|---|
-| D1 | `data/assets.json`: every image from the Art List (73 files) with key, path, required size and group (TDD §5.7); 9-slice settings for `ui_textbox`, `ui_nameplate`, `ui_panel`; audio entries | Dev | Must | S1 | Every Art List file has an entry. |
+| D1 | `data/assets.json`: every image from the Art List (63 files) with key, path, required size and group (TDD §5.7); 9-slice settings for `ui_textbox`, `ui_nameplate`, `ui_panel`; audio entries | Dev | Must | S1 | Every Art List file has an entry. |
 | D2 | `data/layout.json`: all positions and sizes from Screen Layouts (title, dialogue, potion, ending card, panels) | Dev | Must | S1 | Numbers match Screen Layouts exactly. |
 | D3 | `data/config.json`: element colours, text speeds, hint timings, resistance values, ending thresholds (TDD §5.5) | Dev | Must | S1 | All keys from TDD §5.5 present with defaults. |
 | D4 | `data/potions.json`: 7 potions with book/cat recipes, guidance level, cat present, unlocks, flavour text (GDD §3.4) | Design | Must | — | Matches GDD §3.4; flavour line written for each potion. |
 | D5 | `data/crystals.json`: 13 crystals with elements (GDD §3.3) | Design | Must | — | Matches GDD §3.3. |
-| D6 | `data/characters.json`: heroine, chad, jaros, jaros_human with display names and default expressions | Design | Must | — | File valid; names editable in one place. |
+| D6 | `data/characters.json`: heroine, chad, jaros, jaros_human with display names and image keys (one image per character) | Design | Must | — | File valid; names editable in one place. |
 | D7 | `data/texts.json`: every player-visible text that isn't a line or a name (buttons, menus, hints, panels, ending names; TDD §5.8). Code uses only keys from it | Dev + Design | Must | S1 | Searching the code finds no player-visible English text. |
 
 ## 3. Placeholders and art pipeline
 
 | ID | Task | Owner | Priority | Depends on | Done when |
 |---|---|---|---|---|---|
-| A1 | `tools/make_placeholders.ps1`: creates every missing image from `assets.json` at the right size (flat colour, border, asset name); never overwrites existing files; records each file with its checksum in `assets/placeholders.json` | Dev | Must | D1 | Running it fills `assets/images/` with 73 files and lists them in `placeholders.json`. |
+| A1 | `tools/make_placeholders.ps1`: creates every missing image from `assets.json` at the right size (flat colour, border, asset name); never overwrites existing files; records each file with its checksum in `assets/placeholders.json` | Dev | Must | D1 | Running it fills `assets/images/` with 63 files and lists them in `placeholders.json`. |
 | A2 | Generate and commit all placeholder images | Dev | Must | A1 | The game runs with no missing images. |
 | A3 | Runtime fallback: a missing image becomes a generated rectangle of the expected size, with a console warning | Dev | Should | D1 | Deleting a file doesn't crash the game. |
 | A4 | Short "How to replace art" note in the repository README (editor Art tab, or by hand: same name, same size, same folder; JPG for backgrounds) | Dev | Should | A2 | The artist can replace a file without asking. |
@@ -54,7 +54,7 @@ All tasks except drawing the art. Art *integration* (placeholders, replacing fil
 | ID | Task | Owner | Priority | Depends on | Done when |
 |---|---|---|---|---|---|
 | C1 | `BootScene` and `PreloadScene`: load config, layout, assets, data, script; progress bar drawn in code | Dev | Must | S3, D1–D3 | All assets load; progress bar shows. |
-| C2 | `ScriptParser`: sections (`== id`, `potion`, `ending`), lines with speaker and expression, narration, commands (`@bg`, `@show`, `@hide`, `@expr`, `@music`, `@sfx`, `@wait`, `@on … [random]`); warnings for unknown items | Dev | Must | C1 | Parses the sample script from TDD §5.1; bad lines are skipped with a warning. |
+| C2 | `ScriptParser`: sections (`== id`, `potion`, `ending`), lines with speaker, narration, commands (`@bg`, `@show`, `@hide`, `@music`, `@sfx`, `@wait`, `@on … [random]`); warnings for unknown items | Dev | Must | C1 | Parses the sample script from TDD §5.1; bad lines are skipped with a warning. |
 | C3 | `GameState`: step index, book/cat choices, flags, session log; ending choice with thresholds from config | Dev | Must | D3 | Unit-checked with 0–6 cat choices → correct ending. |
 | C4 | `StoryRunner`: walks sections in file order, opens Dialogue / Potion / Ending scenes, picks the ending section | Dev | Must | C2, C3 | Full flow from D1 to the ending runs with placeholder text. |
 | C5 | `SaveSystem`: autosave at each step start; settings and seen endings stored separately; version check; safe when `localStorage` is unavailable | Dev | Should | C3 | Reloading the page and pressing Continue resumes at the saved step. |
@@ -66,7 +66,7 @@ All tasks except drawing the art. Art *integration* (placeholders, replacing fil
 |---|---|---|---|---|---|
 | U1 | `Button`: image button with normal / hover / pressed (+ disabled), text label drawn on top; hover only with a mouse | Dev | Must | C1 | All image buttons use it. |
 | U2 | `TextBox`: 9-slice box, name plate (hidden for narration), text wrapping and shrink-to-fit, typewriter with click-to-complete | Dev | Must | C1 | Lines up to ~3 rows fit in both textbox sizes. |
-| U3 | `Portrait`: Heroine portrait with frame, expression swap | Dev | Must | C1 | Expressions change from the script. |
+| U3 | `Portrait`: Heroine portrait with frame (one image) | Dev | Must | C1 | Portrait shows on both screens. |
 | U4 | `TextMenu`: text-only items with invisible 120 × 40 hit areas, hover colour/underline; hides unimplemented items and re-aligns | Dev | Must | C1 | Menu matches Screen Layouts. |
 | U5 | `Panel`: 9-slice panel at 360, 140 · 1200 × 800 over a dimmed screen | Dev | Should | C1 | Used by the overlay panels. |
 | U6 | `IngredientMenu`: panel, tabs (Crystals / Potions), sort row, 3 × 5 grid of cells | Dev | Must | C1 | Layout matches Screen Layouts. |
@@ -76,7 +76,7 @@ All tasks except drawing the art. Art *integration* (placeholders, replacing fil
 | ID | Task | Owner | Priority | Depends on | Done when |
 |---|---|---|---|---|---|
 | T1 | `TitleScene`: background, logo, Start / Continue / Settings on the left; Continue hidden without a save; confirm before overwriting a save; fade to D1 | Dev | Must | U1, C5 | Matches the main menu layout. |
-| T2 | `DialogueScene`: background cross-fade, sprite show/hide/expressions with fades, textbox, portrait, cat icon, text menu, advance (click, tap, Space, Enter) | Dev | Must | U2–U4, C4 | D1 plays fully with placeholders. |
+| T2 | `DialogueScene`: background cross-fade, sprite show/hide with fades, textbox, portrait, cat icon, text menu, advance (click, tap, Space, Enter) | Dev | Must | U2–U4, C4 | D1 plays fully with placeholders. |
 | T3 | Idle hint "Click to continue" / "Tap to continue" after 5 s; stops after 3 advances | Dev | Must | T2 | Works on desktop and touch. |
 | T4 | Cat icon swing: ±8° around pivot 110, 196 while a `jaros` line is shown | Dev | Should | T2 | Swings only on Jaros lines. |
 | T5 | `PotionScene` layout: recipe page with name, element icons and amounts, flavour; cauldron, liquid layer, counter; cat on the table (hidden in P6); Brew, Empty, Next (disabled until success); Menu text button; portrait and textbox | Dev | Must | U1–U3, U6, D4 | Matches the potion screen layout. |
@@ -124,7 +124,7 @@ All tasks except drawing the art. Art *integration* (placeholders, replacing fil
 |---|---|---|---|---|---|
 | W1 | Decide final names for the Heroine and Chad; update `characters.json` | Design | Should | D6 | Names final. |
 | W2 | Write the story events for D3 and D5 (open in GDD §2.3) | Design | Must | — | Beats agreed. |
-| W3 | Write dialogue D1–D7 in the script format (TDD §5.1), with expressions, sprites and backgrounds | Design | Must | W2 | All dialogue sections play in the game. |
+| W3 | Write dialogue D1–D7 in the script format (TDD §5.1), with sprites and backgrounds | Design | Must | W2 | All dialogue sections play in the game. |
 | W4 | Write potion-screen lines for P1–P7: `start`, `advice`, `fizzle` (several, random), `success`; P6 as the Heroine's memories of the cat | Design | Must | — | Every potion has at least start, advice, fizzle and success lines. |
 | W5 | Write the resistance comments (`resist_heavy`, `resist_slip`) | Design | Should | — | Lines in the script. |
 | W6 | Write the three endings (romance, friendship, bad, with the final line "But it's not what I wanted… at all…") and the ending names for the cards | Design | Must | — | All three ending sections play. |
@@ -155,13 +155,13 @@ All tasks except drawing the art. Art *integration* (placeholders, replacing fil
 |---|---|---|---|---|---|
 | E1 | `editor.html` shell: tabs (Texts, Art), "Choose project folder" with File System Access API, remembered folder (IndexedDB), message in unsupported browsers | Dev | Should | S4 | Folder chosen once; works in Chrome and Edge; Firefox shows the message. |
 | E2 | Safe saving: backups to `.backup/<date-time>/`, `.backup/` in `.gitignore`, unsaved-changes marks and leave-page warning | Dev | Should | E1 | Every overwrite leaves a backup; nothing is lost on accidental close. |
-| E3 | Art tab grid: cards from `assets.json` grouped as in the Art List; thumbnail, name, required size, folder, Temporary/Final status; filters, search, progress counter | Dev | Should | E1, A1 | All 73 images listed with the right status. |
+| E3 | Art tab grid: cards from `assets.json` grouped as in the Art List; thumbnail, name, required size, folder, Temporary/Final status; filters, search, progress counter | Dev | Should | E1, A1 | All 63 images listed with the right status. |
 | E4 | Art replace: drag-and-drop or *Replace…*; format, size and transparency checks; Resize to fit / Crop to fill; save as PNG or JPG per path; update `placeholders.json` | Dev | Should | E2, E3 | A wrong-size image can be fixed and saved in two clicks; the game shows it after reload. |
 | E5 | Art preview "Show in place" using `layout.json`; *Restore previous*; *Rescan* (detects files replaced by hand via checksum) | Dev | Could | E4, D2 | Preview matches the game layout; restore brings back the old file. |
 | E6 | `ScriptWriter.js`: writes parsed sections back to `script.txt` in the TDD §5.1 format, keeping comments | Dev | Should | C2 | Parse → write → parse gives the same result on the full script. |
-| E7 | Texts tab, Scenes: section list, row table (speaker, expression, text, command rows with drop-downs), add/delete/duplicate/move rows, potion events with "random" checkbox | Dev | Should | E1, E6 | Any line can be changed and saved; the game plays the change after reload. |
-| E8 | Texts tab, Characters / Potions & crystals / Interface texts: edit names, flavour lines and `texts.json`; add a character with expressions (adds assets and placeholders) | Dev | Should | E7, D7 | Renaming the Heroine in the editor changes it everywhere in the game. |
-| E9 | Texts checks: line too long (measured with the game font, more than 3 rows), unknown speaker/expression/background/event, empty lines, missing potion events | Dev | Should | E7 | Warnings appear next to the right rows. |
+| E7 | Texts tab, Scenes: section list, row table (speaker, text, command rows with drop-downs), add/delete/duplicate/move rows, potion events with "random" checkbox | Dev | Should | E1, E6 | Any line can be changed and saved; the game plays the change after reload. |
+| E8 | Texts tab, Characters / Potions & crystals / Interface texts: edit names, flavour lines and `texts.json`; add a character (adds its image entry and placeholder) | Dev | Should | E7, D7 | Renaming the Heroine in the editor changes it everywhere in the game. |
+| E9 | Texts checks: line too long (measured with the game font, more than 3 rows), unknown speaker/background/event, empty lines, missing potion events | Dev | Should | E7 | Warnings appear next to the right rows. |
 | E10 | Search across all texts; *Play from here* (`?debug=1&scene=<id>`); *Import text…* with a difference view | Dev | Could | E7, Q1 | Search jumps to the row; the game opens at the chosen section. |
 | E11 | Short editor guide in the README (opening it, choosing the folder, saving, backups, publishing with GitHub Desktop) | Dev | Should | E4, E7 | The designer and the artist can use the editor without help. |
 | E12 | Test the editor with the designer (texts) and the artist (art) | Design + Art | Should | E11 | Both can make a change that appears in the game. |

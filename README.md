@@ -44,8 +44,7 @@ All text lives in data files. No code changes are needed.
 == d1                       a dialogue scene
 @bg shop                    background (bg_shop)
 @show chad smile            show a character sprite
-heroine happy: Text.        a line; "happy" changes the Heroine's portrait
-chad: Text.                 a line without changing the expression
+heroine: Text.              a line (each character has one image)
 : Text.                     narration (no name)
 @hide                       hide the sprite
 
@@ -84,7 +83,8 @@ There are no sound files yet; the game runs silently. To add them, put the files
 ## Tuning
 
 `data/config.json`: element colours, text speeds, hint timings, resistance strength (heavy drag, slip chance, cursor drift), ending thresholds.
-`data/potions.json`: recipes (book and cat versions), guidance level, which crystals unlock.
+`data/potions.json`: recipes as ratios (book and cat versions), guidance level, and the crystals available in each potion.
+`data/crystals.json`: how many units of each element every crystal adds.
 `data/layout.json`: positions and sizes of everything on screen (same numbers as `documents/Screen Layouts.md`).
 
 ## Debug mode

@@ -36,7 +36,6 @@ export const Flow = {
     G.state.reset();
     G.session.log = [];
     G.session.bg = 'shop';
-    G.session.heroineExpr = null;
     this.start(scene, 0);
   },
 
@@ -47,7 +46,6 @@ export const Flow = {
     G.session.log = [];
     const ses = data.session || {};
     G.session.bg = ses.bg || 'shop';
-    G.session.heroineExpr = ses.heroineExpr || null;
     if (ses.music) G.audio.music(ses.music);
     const steps = this.steps();
     const section = G.script.sections.find(s => s.id === data.sectionId) || steps[0];

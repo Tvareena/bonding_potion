@@ -184,7 +184,7 @@ Visual-novel style saving, all in `localStorage` (`src/systems/SaveSystem.js`):
 
 **Screenshot:** opening a panel from the dialogue or potion screen first takes `renderer.snapshot()` of the game (so the panel isn't in the picture), shrinks it to 320 × 180 and keeps it until the player picks a slot.
 
-**Loading** (`Flow.load`): restores `state` and `session`, then starts the section. The dialogue screen fast-forwards from the start of the section to `row` without showing lines: backgrounds, sprites and expressions are replayed instantly, then the saved line is shown. If the script changed, the position may shift slightly; the save still loads.
+**Loading** (`Flow.load`): restores `state` and `session`, then starts the section. The dialogue screen fast-forwards from the start of the section to `row` without showing lines: backgrounds, sprites and music are replayed instantly, then the saved line is shown. If the script changed, the position may shift slightly; the save still loads.
 
 **Continue** loads the newest save (autosave or slot). `version` (`config.json → saveVersion`) is checked on load; saves from another version are ignored. Errors from `localStorage` (private browsing, storage full) are caught: the game still runs and the save screen says it couldn't save.
 
@@ -202,10 +202,10 @@ Plain text, UTF-8. Written so a non-programmer can edit it or so a finished scen
 == d1
 @bg shop
 @music shop
-heroine happy: Another quiet morning in the shop.
-@show chad smile
+heroine: Another quiet morning in the shop.
+@show chad
 chad: Hey, potion girl. The usual.
-heroine embarrassed: R-right away!
+heroine: R-right away!
 @hide
 jaros: You're staring again.
 
@@ -221,10 +221,10 @@ jaros: When it looks right, press Brew.
 @on advice
 jaros: The book's too cautious. Three fire, one earth. Trust me.
 @on fizzle random
-heroine sad: That's… not a potion.
+heroine: That's… not a potion.
 jaros: Smells like a burnt sock.
 @on success
-heroine happy: It worked!
+heroine: It worked!
 
 == ending romance
 ...
@@ -243,7 +243,6 @@ heroine happy: It worked!
 | Form | Meaning |
 |---|---|
 | `speaker: text` | A line. `speaker` is an ID from `characters.json`. The name plate shows that character's display name. |
-| `speaker expression: text` | A line that also changes the speaker's expression (portrait for the Heroine, sprite for others). |
 | `: text` | Narration (no name plate). |
 
 **Commands**
@@ -251,9 +250,8 @@ heroine happy: It worked!
 | Command | Effect |
 |---|---|
 | `@bg <name>` | Cross-fade to background `bg_<name>`. |
-| `@show <character> <expression>` | Show a half-body sprite (replaces the current one). |
+| `@show <character>` | Show a character's half-body sprite (replaces the current one). |
 | `@hide` | Hide the current sprite. |
-| `@expr <character> <expression>` | Change expression without a line. |
 | `@music <name>` / `@music off` | Change or stop music. |
 | `@sfx <name>` | Play a sound. |
 | `@wait <seconds>` | Pause. |
@@ -261,7 +259,7 @@ heroine happy: It worked!
 
 **Potion events:** `start`, `tutorial_recipe`, `tutorial_elements`, `tutorial_drag`, `tutorial_brew`, `advice` (also played when the cat is clicked), `resist_heavy`, `resist_slip`, `fizzle`, `success`.
 
-Unknown commands, speakers or expressions don't stop the game: they're skipped and reported in the browser console and the debug overlay.
+Unknown commands, speakers or images don't stop the game: they're skipped and reported in the browser console and the debug overlay.
 
 ### 5.2 `characters.json`
 
@@ -274,7 +272,7 @@ Unknown commands, speakers or expressions don't stop the game: they're skipped a
 }
 ```
 
-Renaming a character means changing `name` here. Image keys are built as `<id>_<expression>` (for example `chad_smile`). A new character needs an entry here, its images, and entries in `assets.json`.
+Renaming a character means changing `name` here. Each human character has **one image** (one emotion); `image` is its key in `assets.json`. A word between the speaker and the colon (`heroine happy:`) is ignored and reported as a warning. A new character needs an entry here, its image, and an entry in `assets.json`.
 
 `kind: "cat"` lines make the cat icon swing (dialogue screen). On the potion screen the cat image doesn't move.
 
@@ -282,23 +280,24 @@ Renaming a character means changing `name` here. Image keys are built as `<id>_<
 
 ```json
 [
-  { "id": "fun", "name": "Potion of Fun", "flavour": "A spark and a solid ground.",
-    "book": { "fire": 2, "earth": 2 }, "cat": { "fire": 3, "earth": 1 },
-    "guidance": 1, "catPresent": true, "unlocks": ["ember_shard", "root_stone", "lava_garnet"] },
+  { "id": "fun", "name": "Potion of Fun", "flavour": "A spark of fire on solid ground.",
+    "book": { "fire": 1, "earth": 1 }, "cat": { "fire": 1, "earth": 1, "air": 1 },
+    "guidance": 1, "catPresent": true, "tutorial": true,
+    "crystals": ["ember_shard", "root_stone", "wisp_quartz", "lava_garnet"] },
   { "id": "gratitude", "...": "...", "guidance": 3, "catPresent": false },
   { "id": "love", "name": "Love Potion", "mix": ["fun", "courage", "trust", "hope", "confidence", "gratitude"],
     "guidance": 0, "catPresent": true }
 ]
 ```
 
-Missing elements count as 0. The full values are in the GDD, section 3.4.
+`book` and `cat` are **ratios** (shown reduced on the recipe page, e.g. 2 : 4 → 1 : 2). Missing elements count as 0. `crystals` is the list of crystals in the menu for this potion (in this order); each potion has its own list. The full values are in the GDD, sections 3.3 and 3.4.
 
 ### 5.4 `crystals.json`
 
 ```json
 [
-  { "id": "ember_shard", "name": "Ember Shard", "elements": { "fire": 1 } },
-  { "id": "dusk_prism",  "name": "Dusk Prism",  "elements": { "fire": 1, "earth": 1, "air": 1 } }
+  { "id": "ember_shard", "name": "Ember Shard", "elements": { "fire": 10 } },
+  { "id": "marsh_jade",  "name": "Marsh Jade",  "elements": { "water": 10, "earth": 20 } }
 ]
 ```
 
@@ -331,7 +330,7 @@ Positions and sizes of every on-screen element, using the same numbers as [Scree
 {
   "images": {
     "bg_shop":       { "path": "assets/images/backgrounds/bg_shop.jpg", "size": [1920, 1080], "group": "Backgrounds" },
-    "heroine_happy": { "path": "assets/images/characters/heroine_happy.png", "size": [300, 400], "group": "Heroine portraits" },
+    "heroine":       { "path": "assets/images/characters/heroine.png", "size": [300, 400], "group": "Heroine portrait" },
     "ui_textbox":    { "path": "assets/images/ui/ui_textbox.png", "size": [192, 192], "group": "UI frames", "nineSlice": [48, 48, 48, 48] }
   },
   "audio": { "music_shop": "assets/audio/music/shop.mp3" }
@@ -397,10 +396,11 @@ Every piece of text the player sees that isn't a dialogue line and isn't a chara
 ```js
 add(crystal):   totals[e] += crystal.elements[e] for each element
 check():
-  if equal(totals, potion.book) → success("book")
-  if equal(totals, potion.cat)  → success("cat")
+  if sameRatio(totals, potion.book) → success("book")
+  if sameRatio(totals, potion.cat)  → success("cat")
   → fizzle()
-equal(a, b): for each of fire, water, earth, air: (a[e] ?? 0) === (b[e] ?? 0)
+sameRatio(a, r): sumA = Σ a[e], sumR = Σ r[e]; sumA > 0 and for every element: a[e] × sumR === r[e] × sumA
+  (whole-number cross-multiplication, no rounding; elements missing from r must be 0 in a)
 
 love potion:
   check(): cauldron contains each id in potion.mix exactly once and nothing else
@@ -416,7 +416,7 @@ love potion:
 
 Active when `potion.guidance ≥ 1`.
 
-- **Fit test:** a crystal fits if, for every element, `totals[e] + crystal[e] ≤ book[e]`. Re-evaluated whenever the totals change.
+- **Fit test** (`src/systems/Ratio.js`): a crystal is against the book if it contains an element with `book[e] = 0`, or if `ratioDistance(totals + crystal, book) > ratioDistance(totals, book)`, where `ratioDistance` is the sum over elements of `|a[e]/Σa − r[e]/Σr|`. On an empty cauldron only the first rule applies. Re-evaluated whenever the totals change.
 - **Highlights:** level 1 glows the recipe after `glowDelay`; level 2 adds a pulsing outline on fitting cells; level 3 adds a small up-and-down nudge on fitting crystals. Done with tweens and a highlight image or Phaser's glow effect where WebGL is available.
 - **Heavy drag:** for a non-fitting crystal, instead of jumping to the pointer each frame, the crystal moves `heavyLerp` of the way there.
 - **Cursor drift (PC, level 3):** the potion screen hides the system cursor and draws `ui_cursor` at the pointer position plus a drift offset. While a non-fitting crystal is dragged, the offset grows toward the nearest fitting cell by `driftSpeed`, capped at `driftMax`. Drag and drop use the drawn cursor position. On touch devices the custom cursor is off.
@@ -498,7 +498,7 @@ All assets load up front during Preload; the game is small enough that there's n
 | # | Task | Priority |
 |---|---|---|
 | 1 | Project skeleton, Phaser, scaling, assets.json, placeholders | Must |
-| 2 | Script parser + DialogueScene (lines, expressions, sprites, backgrounds, idle hint) | Must |
+| 2 | Script parser + DialogueScene (lines, sprites, backgrounds, idle hint) | Must |
 | 3 | PotionScene: recipe, menu, drag-and-drop, counter, Brew/Empty, check, fizzle/success, Next | Must |
 | 4 | Story flow, GameState, endings, ending card with illustrations, Title | Must |
 | 5 | GitHub Pages deploy | Must |
@@ -528,14 +528,14 @@ A separate page for the team to change texts and replace art without touching co
 | Section | What you can do |
 |---|---|
 | **Scenes** | A list of all script sections (D1–D7, P1–P7, endings). Selecting one shows its content as a table: *speaker* (drop-down from `characters.json`, or "narration"), *expression* (drop-down of that character's expressions, from `assets.json`), *text*. Commands (`@bg`, `@show`, `@hide`, `@music`…) appear as their own rows with drop-downs for their values. Rows can be added, deleted, duplicated and moved up/down. Potion sections are grouped by event (`start`, `advice`, `fizzle`…), with a "random" checkbox per event. |
-| **Characters** | Edit display names; add a character (ID, name, kind, expressions). Adding expressions also adds their image entries to `assets.json` and creates placeholders for them. |
+| **Characters** | Edit display names; add a character (ID, name, kind). Adding a character also adds its image entry to `assets.json` and creates a placeholder for it. |
 | **Potions & crystals** | Edit potion names, flavour lines and crystal names (not recipes: those stay in the data files to avoid breaking the balance by accident). |
 | **Interface texts** | Every key of `texts.json` as a two-column table (key, text), grouped by screen. |
 | **Search** | Find text across all of the above; click a result to jump to it. |
 
 **Checks (shown as warnings, never blocking):**
 - A line too long for the textbox: measured with the game font at the textbox width (1440 px dialogue, 800 px potion screen) and flagged if it would take more than 3 rows.
-- Unknown speaker, expression, background or event.
+- Unknown speaker, background or event.
 - Empty lines; a potion section without `start`, `advice`, `fizzle` or `success` lines.
 
 **Buttons:** *Save* (writes `script.txt`, `texts.json`, `characters.json`, `potions.json`, `crystals.json`, whichever changed), *Revert* (reload from disk), *Play from here* (opens the game in a new tab at the selected section, using `?debug=1&scene=<id>`).
@@ -550,7 +550,7 @@ A separate page for the team to change texts and replace art without touching co
 |---|---|
 | **Grid** | Every image from `assets.json`, grouped as in the Art List. Each card: thumbnail, file name, required size, folder, status **Temporary** / **Final** (from `assets/placeholders.json`). |
 | **Filters** | All / Temporary only / Final only; search by name; filter by group. |
-| **Progress** | "41 of 73 final" overall and per group. |
+| **Progress** | "41 of 63 final" overall and per group. |
 | **Replace** | Drag a file onto a card (or click *Replace…*). The editor checks: format (PNG, JPG, WEBP accepted), size, transparency (warns if a sprite has no transparent pixels or a background has transparency). |
 | **Wrong size** | If the size doesn't match, a dialog shows both sizes and offers: *Resize to fit* (keeps proportions, transparent margins), *Crop to fill* (keeps proportions, cuts the edges), or *Cancel*. Different aspect ratio → a clear warning. Resizing uses a high-quality canvas downscale. |
 | **Format conversion** | Saved as PNG, or as JPG (quality 0.85) for backgrounds and illustrations, according to the path in `assets.json`, whatever format was dropped. |

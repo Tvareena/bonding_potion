@@ -9,21 +9,10 @@
     "ending_friendship": { "path": "assets/images/endings/ending_friendship.jpg", "size": [1920, 1080], "group": "Ending illustrations", "ph": { "color": "#b9d6e7" } },
     "ending_bad":        { "path": "assets/images/endings/ending_bad.jpg",        "size": [1920, 1080], "group": "Ending illustrations", "ph": { "color": "#5a4a5e" } },
 
-    "heroine_neutral":     { "path": "assets/images/characters/heroine_neutral.png",     "size": [300, 400], "group": "Heroine portraits", "ph": { "color": "#e9d3dc", "shape": "portrait", "label": "neutral" } },
-    "heroine_happy":       { "path": "assets/images/characters/heroine_happy.png",       "size": [300, 400], "group": "Heroine portraits", "ph": { "color": "#f3e0b5", "shape": "portrait", "label": "happy" } },
-    "heroine_sad":         { "path": "assets/images/characters/heroine_sad.png",         "size": [300, 400], "group": "Heroine portraits", "ph": { "color": "#c9d4e6", "shape": "portrait", "label": "sad" } },
-    "heroine_angry":       { "path": "assets/images/characters/heroine_angry.png",       "size": [300, 400], "group": "Heroine portraits", "ph": { "color": "#eab8b0", "shape": "portrait", "label": "angry" } },
-    "heroine_surprised":   { "path": "assets/images/characters/heroine_surprised.png",   "size": [300, 400], "group": "Heroine portraits", "ph": { "color": "#d8e8c9", "shape": "portrait", "label": "surprised" } },
-    "heroine_embarrassed": { "path": "assets/images/characters/heroine_embarrassed.png", "size": [300, 400], "group": "Heroine portraits", "ph": { "color": "#f2c4d6", "shape": "portrait", "label": "embarrassed" } },
+    "heroine":     { "path": "assets/images/characters/heroine.png",     "size": [300, 400],  "group": "Heroine portrait",  "ph": { "color": "#e9d3dc", "shape": "portrait", "label": "portrait" } },
 
-    "chad_neutral":            { "path": "assets/images/characters/chad_neutral.png",            "size": [900, 1000], "group": "Character sprites", "ph": { "color": "#7d95b3", "shape": "silhouette", "label": "Chad: neutral" } },
-    "chad_smile":              { "path": "assets/images/characters/chad_smile.png",              "size": [900, 1000], "group": "Character sprites", "ph": { "color": "#8fa9c7", "shape": "silhouette", "label": "Chad: smile" } },
-    "chad_cold":               { "path": "assets/images/characters/chad_cold.png",               "size": [900, 1000], "group": "Character sprites", "ph": { "color": "#5f7088", "shape": "silhouette", "label": "Chad: cold" } },
-    "chad_obsessed":           { "path": "assets/images/characters/chad_obsessed.png",           "size": [900, 1000], "group": "Character sprites", "ph": { "color": "#8a5a6e", "shape": "silhouette", "label": "Chad: obsessed" } },
-    "jaros_human_neutral":     { "path": "assets/images/characters/jaros_human_neutral.png",     "size": [900, 1000], "group": "Character sprites", "ph": { "color": "#3d3550", "shape": "silhouette", "label": "Jaros (human): neutral" } },
-    "jaros_human_smile":       { "path": "assets/images/characters/jaros_human_smile.png",       "size": [900, 1000], "group": "Character sprites", "ph": { "color": "#4a4163", "shape": "silhouette", "label": "Jaros (human): smile" } },
-    "jaros_human_embarrassed": { "path": "assets/images/characters/jaros_human_embarrassed.png", "size": [900, 1000], "group": "Character sprites", "ph": { "color": "#5a3f5e", "shape": "silhouette", "label": "Jaros (human): embarrassed" } },
-
+    "chad":        { "path": "assets/images/characters/chad.png",        "size": [900, 1000], "group": "Character sprites", "ph": { "color": "#7d95b3", "shape": "silhouette", "label": "Chad" } },
+    "jaros_human": { "path": "assets/images/characters/jaros_human.png", "size": [900, 1000], "group": "Character sprites", "ph": { "color": "#3d3550", "shape": "silhouette", "label": "Jaros (human)" } },
     "cat_icon":  { "path": "assets/images/characters/cat_icon.png",  "size": [220, 220], "group": "Cat", "ph": { "color": "#2e2a33", "shape": "cathead" } },
     "cat_table": { "path": "assets/images/characters/cat_table.png", "size": [340, 520], "group": "Cat", "ph": { "color": "#2e2a33", "shape": "catbody" } },
 

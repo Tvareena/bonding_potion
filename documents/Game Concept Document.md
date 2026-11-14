@@ -202,7 +202,7 @@ A standard visual novel layout.
 
 - A full-screen background.
 - A semi-transparent textbox along the bottom, with the speaker's name and the line.
-- The Heroine's portrait in a frame to the left of the textbox, overlapping it. Its expression changes with the script.
+- The Heroine's portrait in a frame to the left of the textbox, overlapping it (one image).
 - Other characters appear as half-body sprites in the centre, behind and above the textbox.
 - A cat head icon in the top-right corner (only outside brewing). It swings slightly while one of Jaros's lines is shown.
 - A row of small text-only menu buttons in the bottom-right of the textbox, under the line: Log, Auto, Skip, Save, Load, Settings. They have no background; the player sees and clicks just the words. For the 1-day build, Save, Load and Settings can be cut (see section 6).
@@ -251,10 +251,10 @@ Every image in the game is a separate file in the assets folder, with a clear na
 |---|---|---|---|
 | Background: dialogue (shop) | 1920 × 1080 | 1–2 | JPG or PNG. Shop interior; optionally a street or doorway for Chad's scenes. |
 | Background: potion screen (workshop table) | 1920 × 1080 | 1 | The table surface where the cat sits. |
-| Heroine portrait | 300 × 400 | 6 | Expressions: neutral, happy, sad, angry, surprised, embarrassed. Fits the frame left of the textbox. |
+| Heroine portrait | 300 × 400 | 1 | One image, one emotion. Fits the frame left of the textbox. |
 | Portrait frame | 320 × 420 | 1 | Separate so portraits can be swapped. |
-| Character sprite: Chad (half-body) | 900 × 1000 | 4 | Neutral, charming smile, cold or cruel, obsessed (bad ending). |
-| Character sprite: Jaros, human (half-body) | 900 × 1000 | 3 | Neutral, smiling, embarrassed. |
+| Character sprite: Chad (half-body) | 900 × 1000 | 1 | One image, one emotion. |
+| Character sprite: Jaros, human (half-body) | 900 × 1000 | 1 | One image, one emotion. |
 | Cat head icon (dialogue) | 220 × 220 | 1 | The swinging animation is done in code. |
 | Cat on the table (potion screen) | 340 × 520 | 1 | One pose, sitting behind the cauldron. |
 | Cauldron | 620 × 500 | 1 | Plus a separate liquid layer (500 × 140, light grey, tinted in code). |

@@ -34,7 +34,7 @@
 | Folder | `assets/images/<folder>/` as listed. |
 | Replacing files | Easiest: the **Art tab of the content editor** (`editor.html`, Chrome or Edge). Drag the finished image onto its card; the editor checks size and format, offers to resize, and saves it under the right name. By hand also works: same name, same size, same folder. |
 | Text | **Don't paint text** on buttons, the recipe page, panels or the textbox: the game writes it. The logo is the only image with lettering. |
-| Variants | Expressions of one character use the same canvas, size and framing, so they can be swapped without the image jumping. |
+| Characters | Each human character (Heroine, Chad, Jaros in human form) has **one image with one emotion**: no expression variants. Chad and Jaros use the same canvas, size and framing, so they line up. |
 | Stretchable frames (9-slice) | Some UI frames are stretched by the game. Their corners (the "slice" width given in the table) are never stretched; the edges stretch in one direction; the centre stretches in both. Keep corner decoration inside the slice area and keep edges and centre plain enough to stretch. |
 | File size | Compress PNGs (e.g. TinyPNG). Total art should stay under ~25 MB. |
 
@@ -66,12 +66,7 @@ The ending card writes the ending's name and "Ending X of 3" over the illustrati
 
 | File | Size | Position | Priority | Notes |
 |---|---|---|---|---|
-| `heroine_neutral.png` | 300 × 400 | Dialogue: 70, 610 · Potion screen: 50, 660 | Must | Head and shoulders, facing slightly right (toward the textbox). |
-| `heroine_happy.png` | 300 × 400 | same | Must | |
-| `heroine_sad.png` | 300 × 400 | same | Must | |
-| `heroine_angry.png` | 300 × 400 | same | Must | |
-| `heroine_surprised.png` | 300 × 400 | same | Must | |
-| `heroine_embarrassed.png` | 300 × 400 | same | Must | |
+| `heroine.png` | 300 × 400 | Dialogue: 70, 610 · Potion screen: 50, 660 | Must | Head and shoulders, facing slightly right (toward the textbox). One image for the whole game, so a calm, friendly look that suits every scene works best. |
 
 The portrait sits inside the frame `ui_portrait_frame` (section 7). The frame covers the outer 10 px, so keep the face well inside.
 
@@ -84,13 +79,8 @@ All sprites: **900 × 1000**, PNG with transparency, **position 510, 80** (centr
 
 | File | Priority | Notes |
 |---|---|---|
-| `chad_neutral.png` | Must | Handsome, charming. |
-| `chad_smile.png` | Must | Charming smile. |
-| `chad_cold.png` | Must | Cold or cruel. |
-| `chad_obsessed.png` | Must | Bad ending: obsessed, unsettling. |
-| `jaros_human_neutral.png` | Must | The cat's human form, a wizard freed from the curse. Should feel like the same personality as the cat (for example a hint of black-cat features in hair or clothes). |
-| `jaros_human_smile.png` | Must | |
-| `jaros_human_embarrassed.png` | Must | |
+| `chad.png` | Must | Handsome and charming on the surface, with a hint of arrogance. One image for every scene, including the bad ending. |
+| `jaros_human.png` | Must | The cat's human form, a wizard freed from the curse (romance and friendship endings). Should feel like the same personality as the cat (for example a hint of black-cat features in hair or clothes). |
 
 ### 4.3 Cat (Jaros)
 
@@ -105,29 +95,29 @@ All sprites: **900 × 1000**, PNG with transparency, **position 510, 80** (centr
 |---|---|---|---|---|
 | `cauldron.png` | 620 × 500 | 600, 300 | Must | Front view, opening at the top. The game draws the liquid layer over the opening and the element counter on the front (inside the image: 100, 320 · 420 × 70). Keep that front area fairly plain so icons and numbers read well. |
 | `cauldron_liquid.png` | 500 × 140 | 660, 340 | Must | The liquid surface seen in the opening. **Light grey / white**: the game tints it to the mix colour. Can have bubbles and highlights in lighter grey. |
-| `recipe_page.png` | 560 × 580 | 40, 40 | Must | An open book page or parchment, **without text**. The game writes the potion name (top, ~80 px tall area), element icons with amounts (middle) and a flavour line (bottom). Keep a margin of ~40 px around the edges for decoration. |
+| `recipe_page.png` | 560 × 580 | 40, 40 | Must | An open book page or parchment, **without text**. The game writes the potion name (top, ~80 px tall area), a row of element icons with the ratio numbers under them, e.g. 2 : 3 : 2 (middle, around y 240–360 inside the page) and a flavour line (bottom). Keep a margin of ~40 px around the edges for decoration. |
 
 ## 6. Crystals, elements and bottles
 
 ### 6.1 Crystals — `assets/images/crystals/`
 
-All crystals: **128 × 128**, PNG with transparency. Shown in the ingredient menu cells (120 × 120, slightly scaled down) and dragged to the cauldron. Colours follow the elements inside (yellow = fire, blue = water, green = earth, purple = air). Bigger crystals = 2 units, clusters = 2 different elements, the prism = 3 elements. They should be easy to tell apart at a glance.
+All crystals: **128 × 128**, PNG with transparency. Shown in the ingredient menu cells (120 × 120, slightly scaled down) and dragged to the cauldron. Colours follow the elements inside (yellow = fire, blue = water, green = earth, purple = air). Small crystals hold 10 units, large ones 30; clusters hold 2 different elements, the prism 3. Where one element is stronger (e.g. Marsh Jade: 10 water + 20 earth), that colour should dominate. They should be easy to tell apart at a glance.
 
 | File | Elements | Look | Priority |
 |---|---|---|---|
-| `crystal_ember_shard.png` | Fire 1 | Small yellow triangular shard | Must |
-| `crystal_root_stone.png` | Earth 1 | Small green cube | Must |
-| `crystal_lava_garnet.png` | Fire 1, Earth 1 | Yellow and green cluster | Must |
-| `crystal_tide_pearl.png` | Water 1 | Small blue round crystal | Must |
-| `crystal_wisp_quartz.png` | Air 1 | Small purple rhombus | Must |
-| `crystal_storm_opal.png` | Water 1, Air 1 | Blue and purple cluster | Must |
-| `crystal_deep_sapphire.png` | Water 2 | Large blue crystal | Must |
-| `crystal_marsh_jade.png` | Water 1, Earth 1 | Blue and green cluster | Must |
-| `crystal_sun_citrine.png` | Fire 1, Air 1 | Yellow and purple cluster | Must |
-| `crystal_blaze_ruby.png` | Fire 2 | Large yellow crystal | Must |
-| `crystal_sky_amethyst.png` | Air 2 | Large purple crystal | Must |
-| `crystal_mountain_amber.png` | Earth 2 | Large green crystal | Must |
-| `crystal_dusk_prism.png` | Fire 1, Earth 1, Air 1 | Three-coloured prism (yellow, green, purple) | Must |
+| `crystal_ember_shard.png` | Fire 10 | Small yellow triangular shard | Must |
+| `crystal_root_stone.png` | Earth 10 | Small green cube | Must |
+| `crystal_lava_garnet.png` | Fire 10, Earth 10 | Yellow and green cluster | Must |
+| `crystal_tide_pearl.png` | Water 10 | Small blue round crystal | Must |
+| `crystal_wisp_quartz.png` | Air 10 | Small purple rhombus | Must |
+| `crystal_storm_opal.png` | Water 10, Air 10 | Blue and purple cluster | Must |
+| `crystal_deep_sapphire.png` | Water 30 | Large blue crystal | Must |
+| `crystal_marsh_jade.png` | Water 10, Earth 20 | Green cluster with a smaller blue part | Must |
+| `crystal_sun_citrine.png` | Fire 20, Air 10 | Yellow cluster with a smaller purple part | Must |
+| `crystal_blaze_ruby.png` | Fire 30 | Large yellow crystal | Must |
+| `crystal_sky_amethyst.png` | Air 30 | Large purple crystal | Must |
+| `crystal_mountain_amber.png` | Earth 30 | Large green crystal | Must |
+| `crystal_dusk_prism.png` | Fire 20, Earth 10, Air 10 | Three-coloured prism, mostly yellow, with green and purple | Must |
 
 ### 6.2 Element icons — `assets/images/elements/`
 
@@ -220,8 +210,8 @@ The six bottles should look like one set (similar shape family, different detail
 |---|---|
 | Backgrounds | 3 |
 | Ending illustrations | 3 |
-| Heroine portraits | 6 |
-| Character sprites | 7 |
+| Heroine portrait | 1 |
+| Character sprites | 2 |
 | Cat | 2 |
 | Potion screen objects | 3 |
 | Crystals | 13 |
@@ -231,9 +221,9 @@ The six bottles should look like one set (similar shape family, different detail
 | UI 9-slice frames | 3 |
 | Effects | 3 |
 | Other | 1 |
-| **Total** | **73** |
+| **Total** | **63** |
 
-**Suggested order:** element icons and crystals (they define the puzzle) → cauldron, liquid, cat on the table, recipe page, ingredient panel → Heroine portraits, cat icon, textbox, name plate, portrait frame → backgrounds → Chad and Jaros human sprites → bottles → buttons and their states → ending illustrations, logo, title background → effects, cursor, panel, favicon.
+**Suggested order:** element icons and crystals (they define the puzzle) → cauldron, liquid, cat on the table, recipe page, ingredient panel → Heroine portrait, cat icon, textbox, name plate, portrait frame → backgrounds → Chad and Jaros human sprites → bottles → buttons and their states → ending illustrations, logo, title background → effects, cursor, panel, favicon.
 
 ---
 

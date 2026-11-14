@@ -7,6 +7,7 @@ import { nineSlice } from '../ui/NineSlice.js';
 import { Flow } from '../systems/StoryRunner.js';
 import { openOverlay } from './OverlayScene.js';
 import { setupDebug } from '../systems/Debug.js';
+import { reduceRatio, sameRatio, ratioDistance } from '../systems/Ratio.js';
 
 const D = { bg: 0, recipe: 5, recipeHi: 6, recipeText: 7, glow: 8, cat: 10, cauldron: 20, liquid: 21, bubbles: 22, counter: 23,
   ui: 30, cell: 31, outline: 32, item: 33, portrait: 40, textbox: 42, tutorial: 80, fx: 90, held: 100, love: 110, cursor: 1000 };
@@ -84,9 +85,13 @@ export class PotionScene extends Phaser.Scene {
 
   computeInventory() {
     const idx = G.potions.indexOf(this.potion);
-    const unlocked = [];
-    G.potions.slice(0, idx + 1).forEach(p => (p.unlocks || []).forEach(id => { if (!unlocked.includes(id)) unlocked.push(id); }));
-    this.unlocked = unlocked.map(crystalById).filter(Boolean);
+    // Each potion lists its own crystals (potions.json → crystals), so later potions can drop the simple ones.
+    let ids = this.potion.crystals;
+    if (!Array.isArray(ids)) { // older data format: crystals unlock and stay
+      ids = [];
+      G.potions.slice(0, idx + 1).forEach(p => (p.unlocks || []).forEach(id => { if (!ids.includes(id)) ids.push(id); }));
+    }
+    this.unlocked = ids.map(crystalById).filter(Boolean);
     // Bottles made so far: every non-mix potion before this one.
     this.bottles = G.potions.slice(0, idx).filter(p => !p.mix).map(p => p.id);
   }
@@ -214,15 +219,27 @@ export class PotionScene extends Phaser.Scene {
         this.add.image(x, y, 'bottle_' + id).setDisplaySize(110, 110).setDepth(D.recipeText);
       });
     } else {
-      const els = c.elements.order.filter(e => this.potion.book[e]);
+      // Element icons in a row, the ratio numbers below them (e.g. 2 : 3 : 2).
+      const ratio = reduceRatio(this.potion.book);
+      const els = c.elements.order.filter(e => ratio[e]);
+      const R = L.recipeRatio;
+      const n = els.length;
+      const totalW = n * R.icon + (n - 1) * R.gap;
+      const cx = rect(L.recipe).x + rect(L.recipe).w / 2;
+      let x = cx - totalW / 2;
       els.forEach((e, i) => {
-        const y = rr.y + i * rr.step;
-        const hi = this.add.rectangle(rr.x - 30, y - 8, 360, rr.icon + 16, color(c.colors.recipeHighlight), 0.75)
-          .setOrigin(0, 0).setDepth(D.recipeHi).setAlpha(0);
-        this.add.image(rr.x, y, 'element_' + e).setOrigin(0, 0).setDisplaySize(rr.icon, rr.icon).setDepth(D.recipeText);
-        this.add.text(rr.x + rr.icon + 24, y + rr.icon / 2, '× ' + this.potion.book[e],
-          font(c.font.recipeAmount, { color: c.colors.recipeText, fontStyle: 'bold' })).setOrigin(0, 0.5).setDepth(D.recipeText);
+        const colX = x + R.icon / 2;
+        const hi = this.add.rectangle(colX, R.y - 10, R.icon + 24, R.icon + R.numberGap + 70, color(c.colors.recipeHighlight), 0.75)
+          .setOrigin(0.5, 0).setDepth(D.recipeHi).setAlpha(0);
+        this.add.image(colX, R.y + R.icon / 2, 'element_' + e).setDisplaySize(R.icon, R.icon).setDepth(D.recipeText);
+        this.add.text(colX, R.y + R.icon + R.numberGap, String(ratio[e]),
+          font(c.font.recipeAmount, { color: c.colors.recipeText, fontStyle: 'bold' })).setOrigin(0.5, 0).setDepth(D.recipeText);
+        if (i < n - 1) {
+          this.add.text(x + R.icon + R.gap / 2, R.y + R.icon + R.numberGap, ':',
+            font(c.font.recipeAmount, { color: c.colors.recipeText, fontStyle: 'bold' })).setOrigin(0.5, 0).setDepth(D.recipeText);
+        }
         this.recipeRows.push({ e, hi });
+        x += R.icon + R.gap;
       });
     }
     const fl = rect(L.recipeFlavour);
@@ -281,10 +298,19 @@ export class PotionScene extends Phaser.Scene {
 
   // ---------------------------------------------------------------- brewing logic
 
+  /**
+   * Does this crystal follow the book? (Guidance and resistance, GDD §3.6.)
+   * Against the book if it contains an element the book recipe doesn't use,
+   * or if adding it moves the mix further from the book ratio.
+   */
   fits(crystal) {
     if (!crystal) return true;
     const book = this.potion.book || {};
-    return ELEMENTS.every(e => this.totals[e] + (crystal.elements[e] || 0) <= (book[e] || 0));
+    if (ELEMENTS.some(e => (crystal.elements[e] || 0) > 0 && !book[e])) return false;
+    if (this.units() === 0) return true;
+    const after = {};
+    ELEMENTS.forEach(e => { after[e] = this.totals[e] + (crystal.elements[e] || 0); });
+    return ratioDistance(after, book) <= ratioDistance(this.totals, book) + 1e-9;
   }
 
   addItem(entry) {
@@ -304,8 +330,9 @@ export class PotionScene extends Phaser.Scene {
 
   units() { return ELEMENTS.reduce((s, e) => s + this.totals[e], 0); }
 
+  /** True if the cauldron has the recipe's ratio (amounts don't matter: 30 fire : 30 water = 1 : 1). */
   equals(recipe) {
-    return ELEMENTS.every(e => this.totals[e] === (recipe[e] || 0));
+    return sameRatio(this.totals, recipe);
   }
 
   brew() {
@@ -463,10 +490,12 @@ export class PotionScene extends Phaser.Scene {
       }
     }
     if (this.level >= 2) {
-      // Recipe rows still missing something glow
+      // Recipe elements whose share in the mix is still too small glow
       const book = this.potion.book;
+      const sumT = this.units(), sumB = ELEMENTS.reduce((s, e) => s + (book[e] || 0), 0);
+      const matched = this.equals(book);
       this.recipeRows.forEach(r => {
-        const need = this.totals[r.e] < book[r.e];
+        const need = !matched && (sumT === 0 || this.totals[r.e] / sumT < book[r.e] / sumB - 1e-9);
         if (need && !r.pulsing) {
           r.pulsing = this.tweens.add({ targets: r.hi, alpha: { from: 0.15, to: this.level >= 3 ? 0.9 : 0.6 }, duration: this.level >= 3 ? 450 : 800, yoyo: true, repeat: -1 });
         } else if (!need && r.pulsing) {
@@ -478,7 +507,7 @@ export class PotionScene extends Phaser.Scene {
         const gr = this.L.grid;
         this.outlines.lineStyle(4, color(this.cfg.colors.outline), 1);
         this.gridItems.forEach(it => {
-          if (it.type !== 'crystal' || !this.fits(it.crystal) || this.units() >= this.bookUnits()) return;
+          if (it.type !== 'crystal' || matched || !this.fits(it.crystal)) return;
           this.outlines.strokeRoundedRect(it.cell.x + 2, it.cell.y + 2, gr.cell - 4, gr.cell - 4, 10);
           if (this.level >= 3) {
             this.nudges.push(this.tweens.add({ targets: it.img, y: it.baseY - 8, duration: 380, yoyo: true, repeat: -1, ease: 'Sine.easeInOut', delay: Math.random() * 300 }));
@@ -489,7 +518,6 @@ export class PotionScene extends Phaser.Scene {
     if (this.level >= 3 && !this.glowOn) this.showGlow(true);
   }
 
-  bookUnits() { return ELEMENTS.reduce((s, e) => s + (this.potion.book[e] || 0), 0); }
 
   showGlow(strong) {
     if (this.glowOn) return;
@@ -728,8 +756,6 @@ export class PotionScene extends Phaser.Scene {
     let name = null;
     if (r.speaker) {
       name = charName(r.speaker);
-      const ch = G.characters[r.speaker];
-      if (ch && ch.kind === 'portrait' && r.expr) this.portrait.set(r.expr);
     }
     this.currentEv = 'advice';
     this.textbox.show(name, r.text, { instant: true });
@@ -746,8 +772,6 @@ export class PotionScene extends Phaser.Scene {
       let name = null;
       if (r.speaker) {
         name = charName(r.speaker);
-        const ch = G.characters[r.speaker];
-        if (ch && ch.kind === 'portrait' && r.expr) this.portrait.set(r.expr);
       }
       G.session.log.push({ name, text: r.text });
       this.lineActive = true;
@@ -871,7 +895,7 @@ export class PotionScene extends Phaser.Scene {
       this.added = this.potion.mix.slice();
     } else {
       const rec = this.potion[which] || {};
-      ELEMENTS.forEach(e => { this.totals[e] = rec[e] || 0; });
+      ELEMENTS.forEach(e => { this.totals[e] = (rec[e] || 0) * 10; });
       this.added = ['debug'];
     }
     this.refreshAll();

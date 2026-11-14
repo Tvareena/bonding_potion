@@ -528,11 +528,15 @@ export class PotionScene extends Phaser.Scene {
     const totalW = els.length * icon + (els.length - 1) * gap;
     let x = cr.x + (cr.w - totalW) / 2;
     const style = font(this.cfg.font.counter, { color: '#ffffff', fontStyle: 'bold', stroke: '#2b1d3a', strokeThickness: 6 });
+    // Under each ratio number: the actual amount of that element in the cauldron, smaller.
+    const amountStyle = font(this.cfg.font.counterAmount || 22, { color: '#ffe9a8', fontStyle: 'bold', stroke: '#2b1d3a', strokeThickness: 5 });
     els.forEach((e, i) => {
       const colX = x + icon / 2;
       this.counter.add(this.add.image(colX, cr.y + icon / 2, 'element_' + e).setDisplaySize(icon, icon));
-      this.counter.add(this.add.text(colX, cr.y + icon + 4, String(ratio[e]), style).setOrigin(0.5, 0));
-      if (i < els.length - 1) this.counter.add(this.add.text(x + icon + gap / 2, cr.y + icon + 4, ':', style).setOrigin(0.5, 0));
+      const num = this.add.text(colX, cr.y + icon + 2, String(ratio[e]), style).setOrigin(0.5, 0);
+      this.counter.add(num);
+      this.counter.add(this.add.text(colX, num.y + num.height - 2, String(this.totals[e]), amountStyle).setOrigin(0.5, 0));
+      if (i < els.length - 1) this.counter.add(this.add.text(x + icon + gap / 2, cr.y + icon + 2, ':', style).setOrigin(0.5, 0));
       x += icon + gap;
     });
   }

@@ -81,7 +81,7 @@ Drawing order, back to front: background → cat → cauldron → everything els
 | Cat on the table | 1140, 230 | 340 × 520 | One pose, partly hidden behind the cauldron. Not shown in potion 6. |
 | Cauldron | 600, 300 | 620 × 500 | |
 | Liquid layer | 660, 340 | 500 × 140 | Light grey; the game tints it to the mix colour. Separate file. |
-| Ratio on the cauldron | 680, 596 | 460 × 120 | Drawn by the game on the front of the cauldron: 48 × 48 element icons with the current ratio below. |
+| Ratio on the cauldron | 680, 590 | 460 × 140 | Drawn by the game on the front of the cauldron: 48 × 48 element icons, the current ratio below them, and the amount of each element under that (smaller). |
 | Floating ingredients | around 910, 404 (two rows on the liquid) | 72 × 72 each | The crystal and bottle images, shown smaller and bobbing. Click to take one out. |
 | Brew button | 1240, 760 | 220 × 90 | Normal, hover and pressed states. |
 | Empty button | 1240, 870 | 220 × 90 | Normal, hover and pressed states. |

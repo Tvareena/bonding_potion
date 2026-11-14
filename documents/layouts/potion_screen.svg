@@ -42,8 +42,8 @@
   <text x="910" y="440" text-anchor="middle" class="xs">(tinted in code)</text>
   <text x="910" y="545" text-anchor="middle" class="lbl">Cauldron</text>
   <text x="910" y="581" text-anchor="middle" class="dim">600, 300 · 620 × 500</text>
-  <rect x="680" y="596" width="460" height="120" fill="#FFFFFF" fill-opacity="0.7" stroke="#333" stroke-width="2" stroke-dasharray="8 6"/>
-  <text x="910" y="662" text-anchor="middle" class="xs">Ratio on the cauldron 680, 596 · 460 × 120</text>
+  <rect x="680" y="590" width="460" height="140" fill="#FFFFFF" fill-opacity="0.7" stroke="#333" stroke-width="2" stroke-dasharray="8 6"/>
+  <text x="910" y="662" text-anchor="middle" class="xs">Ratio + amounts on the cauldron 680, 590 · 460 × 140</text>
 
   <!-- Brew / Empty -->
   <rect x="1240" y="760" width="220" height="90" rx="10" fill="#F6E3A8" stroke="#B8902A" stroke-width="4"/>

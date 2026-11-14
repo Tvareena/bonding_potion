@@ -176,7 +176,7 @@ Both successes look and sound the same.
 | Success | Sparkle effect, the bottle appears and moves to the Potions tab, a short line, the **Next** arrow lights up: a pulsing glow behind it, and it swings gently back and forth (±10°, like the cat head icon on the dialogue screen; its size doesn't change). Crystals can no longer be added. |
 | Next | Goes to the next dialogue. Disabled (dimmed) until success. |
 
-The **ratio on the cauldron** shows the current mix in the same format as the recipe and the cat's bubble: element icons in a row with the reduced ratio below (e.g. 30 fire + 20 water + 20 air → 3 : 2 : 2). It updates whenever something is added or removed; it's empty for an empty cauldron. In P7 it shows the bottles in the cauldron.
+The **ratio on the cauldron** shows the current mix in the same format as the recipe and the cat's bubble: element icons in a row with the reduced ratio below (e.g. 30 fire + 20 water + 20 air → 3 : 2 : 2), and under each ratio number, smaller, the actual amount of that element (30, 20, 20). It updates whenever something is added or removed; it's empty for an empty cauldron. In P7 it shows the bottles in the cauldron.
 
 The **liquid colour** blends the element colours on the colour wheel and keeps them bright, so any mix (book, cat or anything else) looks clear and pleasant, never murky.
 

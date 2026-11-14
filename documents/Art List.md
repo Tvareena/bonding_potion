@@ -93,7 +93,7 @@ All sprites: **900 × 1000**, PNG with transparency, **position 510, 80** (centr
 
 | File | Size | Position | Priority | Notes |
 |---|---|---|---|---|
-| `cauldron.png` | 620 × 500 | 600, 300 | Must | Front view, opening at the top. The game draws the liquid layer over the opening and the element counter on the front (inside the image: 100, 320 · 420 × 70). Keep that front area fairly plain so icons and numbers read well. |
+| `cauldron.png` | 620 × 500 | 600, 300 | Must | Front view, opening at the top. The game draws the liquid layer over the opening and the current ratio and element amounts on the front (inside the image: 80, 290 · 460 × 140). Keep that front area fairly plain and dark enough for white numbers to read well. The liquid can show floating crystals on top. |
 | `cauldron_liquid.png` | 500 × 140 | 660, 340 | Must | The liquid surface seen in the opening. **Light grey / white**: the game tints it to the mix colour. Can have bubbles and highlights in lighter grey. |
 | `recipe_page.png` | 560 × 580 | 40, 40 | Must | An open book page or parchment, **without text**. The game writes the potion name (top, ~80 px tall area), a row of element icons with the ratio numbers under them, e.g. 2 : 3 : 2 (middle, around y 240–360 inside the page) and a flavour line (bottom). Keep a margin of ~40 px around the edges for decoration. |
 

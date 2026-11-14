@@ -157,7 +157,7 @@ function Draw($key, $e) {
         $br = New-Object Drawing.SolidBrush((Darker $base 0.6)); $g.FillRectangle($br, 140, 440, 50, 60); $g.FillRectangle($br, 430, 440, 50, 60); $br.Dispose()
         $br = New-Object Drawing.SolidBrush((Lighter $base 0.25)); $g.FillEllipse($br, 40, 20, 540, 140); $br.Dispose()
         $br = New-Object Drawing.SolidBrush((Darker $base 0.4)); $g.FillEllipse($br, 60, 40, 500, 110); $br.Dispose()
-        Label $g 'cauldron  620 x 500' 310 400 26 (Lighter $base 0.6)
+        Label $g 'cauldron  620 x 500' 310 455 22 (Lighter $base 0.6)
         $showLabel = $false
       }
       'ellipse' {

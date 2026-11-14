@@ -2,15 +2,16 @@ import { G, T, ELEMENTS, font, rect, color, charName, potionById, crystalById, i
 import { TextBox } from '../ui/TextBox.js';
 import { Portrait } from '../ui/Portrait.js';
 import { Button } from '../ui/Button.js';
-import { TextButton } from '../ui/TextMenu.js';
+import { TextMenu } from '../ui/TextMenu.js';
 import { nineSlice } from '../ui/NineSlice.js';
 import { Flow } from '../systems/StoryRunner.js';
+import { SaveSystem } from '../systems/SaveSystem.js';
 import { openOverlay } from './OverlayScene.js';
 import { setupDebug } from '../systems/Debug.js';
 import { reduceRatio, sameRatio, ratioDistance } from '../systems/Ratio.js';
 
 const D = { bg: 0, recipe: 5, recipeHi: 6, recipeText: 7, glow: 8, cat: 10, cauldron: 20, liquid: 21, bubbles: 22, counter: 23,
-  ui: 30, cell: 31, outline: 32, item: 33, portrait: 40, textbox: 42, tutorial: 80, fx: 90, held: 100, love: 110, cursor: 1000 };
+  ui: 30, cell: 31, outline: 32, item: 33, portrait: 40, textbox: 42, tutorial: 80, fx: 90, held: 100, love: 110, tip: 900, cursor: 1000, floating: 22.5 };
 
 // Potion-brewing screen (GDD §3, TDD §6.2–6.3).
 export class PotionScene extends Phaser.Scene {
@@ -48,6 +49,8 @@ export class PotionScene extends Phaser.Scene {
     this.hintTween = null;
     this.tutorialStep = 0;
     this.nudges = [];
+    this.floating = [];
+    this.tip = null;
 
     this.computeInventory();
     this.buildScene();
@@ -72,6 +75,7 @@ export class PotionScene extends Phaser.Scene {
     this.events.on('resume', () => {
       if (this.mouseMode) this.setCustomCursor(true);
       // Auto may have been switched in Settings.
+      this.menu.get('auto').setActive(!!G.settings.auto);
       if (G.settings.auto && this.lineActive && !this.textbox.typing) this.lineDone();
       if (!G.settings.auto && this.lineTimer) { this.lineTimer.remove(); this.lineTimer = null; }
     });
@@ -145,9 +149,10 @@ export class PotionScene extends Phaser.Scene {
     const br = rect(L.brew), em = rect(L.empty), nx = rect(L.next);
     this.brewBtn = new Button(this, 'ui_button_small', br.x, br.y, br.w, br.h, T('potion.brew'), () => this.brew(), { handCursor: false }).setDepth(D.ui);
     this.emptyBtn = new Button(this, 'ui_button_small', em.x, em.y, em.w, em.h, T('potion.empty'), () => this.emptyCauldron(), { handCursor: false }).setDepth(D.ui);
+    // Glow behind the Next arrow, shown after a successful brew (the arrow itself keeps its size).
+    this.nextGlow = this.add.graphics().setDepth(D.ui - 1).setAlpha(0);
+    this.nextGlow.fillStyle(color(this.cfg.colors.recipeHighlight), 1).fillRoundedRect(nx.x - 14, nx.y - 14, nx.w + 28, nx.h + 28, 26);
     this.nextBtn = new Button(this, 'ui_next', nx.x, nx.y, nx.w, nx.h, null, () => this.next(), { handCursor: false }).setDepth(D.ui).setEnabled(false);
-    const mt = rect(L.menuText);
-    this.menuBtn = new TextButton(this, mt.x, mt.y, mt.w, mt.h, T('menu.menu'), () => openOverlay(this, 'pause')).setDepth(D.ui);
 
     // Ingredient panel
     const pn = rect(L.panel);
@@ -191,6 +196,17 @@ export class PotionScene extends Phaser.Scene {
     const tb = rect(L.textbox);
     this.add.zone(tb.x, tb.y, tb.w, tb.h).setOrigin(0, 0).setDepth(D.textbox + 5).setInteractive()
       .on('pointerup', () => this.onTextboxClick());
+    // Same text-only menu as on the dialogue screen, under the text in the textbox.
+    this.menu = new TextMenu(this, L.menu, [
+      { id: 'log', label: T('menu.log'), onClick: () => openOverlay(this, 'log') },
+      { id: 'auto', label: T('menu.auto'), onClick: () => this.toggleAuto() },
+      { id: 'skip', label: T('menu.skip'), onClick: () => this.toggleSkip() },
+      { id: 'save', label: T('menu.save'), onClick: () => openOverlay(this, 'save') },
+      { id: 'load', label: T('menu.load'), onClick: () => openOverlay(this, 'load') },
+      { id: 'settings', label: T('menu.settings'), onClick: () => openOverlay(this, 'settings') }
+    ], D.textbox + 6);
+    this.menu.get('auto').setActive(!!G.settings.auto);
+    this.skip = false;
     const hp = G.layout.dialogue.potionHint;
     this.hint = this.add.text(hp[0], hp[1], T(isTouchDevice() ? 'hint.tap' : 'hint.click'),
       font(this.cfg.font.hint, { color: this.cfg.colors.menu, fontStyle: 'italic' })).setOrigin(1, 1).setDepth(D.textbox + 3).setVisible(false);
@@ -332,9 +348,11 @@ export class PotionScene extends Phaser.Scene {
       const cell = this.cells[i];
       const img = this.add.image(cell.cx, cell.cy, item.key).setDisplaySize(gr.item, gr.item).setDepth(D.item);
       if (!item.usable && item.type === 'bottle' && !this.isMix) img.setAlpha(0.9);
-      if (item.usable) img.setInteractive();
+      img.setInteractive(); // hover info for every item; only usable ones can be picked up
       const entry = Object.assign({ img, cell, baseY: cell.cy }, item);
-      img.on('pointerdown', (p) => this.beginPress(entry, p));
+      img.on('pointerdown', (p) => { if (entry.usable) this.beginPress(entry, p); });
+      img.on('pointerover', (p) => { if (!p.wasTouch && !this.held) this.showTip(entry, 'grid'); });
+      img.on('pointerout', () => { if (!this.selected) this.hideTip(); });
       this.gridItems.push(entry);
     });
     this.tabCrystals.setSelected(this.tab === 'crystals');
@@ -370,8 +388,8 @@ export class PotionScene extends Phaser.Scene {
     this.added.push(entry.id);
     this.lastAddTime = this.time.now;
     this.hideGlow();
-    const lq = rect(this.L.liquid);
-    this.splash.explode(14, lq.x + lq.w / 2, lq.y + lq.h / 2);
+    const fl = this.spawnFloat(entry);
+    this.splash.explode(14, fl.x, fl.y);
     G.audio.sfx('splash');
     this.refreshAll();
     if (this.tutorialStep === 3 && this.onFirstAdd) { const cb = this.onFirstAdd; this.onFirstAdd = null; cb(); }
@@ -413,7 +431,9 @@ export class PotionScene extends Phaser.Scene {
     this.brewBtn.setEnabled(false);
     this.emptyBtn.setEnabled(false);
     this.hideGlow();
+    this.hideTip();
     this.clearTutorialHighlight();
+    this.clearFloats(); // the ingredients melt into the finished potion
     if (this.isMix) {
       const lb = rect(this.L.loveBottle);
       const love = this.add.image(lb.x + lb.w / 2, lb.y + lb.h / 2 + 80, 'bottle_love').setDisplaySize(lb.w, lb.h).setDepth(D.love).setScale(0);
@@ -436,7 +456,25 @@ export class PotionScene extends Phaser.Scene {
     this.refreshAll();
     this.playEvent('success');
     this.nextBtn.setEnabled(true);
-    this.nextPulse = this.tweens.add({ targets: this.nextBtn.container, scale: 1.08, x: '-=5', y: '-=5', duration: 500, yoyo: true, repeat: -1 });
+    this.attractNext();
+  }
+
+  /**
+   * Makes the Next arrow hard to miss: it swings back and forth around its centre, like the cat head icon
+   * on the dialogue screen, with a pulsing glow behind it (size unchanged).
+   */
+  attractNext() {
+    const b = this.nextBtn, c = b.container;
+    this.nextGlow.setAlpha(0.25);
+    this.tweens.add({ targets: this.nextGlow, alpha: 0.95, duration: 700, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+    // Re-centre the button so it rotates around its middle, not its top-left corner.
+    if (!b.centred) {
+      c.list.forEach(o => { o.x -= b.w / 2; o.y -= b.h / 2; });
+      c.x += b.w / 2; c.y += b.h / 2;
+      b.centred = true;
+    }
+    c.setAngle(-10);
+    this.tweens.add({ targets: c, angle: 10, duration: 800, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
   }
 
   fizzle() {
@@ -450,6 +488,7 @@ export class PotionScene extends Phaser.Scene {
 
   emptyCauldron() {
     if (this.done) return;
+    this.clearFloats();
     this.totals = { fire: 0, water: 0, earth: 0, air: 0 };
     this.added = [];
     this.clearSelection();
@@ -472,26 +511,145 @@ export class PotionScene extends Phaser.Scene {
   refreshCounter() {
     this.counter.removeAll(true);
     const cr = rect(this.L.counter);
-    let entries;
     if (this.isMix) {
-      entries = this.added.map(id => ({ key: 'bottle_' + id, text: '' }));
-    } else {
-      entries = ELEMENTS.filter(e => this.totals[e] > 0).map(e => ({ key: 'element_' + e, text: String(this.totals[e]) }));
+      // Final potion: a row of the bottles in the cauldron.
+      const ids = this.added;
+      if (!ids.length) return;
+      const slot = 66, total = ids.length * slot;
+      let x = cr.x + (cr.w - total) / 2;
+      ids.forEach(id => { this.counter.add(this.add.image(x + 33, cr.y + cr.h / 2, 'bottle_' + id).setDisplaySize(56, 56)); x += slot; });
+      return;
     }
-    if (!entries.length) return;
-    const slot = this.isMix ? 66 : 104;
-    const total = entries.length * slot;
-    let x = cr.x + (cr.w - total) / 2;
-    const cy = cr.y + cr.h / 2;
-    entries.forEach(en => {
-      const icon = this.add.image(x + 32, cy, en.key).setDisplaySize(this.isMix ? 56 : 56, this.isMix ? 56 : 56);
-      this.counter.add(icon);
-      if (en.text) {
-        const t = this.add.text(x + 66, cy, en.text, font(this.cfg.font.counter, { color: '#ffffff', fontStyle: 'bold', stroke: '#2b1d3a', strokeThickness: 6 })).setOrigin(0, 0.5);
-        this.counter.add(t);
-      }
-      x += slot;
+    // Current ratio of the mix, in the same format as the recipe and the cat's bubble (e.g. 2 : 1 : 3).
+    if (this.units() === 0) return;
+    const ratio = reduceRatio(this.totals);
+    const els = this.cfg.elements.order.filter(e => ratio[e]);
+    const icon = this.L.counterIcon, gap = 40;
+    const totalW = els.length * icon + (els.length - 1) * gap;
+    let x = cr.x + (cr.w - totalW) / 2;
+    const style = font(this.cfg.font.counter, { color: '#ffffff', fontStyle: 'bold', stroke: '#2b1d3a', strokeThickness: 6 });
+    els.forEach((e, i) => {
+      const colX = x + icon / 2;
+      this.counter.add(this.add.image(colX, cr.y + icon / 2, 'element_' + e).setDisplaySize(icon, icon));
+      this.counter.add(this.add.text(colX, cr.y + icon + 4, String(ratio[e]), style).setOrigin(0.5, 0));
+      if (i < els.length - 1) this.counter.add(this.add.text(x + icon + gap / 2, cr.y + icon + 4, ':', style).setOrigin(0.5, 0));
+      x += icon + gap;
     });
+  }
+
+  // ---------------------------------------------------------------- floating ingredients
+
+  /** An added crystal or bottle floats on the liquid. Clicking it takes it back out. */
+  spawnFloat(entry) {
+    const S = this.L.floatSlots;
+    const slots = [];
+    S.rows.forEach((row, ri) => row.forEach(dx => slots.push({ dx, dy: S.rowY[ri] })));
+    const i = this.floating.length;
+    const s = slots[i % slots.length];
+    const jitter = i >= slots.length ? Phaser.Math.Between(-14, 14) : 0;
+    const x = S.center[0] + s.dx + jitter, y = S.center[1] + s.dy + (jitter ? Phaser.Math.Between(-6, 6) : 0);
+    const img = this.add.image(x, y - 70, entry.key).setDisplaySize(S.size, S.size).setDepth(D.floating + i * 0.001).setInteractive();
+    const f = { id: entry.id, type: entry.type, crystal: entry.crystal, key: entry.key, img, x, y };
+    this.tweens.add({
+      targets: img, y, duration: 320, ease: 'Bounce.easeOut',
+      onComplete: () => {
+        if (!img.active) return;
+        this.tweens.add({ targets: img, y: y - 5, angle: { from: -5, to: 5 }, duration: Phaser.Math.Between(900, 1300), yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+      }
+    });
+    img.on('pointerover', (p) => { if (!p.wasTouch && !this.held) this.showTip(f, 'float'); });
+    img.on('pointerout', () => this.hideTip());
+    img.on('pointerdown', () => {
+      if (this.done || this.held || this.selected || this._leaving) return;
+      this.removeFloat(f);
+    });
+    this.floating.push(f);
+    return f;
+  }
+
+  /** Takes one floating ingredient out of the cauldron and puts it back on the shelf. */
+  removeFloat(f) {
+    const idx = this.floating.indexOf(f);
+    if (idx < 0) return;
+    this.floating.splice(idx, 1);
+    const ai = this.added.lastIndexOf(f.id);
+    if (ai >= 0) this.added.splice(ai, 1);
+    if (f.type === 'crystal') ELEMENTS.forEach(e => { this.totals[e] -= f.crystal.elements[e] || 0; });
+    this.hideTip();
+    this.tweens.killTweensOf(f.img);
+    f.img.disableInteractive();
+    const cell = this.gridItems.find(it => it.id === f.id);
+    const pn = rect(this.L.panel);
+    const tx = cell ? cell.cell.cx : pn.x + pn.w / 2, ty = cell ? cell.cell.cy : pn.y + pn.h / 2;
+    this.tweens.add({ targets: f.img, x: tx, y: ty, angle: 0, scale: f.img.scale * 0.6, alpha: 0.3, duration: 320, ease: 'Sine.easeIn', onComplete: () => f.img.destroy() });
+    G.audio.sfx('pickup');
+    this.lastAddTime = this.time.now;
+    this.refreshAll();
+  }
+
+  /** All floating ingredients sink (Empty, fizzle, success). */
+  clearFloats() {
+    (this.floating || []).forEach(f => {
+      this.tweens.killTweensOf(f.img);
+      f.img.disableInteractive();
+      this.tweens.add({ targets: f.img, y: f.img.y + 30, alpha: 0, scale: f.img.scale * 0.7, duration: 350, onComplete: () => f.img.destroy() });
+    });
+    this.floating = [];
+    this.hideTip();
+  }
+
+  // ---------------------------------------------------------------- hover info
+
+  /** Name and composition of a crystal (element amounts) or a potion bottle (its ratio). */
+  showTip(item, where) {
+    this.hideTip();
+    const c = this.cfg;
+    const box = this.add.container(0, 0).setDepth(D.tip);
+    const isBottle = item.type === 'bottle';
+    let name, parts, sep = '';
+    if (isBottle) {
+      const p = potionById(item.id);
+      name = p ? p.name : item.id;
+      const recipe = p && (p[G.state.choices[item.id]] || p.book);
+      const ratio = recipe ? reduceRatio(recipe) : {};
+      parts = c.elements.order.filter(e => ratio[e]).map(e => ({ e, v: ratio[e] }));
+      sep = ':';
+    } else {
+      const cr = item.crystal || crystalById(item.id);
+      name = cr ? cr.name : item.id;
+      parts = c.elements.order.filter(e => cr && cr.elements[e]).map(e => ({ e, v: cr.elements[e] }));
+    }
+    const pad = 16, icon = 36;
+    const title = this.add.text(pad, pad, name, font(26, { color: '#ffffff', fontStyle: 'bold' }));
+    box.add(title);
+    let x = pad;
+    const rowY = pad + title.height + 10;
+    parts.forEach((pt, i) => {
+      box.add(this.add.image(x + icon / 2, rowY + icon / 2, 'element_' + pt.e).setDisplaySize(icon, icon));
+      const t = this.add.text(x + icon + 6, rowY + icon / 2, String(pt.v), font(26, { color: '#ffe27a', fontStyle: 'bold' })).setOrigin(0, 0.5);
+      box.add(t);
+      x += icon + 6 + t.width + 12;
+      if (sep && i < parts.length - 1) {
+        const s = this.add.text(x - 4, rowY + icon / 2, sep, font(26, { color: '#ffe27a', fontStyle: 'bold' })).setOrigin(0.5);
+        box.add(s);
+        x += 14;
+      }
+    });
+    const w = Math.max(title.width + pad * 2, x - 12 + pad), h = rowY + icon + pad;
+    const bg = this.add.graphics();
+    bg.fillStyle(0x2b1d3a, 0.92).fillRoundedRect(0, 0, w, h, 12);
+    bg.lineStyle(3, 0xcbb9df, 1).strokeRoundedRect(0, 0, w, h, 12);
+    box.addAt(bg, 0);
+    if (where === 'grid') {
+      box.setPosition(item.cell.x - w - 12, Phaser.Math.Clamp(item.cell.cy - h / 2, 10, 1080 - h - 10));
+    } else {
+      box.setPosition(Phaser.Math.Clamp(item.img.x - w / 2, 10, 1920 - w - 10), item.img.y - item.img.displayHeight / 2 - h - 10);
+    }
+    this.tip = box;
+  }
+
+  hideTip() {
+    if (this.tip) { this.tip.destroy(); this.tip = null; }
   }
 
   refreshLiquid() {
@@ -507,16 +665,36 @@ export class PotionScene extends Phaser.Scene {
         Phaser.Display.Color.ValueToColor(0xffffff), Phaser.Display.Color.ValueToColor(0xe05a8a), 6, n);
       tint = Phaser.Display.Color.GetColor(tint.r, tint.g, tint.b);
     } else {
-      let r = 0, g = 0, b = 0;
-      ELEMENTS.forEach(e => {
-        const c = Phaser.Display.Color.HexStringToColor(this.cfg.elements.colors[e]);
-        r += c.red * this.totals[e]; g += c.green * this.totals[e]; b += c.blue * this.totals[e];
-      });
-      tint = Phaser.Display.Color.GetColor(Math.round(r / n), Math.round(g / n), Math.round(b / n));
+      tint = this.pleasantTint();
     }
     this.liquid.setTint(tint).setAlpha(1);
     if (this.bubbles.setParticleTint) this.bubbles.setParticleTint(tint); else this.bubbles.particleTint = tint;
     if (!this.bubbles.emitting) this.bubbles.start();
+  }
+
+  /**
+   * A bright, clear liquid colour for any mix (book or cat). Averaging RGB turns yellow + purple
+   * into grey mud, so instead the element hues are blended on the colour wheel (weighted by amount)
+   * and saturation/brightness are kept high. If the hues cancel out, the strongest element's hue wins.
+   */
+  pleasantTint() {
+    const C = Phaser.Display.Color;
+    let x = 0, y = 0, total = 0, best = null, bestAmt = 0;
+    ELEMENTS.forEach(e => {
+      const amt = this.totals[e];
+      if (!amt) return;
+      const c = C.HexStringToColor(this.cfg.elements.colors[e]);
+      const hsv = C.RGBToHSV(c.red, c.green, c.blue);
+      x += Math.cos(hsv.h * Math.PI * 2) * amt;
+      y += Math.sin(hsv.h * Math.PI * 2) * amt;
+      total += amt;
+      if (amt > bestAmt) { bestAmt = amt; best = hsv.h; }
+    });
+    let h = Math.atan2(y, x) / (Math.PI * 2);
+    if (h < 0) h += 1;
+    if (Math.hypot(x, y) < total * 0.2) h = best; // opposite hues cancel out: use the strongest element
+    const rgb = C.HSVToRGB(h, 0.55, 0.95);
+    return C.GetColor(rgb.r, rgb.g, rgb.b);
   }
 
   // ---------------------------------------------------------------- guidance and resistance
@@ -608,6 +786,7 @@ export class PotionScene extends Phaser.Scene {
   beginPress(entry, p) {
     if (this.done || this.held || this._leaving) return;
     if (this.selected && this.selected.id === entry.id) { this.clearSelection(); return; }
+    this.hideTip();
     const img = this.add.image(entry.img.x, entry.img.y, entry.key).setDisplaySize(this.L.grid.item, this.L.grid.item).setDepth(D.held);
     entry.img.setAlpha(0.35);
     const lerp = this.heavyLerp(entry);
@@ -696,6 +875,7 @@ export class PotionScene extends Phaser.Scene {
       h.entry.img.setAlpha(1);
       this.selected = h.entry;
       this.refreshGuidance();
+      this.showTip(h.entry, 'grid'); // on touch screens this is how the player sees the composition
       return;
     }
     const pos = this.pointerPos(p);
@@ -711,6 +891,7 @@ export class PotionScene extends Phaser.Scene {
   clearSelection() {
     if (!this.selected) return;
     this.selected = null;
+    this.hideTip();
     this.refreshGuidance();
   }
 
@@ -810,18 +991,21 @@ export class PotionScene extends Phaser.Scene {
       G.session.log.push({ name, text: r.text });
       this.lineActive = true;
       if (item.ev === 'advice') this.showCatBubble();
-      this.textbox.show(name, r.text, { onDone: () => this.lineDone() });
+      this.textbox.show(name, r.text, { instant: this.skip, onDone: () => this.lineDone() });
       this.startIdle();
       return;
     }
     // No more lines: the last one stays until a new line replaces it or the player leaves.
     // The cat's recipe stays visible in his bubble.
     this.lineActive = false;
+    if (this.skip) this.toggleSkip(); // nothing left to skip
   }
 
   /** A line is fully shown: wait for a click/tap, or continue by itself in Auto mode (same as the dialogue screen). */
   lineDone() {
-    if (G.settings.auto && !this.lineTimer) {
+    if (this.skip && !this.lineTimer) {
+      this.lineTimer = this.time.delayedCall(80, () => { this.lineTimer = null; this.nextLine(); });
+    } else if (G.settings.auto && !this.lineTimer) {
       this.lineTimer = this.time.delayedCall(autoDelayMs(this.textbox.full.length), () => { this.lineTimer = null; this.nextLine(); });
     }
   }
@@ -829,6 +1013,7 @@ export class PotionScene extends Phaser.Scene {
   /** Click / tap / Space / Enter: finish the typing line, or show the next one. */
   advanceLine(byPlayer) {
     if (!this.lineActive || this._leaving) return false;
+    if (byPlayer && this.skip) this.toggleSkip();
     if (this.textbox.typing) { this.textbox.finish(); return true; }
     if (byPlayer) G.session.advances++;
     this.nextLine();
@@ -837,6 +1022,23 @@ export class PotionScene extends Phaser.Scene {
 
   onTextboxClick() {
     this.advanceLine(true);
+  }
+
+  toggleAuto() {
+    G.settings.auto = !G.settings.auto;
+    SaveSystem.saveSettings();
+    this.menu.get('auto').setActive(G.settings.auto);
+    if (G.settings.auto && this.lineActive && !this.textbox.typing) this.lineDone();
+    if (!G.settings.auto && this.lineTimer) { this.lineTimer.remove(); this.lineTimer = null; }
+  }
+
+  toggleSkip() {
+    this.skip = !this.skip;
+    this.menu.get('skip').setActive(this.skip);
+    if (this.skip && this.lineActive) {
+      if (this.textbox.typing) this.textbox.finish();
+      else this.lineDone();
+    }
   }
 
   startIdle() {

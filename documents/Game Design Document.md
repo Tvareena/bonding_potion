@@ -166,15 +166,19 @@ Both successes look and sound the same.
 
 | Action | Result |
 |---|---|
-| Drag a crystal onto the cauldron | Splash; its units are added; the counter and the liquid tint update. |
+| Drag a crystal onto the cauldron | Splash; the crystal **floats on the surface** (bobbing gently); its units are added; the ratio on the cauldron and the liquid colour update. |
+| Click / tap a floating crystal or bottle | It goes back to the shelf and its units are removed, without emptying the rest. |
+| Hover over a crystal or bottle (shelf or floating) | Info box: name and composition. Crystals show element amounts (e.g. Marsh Jade: water 10, earth 20); bottles show their ratio. On touch screens the info shows when an item is tapped (selected). |
 | Drop a crystal anywhere else | It flies back to its cell. |
 | Brew (with something in the cauldron) | Check (3.4) → success or fizzle. Brew does nothing on an empty cauldron. |
-| Empty | Cauldron is cleared (in P7 the bottles go back to the shelf). |
+| Empty | Everything floating sinks and the cauldron is cleared (in P7 the bottles go back to the shelf). |
 | Fizzle | Smoke effect and sound, a short line from the Heroine or the cat, the cauldron empties automatically. |
-| Success | Sparkle effect, the bottle appears and moves to the Potions tab, a short line, the **Next** arrow lights up and pulses. Crystals can no longer be added. |
+| Success | Sparkle effect, the bottle appears and moves to the Potions tab, a short line, the **Next** arrow lights up: a pulsing glow behind it, and it swings gently back and forth (±10°, like the cat head icon on the dialogue screen; its size doesn't change). Crystals can no longer be added. |
 | Next | Goes to the next dialogue. Disabled (dimmed) until success. |
 
-The **element counter** on the cauldron front shows four element icons with a number next to each. Only elements above 0 are shown; it's empty for an empty cauldron.
+The **ratio on the cauldron** shows the current mix in the same format as the recipe and the cat's bubble: element icons in a row with the reduced ratio below (e.g. 30 fire + 20 water + 20 air → 3 : 2 : 2). It updates whenever something is added or removed; it's empty for an empty cauldron. In P7 it shows the bottles in the cauldron.
+
+The **liquid colour** blends the element colours on the colour wheel and keeps them bright, so any mix (book, cat or anything else) looks clear and pleasant, never murky.
 
 ### 3.6 Guidance and resistance
 
@@ -229,7 +233,7 @@ After the tutorial, the player brews freely.
 | Save / Load | Open the save and load screens (3.10). | Should |
 | Settings | Opens the settings panel (4.6). | Could |
 
-The six menu items are text-only (no button art) in the bottom-right of the textbox. Items that aren't implemented in the build are hidden, and the rest move right.
+The six menu items are text-only (no button art), under the text in the textbox. **The potion screen has the same menu**, in its own textbox. Items that aren't implemented in the build are hidden, and the rest move right.
 
 ### 3.9 Potion screen dialogue
 
@@ -283,7 +287,7 @@ Title ──Start / Continue / Load──▶ D1 ▶ P1 ▶ D2 ▶ P2 ▶ … ▶
   └─Settings──▶ Settings panel
 ```
 
-Esc (PC) or the **Menu** text button opens the pause panel on dialogue and potion screens: Resume, Save, Load, Log, Settings, Title.
+Esc (PC) opens the pause panel on dialogue and potion screens: Resume, Save, Load, Log, Settings, Title.
 
 ### 4.2 Title screen
 
@@ -295,7 +299,7 @@ Background, centred half-body sprite (0–1 at a time), semi-transparent textbox
 
 ### 4.4 Potion screen
 
-Recipe page (top-left), Next arrow (top-right) with a text-only **Menu** button to its left, cat on the table behind the cauldron with his recipe bubble above him, cauldron in the centre with the element counter, Brew and Empty buttons, ingredient menu on the right (tabs Crystals/Potions, sort row, 3 × 5 grid), Heroine portrait and textbox at the bottom-left.
+Recipe page (top-left), Next arrow (top-right), cat on the table behind the cauldron with his recipe bubble above him, cauldron in the centre with the element counter, Brew and Empty buttons, ingredient menu on the right (tabs Crystals/Potions, sort row, 3 × 5 grid), Heroine portrait and textbox at the bottom-left, with the same text menu as dialogue (Log, Auto, Skip, Save, Load, Settings) under the text.
 
 **Sorting:** the sort row has four element icons. Tapping one shows only crystals that contain that element (tap again to clear). Default order: single-element, then double, then triple.
 

@@ -77,12 +77,12 @@ Drawing order, back to front: background → cat → cauldron → everything els
 | Workshop background | 0, 0 | 1920 × 1080 | Includes the table surface. |
 | Recipe book page | 40, 40 | 560 × 580 | Empty page; the game writes the potion name, a row of element icons (64 × 64, starting at y 240) with the ratio numbers under them (e.g. 2 : 3 : 2), and the flavour line. |
 | Next arrow | 1760, 40 | 120 × 120 | Normal, hover, pressed and disabled states. |
-| Menu (text-only) | 1620, 80 | 120 × 40 click area | Opens the pause panel. No art needed. |
 | Cat recipe bubble | 1040, 22 | 440 × 200 | Speech bubble with its tail pointing down at the cat (tail tip around x 1313, y 220). The game draws the cat's recipe inside: element icons 56 × 56 in a row with ratio numbers below. Appears with the cat's advice. |
 | Cat on the table | 1140, 230 | 340 × 520 | One pose, partly hidden behind the cauldron. Not shown in potion 6. |
 | Cauldron | 600, 300 | 620 × 500 | |
 | Liquid layer | 660, 340 | 500 × 140 | Light grey; the game tints it to the mix colour. Separate file. |
-| Element counter | 700, 620 | 420 × 70 | Drawn by the game on the front of the cauldron, with 64 × 64 element icons. |
+| Ratio on the cauldron | 680, 596 | 460 × 120 | Drawn by the game on the front of the cauldron: 48 × 48 element icons with the current ratio below. |
+| Floating ingredients | around 910, 404 (two rows on the liquid) | 72 × 72 each | The crystal and bottle images, shown smaller and bobbing. Click to take one out. |
 | Brew button | 1240, 760 | 220 × 90 | Normal, hover and pressed states. |
 | Empty button | 1240, 870 | 220 × 90 | Normal, hover and pressed states. |
 | Ingredient menu panel | 1480, 230 | 420 × 820 | Panel background. |
@@ -91,7 +91,8 @@ Drawing order, back to front: background → cat → cauldron → everything els
 | Crystal cells | 3 columns from x 1500, every 130 px; 5 rows from y 390, every 130 px | 120 × 120 each | Crystal art is 128 × 128, shown slightly smaller in the cells. |
 | Heroine portrait frame | 40, 650 | 320 × 420 | Same frame as on the dialogue screen. |
 | Heroine portrait | 50, 660 | 300 × 400 | Same portrait files as on the dialogue screen. |
-| Textbox | 380, 840 | 840 × 200 | Lines of all characters. Same frame style as on the dialogue screen. |
+| Textbox | 380, 840 | 840 × 200 | Lines of all characters (text area 400, 878 · 800 × 104). Same frame style as on the dialogue screen. |
+| Text menu (Log, Auto, Skip, Save, Load, Settings) | first at 402, 992, then every 135 px | 120 × 40 click area each | Text only, same as the dialogue screen. No art needed. |
 | Name plate | 400, 810 | 300 × 56 | |
 
 ## 6. Other screens (no drawing)

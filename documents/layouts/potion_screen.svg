@@ -22,9 +22,6 @@
   <text x="1820" y="96" text-anchor="middle" class="sm">Next</text>
   <text x="1820" y="122" text-anchor="middle" class="xs">120 × 120</text>
   <text x="1880" y="188" text-anchor="end" class="xs">Next arrow 1760, 40</text>
-  <rect x="1620" y="80" width="120" height="40" fill="none" stroke="#4B2E6B" stroke-width="1.5" stroke-dasharray="5 4"/>
-  <text x="1680" y="108" text-anchor="middle" font-size="24" font-weight="bold" fill="#4B2E6B">Menu</text>
-  <text x="1680" y="146" text-anchor="middle" class="xs">text-only 1620, 80 · 120 × 40</text>
 
   <!-- Cat on the table -->
   <rect x="1140" y="230" width="340" height="520" fill="#E3D6C3" stroke="#7A5A30" stroke-width="4"/>
@@ -45,8 +42,8 @@
   <text x="910" y="440" text-anchor="middle" class="xs">(tinted in code)</text>
   <text x="910" y="545" text-anchor="middle" class="lbl">Cauldron</text>
   <text x="910" y="581" text-anchor="middle" class="dim">600, 300 · 620 × 500</text>
-  <rect x="700" y="620" width="420" height="70" fill="#FFFFFF" fill-opacity="0.7" stroke="#333" stroke-width="2" stroke-dasharray="8 6"/>
-  <text x="910" y="662" text-anchor="middle" class="xs">Element counter 700, 620 · 420 × 70 (icons 64 × 64)</text>
+  <rect x="680" y="596" width="460" height="120" fill="#FFFFFF" fill-opacity="0.7" stroke="#333" stroke-width="2" stroke-dasharray="8 6"/>
+  <text x="910" y="662" text-anchor="middle" class="xs">Ratio on the cauldron 680, 596 · 460 × 120</text>
 
   <!-- Brew / Empty -->
   <rect x="1240" y="760" width="220" height="90" rx="10" fill="#F6E3A8" stroke="#B8902A" stroke-width="4"/>
@@ -82,8 +79,17 @@
   <text x="420" y="930" class="lbl">Textbox (all characters' lines)</text>
   <text x="420" y="968" class="dim">380, 840 · 840 × 200</text>
 
-  <!-- Heroine portrait -->
-  <rect x="40" y="650" width="320" height="420" fill="#8E73AD" stroke="#4B2E6B" stroke-width="4"/>
+  <!-- Text menu in the potion textbox -->
+  <g font-size="22" fill="#4B2E6B" font-weight="bold" text-anchor="middle">
+    <rect x="402" y="992" width="120" height="40" fill="none" stroke="#4B2E6B" stroke-width="1.5" stroke-dasharray="5 4"/><text x="462" y="1019">Log</text>
+    <rect x="537" y="992" width="120" height="40" fill="none" stroke="#4B2E6B" stroke-width="1.5" stroke-dasharray="5 4"/><text x="597" y="1019">Auto</text>
+    <rect x="672" y="992" width="120" height="40" fill="none" stroke="#4B2E6B" stroke-width="1.5" stroke-dasharray="5 4"/><text x="732" y="1019">Skip</text>
+    <rect x="807" y="992" width="120" height="40" fill="none" stroke="#4B2E6B" stroke-width="1.5" stroke-dasharray="5 4"/><text x="867" y="1019">Save</text>
+    <rect x="942" y="992" width="120" height="40" fill="none" stroke="#4B2E6B" stroke-width="1.5" stroke-dasharray="5 4"/><text x="1002" y="1019">Load</text>
+    <rect x="1077" y="992" width="120" height="40" fill="none" stroke="#4B2E6B" stroke-width="1.5" stroke-dasharray="5 4"/><text x="1137" y="1019">Settings</text>
+  </g>
+
+  <!-- Heroine portrait -->  <rect x="40" y="650" width="320" height="420" fill="#8E73AD" stroke="#4B2E6B" stroke-width="4"/>
   <rect x="50" y="660" width="300" height="400" fill="#E9D3DC" stroke="#9A4A6A" stroke-width="3"/>
   <text x="200" y="840" text-anchor="middle" class="lbl">Heroine</text>
   <text x="200" y="876" text-anchor="middle" class="lbl">portrait</text>

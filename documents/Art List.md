@@ -185,7 +185,7 @@ The six bottles should look like one set (similar shape family, different detail
 
 - All text: lines, names, button labels, recipe text, numbers, the "Click to continue" hint.
 - The dialogue screen menu (Log, Auto, Skip, Save, Load, Settings): **text only**, no button images.
-- The potion screen "Menu" text button (1620, 80 · 120 × 40).
+- The potion screen text menu (same as dialogue) and the hover info boxes for crystals and bottles.
 - Highlights, glows, outlines, the progress bar, sliders in Settings, the dim layer behind panels.
 - The "Please rotate your device" message.
 

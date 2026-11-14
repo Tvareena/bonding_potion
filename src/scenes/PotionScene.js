@@ -710,10 +710,29 @@ export class PotionScene extends Phaser.Scene {
         const lines = rows.filter(r => r.kind === 'line');
         rows = lines.length ? [lines[Math.floor(Math.random() * lines.length)]] : [];
       }
-      rows.forEach(r => this.queue.push({ row: r }));
+      rows.forEach(r => this.queue.push({ row: r, ev: name }));
+      // The advice (the cat's suggestion, or the Heroine remembering it in P6) is the "resting" line:
+      // the screen goes back to it after other lines.
+      if (name === 'advice') {
+        const lines = rows.filter(r => r.kind === 'line');
+        if (lines.length) this.adviceRow = lines[lines.length - 1];
+      }
     }
     if (cb) this.queue.push({ cb });
     if (!this.lineActive) this.nextLine();
+  }
+
+  /** Shows the advice line again, instantly and without adding it to the log. */
+  showAdvice() {
+    const r = this.adviceRow;
+    let name = null;
+    if (r.speaker) {
+      name = charName(r.speaker);
+      const ch = G.characters[r.speaker];
+      if (ch && ch.kind === 'portrait' && r.expr) this.portrait.set(r.expr);
+    }
+    this.currentEv = 'advice';
+    this.textbox.show(name, r.text, { instant: true });
   }
 
   nextLine() {
@@ -732,13 +751,16 @@ export class PotionScene extends Phaser.Scene {
       }
       G.session.log.push({ name, text: r.text });
       this.lineActive = true;
+      this.currentEv = item.ev;
       this.textbox.show(name, r.text, { onDone: () => this.lineDone() });
       this.startIdle();
       return;
     }
-    // No more lines: the last one stays on screen (e.g. the cat's advice next to the recipe)
-    // until a new line replaces it or the player leaves the screen.
     this.lineActive = false;
+    // No more lines. Once the advice has been given, the screen returns to it after any other lines
+    // (resistance comments, fizzles), so the suggestion stays next to the recipe.
+    // After a successful brew the success line stays instead. Otherwise the last line stays.
+    if (this.adviceRow && !this.done && this.currentEv !== 'advice') this.showAdvice();
   }
 
   /** A line is fully shown: wait for a click/tap, or continue by itself in Auto mode (same as the dialogue screen). */

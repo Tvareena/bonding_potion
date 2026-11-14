@@ -222,7 +222,11 @@ The six menu items are text-only (no button art) in the bottom-right of the text
 
 - All lines (Heroine, Jaros, recollections) appear in the potion screen textbox with the speaker's name.
 - Lines are triggered by events from the script: start of the potion, the cat's advice, first resistance, fizzle, success.
-- The last line stays in the textbox until a new line replaces it or the player leaves the screen, so the cat's advice can be read next to the recipe. There is no Heroine "hint" line when the player is idle; only the recipe glows.
+- The cat's advice (in P6, the Heroine remembering it) is the "resting" line. Once it has been said, it stays in the textbox next to the recipe until the player leaves the screen.
+- If the game interrupts (a heavy or slipping crystal, a fizzle) and the Heroine or the cat comments, that line is shown; after the player clicks (or by itself in Auto mode), the textbox returns to the advice. The returning advice appears instantly and isn't added to the Log again.
+- After a successful brew, the success line stays instead.
+- Before the advice has been said (opening lines, P1 tutorial), the last line stays.
+- There is no Heroine "hint" line when the player is idle; only the recipe glows.
 - Lines advance exactly like on the dialogue screen: a click or tap on the textbox or on any free spot (not a crystal, button or tab), or Space / Enter. In Auto mode they advance by themselves. The "Click to continue" hint works the same way.
 - The puzzle stays playable while a line is waiting.
 - Jaros's advice for the current potion is repeated on request: clicking the cat on the table makes him say his advice again.

@@ -65,7 +65,8 @@
     "ui_ingredient_panel":      { "path": "assets/images/ui/ui_ingredient_panel.png",      "size": [420, 820], "group": "UI", "ph": { "color": "#d6c9e4", "shape": "button", "border": "#6a4a8c" } },
     "ui_cell":                  { "path": "assets/images/ui/ui_cell.png",                  "size": [120, 120], "group": "UI", "ph": { "color": "#f7f3fb", "shape": "button", "border": "#a894c2" } },
     "ui_cat_bubble":            { "path": "assets/images/ui/ui_cat_bubble.png",            "size": [440, 200], "group": "UI", "ph": { "color": "#fffaf0", "shape": "speech", "border": "#2e2a33" } },
-    "ui_cursor":               { "path": "assets/images/ui/ui_cursor.png",                "size": [64, 64],   "group": "UI", "ph": { "color": "#ffffff", "shape": "cursor", "border": "#2b1d3a" } },
+    "ui_cat_bubble_memory":     { "path": "assets/images/ui/ui_cat_bubble_memory.png",     "size": [440, 160], "group": "UI", "ph": { "color": "#fffaf0", "shape": "button", "border": "#8a7a99" } },
+    "ui_cursor":              { "path": "assets/images/ui/ui_cursor.png",                "size": [64, 64],   "group": "UI", "ph": { "color": "#ffffff", "shape": "cursor", "border": "#2b1d3a" } },
 
     "ui_textbox":   { "path": "assets/images/ui/ui_textbox.png",   "size": [192, 192], "group": "UI frames", "nineSlice": [48, 48, 48, 48], "ph": { "color": "#cbb9df", "alpha": 0.8, "shape": "button", "border": "#6a4a8c" } },
     "ui_nameplate": { "path": "assets/images/ui/ui_nameplate.png", "size": [192, 64],  "group": "UI frames", "nineSlice": [24, 24, 0, 0],   "ph": { "color": "#f4eff9", "shape": "button", "border": "#6a4a8c" } },

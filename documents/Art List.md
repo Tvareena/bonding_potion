@@ -114,9 +114,9 @@ All crystals: **128 × 128**, PNG with transparency. Shown in the ingredient men
 | `crystal_deep_sapphire.png` | Water 30 | Large blue crystal | Must |
 | `crystal_marsh_jade.png` | Water 10, Earth 20 | Green cluster with a smaller blue part | Must |
 | `crystal_sun_citrine.png` | Fire 20, Air 10 | Yellow cluster with a smaller purple part | Must |
-| `crystal_blaze_ruby.png` | Fire 30 | Large yellow crystal | Must |
-| `crystal_sky_amethyst.png` | Air 30 | Large purple crystal | Must |
-| `crystal_mountain_amber.png` | Earth 30 | Large green crystal | Must |
+| `crystal_blaze_ruby.png` | Fire 30 | Large yellow crystal | Could (not used in any potion yet) |
+| `crystal_sky_amethyst.png` | Air 30 | Large purple crystal | Could (not used in any potion yet) |
+| `crystal_mountain_amber.png` | Earth 30 | Large green crystal | Could (not used in any potion yet) |
 | `crystal_dusk_prism.png` | Fire 20, Earth 10, Air 10 | Three-coloured prism, mostly yellow, with green and purple | Must |
 
 ### 6.2 Element icons — `assets/images/elements/`
@@ -168,6 +168,7 @@ The six bottles should look like one set (similar shape family, different detail
 | `ui_ingredient_panel.png` | 420 × 820 | 1480, 230 | — | Must | Background of the ingredient menu (shelf, box or cabinet). Tabs sit at the top (inside the image: 20, 20 · 380 × 60), the sort row below (20, 92 · 380 × 54), then a 3 × 5 grid of cells (from 20, 160; cells 120 × 120 every 130 px). |
 | `ui_cell.png` | 120 × 120 | grid in the ingredient panel | — | Should | One slot for a crystal or bottle. The game highlights it in code. |
 | `ui_cat_bubble.png` | 440 × 200 | 1040, 22 (potion screen) | — | Must | Speech bubble for the cat's recipe, **without text or icons** (the game draws the element icons and ratio numbers inside). Body about 440 × 160 at the top; the tail points **down** at the cat from the bottom edge, tip at about 273, 200 inside the image. Keep the inside plain and light so icons read well. |
+| `ui_cat_bubble_memory.png` | 440 × 160 | 1040, 22 (potion screen, potion 6 only) | — | Must | The same bubble **without a tail**, used in potion 6 when the cat is away and the Heroine remembers his recipe. Can look a little dreamier (softer edge, lighter outline) to read as a memory. No text or icons. |
 | `ui_cursor.png` | 64 × 64 | follows the mouse (potion screen, PC) | — | Should | Custom cursor (for example a hand or a pointer). **The tip (click point) at 8, 8 inside the image.** |
 
 ### 7.2 Stretchable frames (9-slice)
@@ -184,6 +185,7 @@ The six bottles should look like one set (similar shape family, different detail
 - Credits text (from `data/credits.txt`).
 
 - All text: lines, names, button labels, recipe text, numbers, the "Click to continue" hint.
+- The bouncing "more lines" arrow ▼ in the textbox.
 - The dialogue screen menu (Log, Auto, Skip, Save, Load, Settings): **text only**, no button images.
 - The potion screen text menu (same as dialogue) and the hover info boxes for crystals and bottles.
 - Highlights, glows, outlines, the progress bar, sliders in Settings, the dim layer behind panels.
@@ -218,11 +220,11 @@ The six bottles should look like one set (similar shape family, different detail
 | Crystals | 13 |
 | Element icons | 4 |
 | Bottles | 7 |
-| UI fixed images | 19 |
+| UI fixed images | 20 |
 | UI 9-slice frames | 3 |
 | Effects | 3 |
 | Other | 1 |
-| **Total** | **64** |
+| **Total** | **65** |
 
 **Suggested order:** element icons and crystals (they define the puzzle) → cauldron, liquid, cat on the table, recipe page, ingredient panel → Heroine portrait, cat icon, textbox, name plate, portrait frame → backgrounds → Chad and Jaros human sprites → bottles → buttons and their states → ending illustrations, logo, title background → effects, cursor, panel, favicon.
 

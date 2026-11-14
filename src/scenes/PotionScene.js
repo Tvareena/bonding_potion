@@ -190,7 +190,8 @@ export class PotionScene extends Phaser.Scene {
     this.portrait = new Portrait(this, L.portraitFrame, L.portrait, D.portrait);
     this.textbox = new TextBox(this, {
       box: L.textbox, nameplate: L.nameplate, text: L.text,
-      fontSize: this.cfg.font.potionLine, fontMin: this.cfg.font.potionLineMin, nameSize: this.cfg.font.potionName, depth: D.textbox
+      fontSize: this.cfg.font.potionLine, fontMin: this.cfg.font.potionLineMin, nameSize: this.cfg.font.potionName, depth: D.textbox,
+      more: G.layout.dialogue.potionMore
     });
     this.textbox.clear();
     const tb = rect(L.textbox);
@@ -275,7 +276,11 @@ export class PotionScene extends Phaser.Scene {
     const B = this.L.catBubble, r = rect(B.rect), c = this.cfg;
     const box = this.add.container(r.x + r.w / 2, r.y + r.h).setDepth(D.cat + 1).setAlpha(0).setScale(0.6);
     // Container origin is the bottom-centre (tail end), so the pop-in grows out of the cat.
-    box.add(this.add.image(0, 0, 'ui_cat_bubble').setOrigin(0.5, 1).setDisplaySize(r.w, r.h));
+    // No cat on the table (P6): a bubble without the tail pointing at him (the Heroine's memory of his recipe).
+    const noTail = !this.potion.catPresent;
+    const bodyH = B.bodyH || 160;
+    box.add(this.add.image(0, noTail ? -(r.h - bodyH) : 0, noTail ? 'ui_cat_bubble_memory' : 'ui_cat_bubble')
+      .setOrigin(0.5, 1).setDisplaySize(r.w, noTail ? bodyH : r.h));
     const ratio = reduceRatio(this.potion.cat);
     const els = c.elements.order.filter(e => ratio[e]);
     const n = els.length;
@@ -483,10 +488,10 @@ export class PotionScene extends Phaser.Scene {
     G.audio.sfx('fizzle');
     this.playEvent('fizzle');
     this.input.enabled = false;
-    this.time.delayedCall(700, () => { this.input.enabled = true; this.emptyCauldron(); });
+    this.time.delayedCall(700, () => { this.input.enabled = true; this.emptyCauldron(true); });
   }
 
-  emptyCauldron() {
+  emptyCauldron(force) {
     if (this.done) return;
     this.clearFloats();
     this.totals = { fire: 0, water: 0, earth: 0, air: 0 };
@@ -504,8 +509,14 @@ export class PotionScene extends Phaser.Scene {
     this.refreshCounter();
     this.refreshLiquid();
     this.refreshGrid();
-    this.brewBtn.setEnabled(!this.done && this.added.length > 0);
-    this.emptyBtn.setEnabled(!this.done && this.added.length > 0);
+    this.refreshButtons();
+  }
+
+  /** Brew and Empty work whenever something is in the cauldron (dialogue doesn't block them). */
+  refreshButtons() {
+    const ok = !this.done && this.added.length > 0;
+    this.brewBtn.setEnabled(ok);
+    this.emptyBtn.setEnabled(ok);
   }
 
   refreshCounter() {
@@ -973,6 +984,10 @@ export class PotionScene extends Phaser.Scene {
         rows = lines.length ? [lines[Math.floor(Math.random() * lines.length)]] : [];
       }
       rows.forEach(r => this.queue.push({ row: r, ev: name }));
+      if (name === 'advice') {
+        const lines = rows.filter(r => r.kind === 'line');
+        if (lines.length) this.adviceRow = lines[lines.length - 1];
+      }
     }
     // The cat's recipe bubble appears with his advice (or right away if the advice has no lines).
     if (name === 'advice' && !this.queue.some(q => q.ev === 'advice')) this.showCatBubble();
@@ -994,7 +1009,9 @@ export class PotionScene extends Phaser.Scene {
       }
       G.session.log.push({ name, text: r.text });
       this.lineActive = true;
+      this.refreshButtons();
       if (item.ev === 'advice') this.showCatBubble();
+      this.currentEv = item.ev;
       this.textbox.show(name, r.text, { instant: this.skip, onDone: () => this.lineDone() });
       this.startIdle();
       return;
@@ -1002,11 +1019,25 @@ export class PotionScene extends Phaser.Scene {
     // No more lines: the last one stays until a new line replaces it or the player leaves.
     // The cat's recipe stays visible in his bubble.
     this.lineActive = false;
+    this.textbox.setMore(false);
+    this.refreshButtons();
     if (this.skip) this.toggleSkip(); // nothing left to skip
+    // After the Heroine reacts to the game pushing back (heavy or slipping crystal),
+    // the textbox goes back to the advice line.
+    if (this.adviceRow && !this.done && (this.currentEv === 'resist_heavy' || this.currentEv === 'resist_slip')) this.showAdvice();
+  }
+
+  /** Shows the advice line again, instantly and without adding it to the Log. */
+  showAdvice() {
+    const r = this.adviceRow;
+    this.currentEv = 'advice';
+    this.textbox.show(r.speaker ? charName(r.speaker) : null, r.text, { instant: true });
   }
 
   /** A line is fully shown: wait for a click/tap, or continue by itself in Auto mode (same as the dialogue screen). */
   lineDone() {
+    // Bouncing arrow only when another line is still waiting (on the last line there's nothing more to click for).
+    this.textbox.setMore(!this.skip && this.queue.length > 0);
     if (this.skip && !this.lineTimer) {
       this.lineTimer = this.time.delayedCall(80, () => { this.lineTimer = null; this.nextLine(); });
     } else if (G.settings.auto && !this.lineTimer) {
@@ -1128,7 +1159,7 @@ export class PotionScene extends Phaser.Scene {
 
   debugFill(which) {
     if (this.done) return;
-    this.emptyCauldron();
+    this.emptyCauldron(true);
     if (this.isMix) {
       this.added = this.potion.mix.slice();
     } else {

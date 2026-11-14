@@ -32,7 +32,7 @@ export class DialogueScene extends Phaser.Scene {
     // Textbox
     this.textbox = new TextBox(this, {
       box: L.textbox, nameplate: L.nameplate, text: L.text,
-      fontSize: G.config.font.line, fontMin: G.config.font.lineMin, nameSize: G.config.font.name, depth: 20
+      fontSize: G.config.font.line, fontMin: G.config.font.lineMin, nameSize: G.config.font.name, depth: 20, more: L.more
     });
     this.textbox.clear();
 
@@ -207,6 +207,8 @@ export class DialogueScene extends Phaser.Scene {
   }
 
   lineDone() {
+    // The line is fully shown and waits for a click: show the bouncing "more" arrow.
+    if (!this.skip) this.textbox.setMore(true);
     if (this.skip) {
       this.time.delayedCall(70, () => this.advance(false));
     } else if (G.settings.auto) {

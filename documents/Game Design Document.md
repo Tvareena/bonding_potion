@@ -127,15 +127,16 @@ Crystals are unlimited. Each adds fixed element units. **Each potion has its own
 | `mountain_amber` | Mountain Amber | | | 30 | |
 | `dusk_prism` | Dusk Prism | 20 | | 10 | 10 |
 
-| Potion | Crystals in the menu |
-|---|---|
-| P1 Fun | Ember Shard, Root Stone, Wisp Quartz, Lava Garnet |
-| P2 Courage | Ember Shard, Root Stone, Wisp Quartz, Tide Pearl, Storm Opal |
-| P3 Trust | Ember Shard, Root Stone, Tide Pearl, Lava Garnet, Deep Sapphire, Marsh Jade |
-| P4 Hope | Ember Shard, Root Stone, Wisp Quartz, Tide Pearl, Storm Opal, Lava Garnet, Sun Citrine, Blaze Ruby |
-| P5 Confidence | Root Stone, Wisp Quartz, Tide Pearl, Marsh Jade, Sun Citrine, Sky Amethyst, Mountain Amber, Dusk Prism |
-| P6 Gratitude | Tide Pearl, Lava Garnet, Storm Opal, Deep Sapphire, Marsh Jade, Blaze Ruby, Sky Amethyst, Mountain Amber, Dusk Prism |
+| Potion | Crystals in the menu | Plain (one element) |
+|---|---|---|
+| P1 Fun | Ember Shard, Wisp Quartz, Lava Garnet, Storm Opal | 2 of 4 |
+| P2 Courage | Root Stone, Wisp Quartz, Lava Garnet, Storm Opal, Sun Citrine | 2 of 5 |
+| P3 Trust | Ember Shard, Tide Pearl, Deep Sapphire, Lava Garnet, Marsh Jade, Sun Citrine | 3 of 6 |
+| P4 Hope | Root Stone, Wisp Quartz, Tide Pearl, Marsh Jade, Sun Citrine, Dusk Prism | 3 of 6 |
+| P5 Confidence | Root Stone, Wisp Quartz, Storm Opal, Marsh Jade, Sun Citrine, Dusk Prism | 2 of 6 |
+| P6 Gratitude | Wisp Quartz, Tide Pearl, Deep Sapphire, Marsh Jade, Sun Citrine, Dusk Prism | 3 of 6 |
 
+**Limited ingredients.** Each potion's set is chosen so the player **can't make the book recipe from plain (single-element) crystals alone**: at least one mixed crystal is always needed, and the right ratio has to be worked out. In the story, the aunt used up most of the plain crystals before she left, and the Heroine has to make do with what's on the shelf (she says so at the start of potions 2–6). The sets are also the main way to control difficulty: change `potions.json → crystals` to make a potion easier or harder. Blaze Ruby, Sky Amethyst and Mountain Amber are currently not used in any potion.
 ### 3.4 Recipes and the hidden check
 
 Recipes are **ratios**, not amounts. The recipe page shows the book recipe as element icons in a row with the ratio numbers below them (for example 2 : 3 : 2).
@@ -145,11 +146,11 @@ Every cat recipe **adds an element the book doesn't use** (Gratitude can't: its 
 | # | ID | Potion | Book ratio | Cat's ratio | Cat's extra element | Fewest crystals (book / cat) |
 |---|---|---|---|---|---|---|
 | 1 | `fun` | Fun | Fire 1 : Earth 1 | Fire 1 : Earth 1 : Air 1 | Air | 1 / 2 |
-| 2 | `courage` | Courage | Water 1 : Air 2 | Water 1 : Air 2 : Fire 1 | Fire | 2 / 3 |
+| 2 | `courage` | Courage | Water 1 : Air 2 | Water 1 : Air 2 : Fire 1 | Fire | 2 / 4 |
 | 3 | `trust` | Trust | Water 2 : Earth 1 | Water 2 : Earth 1 : Fire 1 | Fire | 2 / 3 |
-| 4 | `hope` | Hope | Fire 2 : Air 2 : Water 1 | Fire 2 : Air 2 : Water 1 : Earth 1 | Earth | 2 / 3 |
-| 5 | `confidence` | Confidence | Fire 2 : Earth 3 : Air 2 | Fire 2 : Earth 3 : Air 2 : Water 1 | Water | 3 / 3 |
-| 6 | `gratitude` | Gratitude | 1 : 1 : 1 : 1 (all four) | Fire 1 : Water 3 : Earth 3 : Air 1 | — (proportions only) | 2 / 4 |
+| 4 | `hope` | Hope | Fire 2 : Air 2 : Water 1 | Fire 2 : Air 2 : Water 1 : Earth 1 | Earth | 3 / 3 |
+| 5 | `confidence` | Confidence | Fire 2 : Earth 3 : Air 2 | Fire 2 : Earth 3 : Air 2 : Water 1 | Water | 4 / 3 |
+| 6 | `gratitude` | Gratitude | 1 : 1 : 1 : 1 (all four) | Fire 1 : Water 3 : Earth 3 : Air 1 | — (proportions only) | 4 / 6 |
 | 7 | `love` | Love | One of each finished potion 1–6 | — | — | — |
 
 The last column was checked by searching every combination of each potion's crystals: all 12 recipes can be made.
@@ -226,6 +227,7 @@ After the tutorial, the player brews freely.
 |---|---|---|
 | Advance | Click, tap, Space or Enter. While text is typing, the first click finishes the line instantly. Works the same on the dialogue and potion screens (3.9). | Must |
 | Typewriter text | Lines appear letter by letter; speed set in Settings. | Should |
+| "More" arrow | A small triangle ▼ bobbing at the bottom-right of the text. Dialogue screen: shown whenever a fully shown line waits for a click. Potion screen: shown only when another line is still waiting, so the player knows there's more to read; hidden on the last line. Drawn by the game. | Should |
 | Cat icon swing | The cat head icon rocks gently while a Jaros line is shown. | Should |
 | Log | Opens a panel with all lines seen in this session, scrollable. | Should |
 | Auto | Toggle (also in Settings). Lines advance by themselves after they finish; the pause depends on line length and the **Auto speed** setting (slow / normal / fast). One setting for the whole game, remembered between sessions. | Should |
@@ -241,8 +243,9 @@ The six menu items are text-only (no button art), under the text in the textbox.
 - Lines are triggered by events from the script: start of the potion, the cat's advice, first resistance, fizzle, success.
 - **The cat's recipe bubble.** When Jaros gives his advice, a speech bubble pops up above him showing his alternative recipe the same way the book does: element icons in a row with the ratio numbers below (for example 2 : 1 : 3 : 2). It stays until the player leaves the screen, so the book's recipe and the cat's can be compared at a glance. Clicking the cat repeats his advice line and the bubble bounces.
 - His spoken advice is a short remark without numbers ("Try my way. A drop of water keeps confidence from turning into pride.").
-- In P6 the cat is gone: the bubble still appears (slightly faded) when the Heroine remembers his recipe. P7 has no bubble.
-- Other lines (resistance comments, fizzles, success) show in the textbox as usual; the last line stays until a new one replaces it or the player leaves.
+- In P6 the cat is gone: the bubble still appears, slightly faded and **without the tail** (a separate image), when the Heroine remembers his recipe. P7 has no bubble.
+- When the game pushes back (a heavy or slipping crystal) and the Heroine comments, her line shows; after the player clicks (or by itself in Auto mode) the textbox returns to the cat's advice line. It reappears instantly and isn't added to the Log again.
+- Other lines (fizzles, success) show in the textbox as usual; the last line stays until a new one replaces it or the player leaves.
 - There is no Heroine "hint" line when the player is idle; only the recipe glows.
 - Lines advance exactly like on the dialogue screen: a click or tap on the textbox or on any free spot (not a crystal, button or tab), or Space / Enter. In Auto mode they advance by themselves. The "Click to continue" hint works the same way.
 - The puzzle stays playable while a line is waiting.

@@ -30,7 +30,7 @@ All tasks except drawing the art. Art *integration* (placeholders, replacing fil
 
 | ID | Task | Owner | Priority | Depends on | Done when |
 |---|---|---|---|---|---|
-| D1 | `data/assets.json`: every image from the Art List (64 files) with key, path, required size and group (TDD §5.7); 9-slice settings for `ui_textbox`, `ui_nameplate`, `ui_panel`; audio entries | Dev | Must | S1 | Every Art List file has an entry. |
+| D1 | `data/assets.json`: every image from the Art List (65 files) with key, path, required size and group (TDD §5.7); 9-slice settings for `ui_textbox`, `ui_nameplate`, `ui_panel`; audio entries | Dev | Must | S1 | Every Art List file has an entry. |
 | D2 | `data/layout.json`: all positions and sizes from Screen Layouts (title, dialogue, potion, ending card, panels) | Dev | Must | S1 | Numbers match Screen Layouts exactly. |
 | D3 | `data/config.json`: element colours, text speeds, hint timings, resistance values, ending thresholds (TDD §5.5) | Dev | Must | S1 | All keys from TDD §5.5 present with defaults. |
 | D4 | `data/potions.json`: 7 potions with book/cat recipes, guidance level, cat present, unlocks, flavour text (GDD §3.4) | Design | Must | — | Matches GDD §3.4; flavour line written for each potion. |
@@ -42,7 +42,7 @@ All tasks except drawing the art. Art *integration* (placeholders, replacing fil
 
 | ID | Task | Owner | Priority | Depends on | Done when |
 |---|---|---|---|---|---|
-| A1 | `tools/make_placeholders.ps1`: creates every missing image from `assets.json` at the right size (flat colour, border, asset name); never overwrites existing files; records each file with its checksum in `assets/placeholders.json` | Dev | Must | D1 | Running it fills `assets/images/` with 64 files and lists them in `placeholders.json`. |
+| A1 | `tools/make_placeholders.ps1`: creates every missing image from `assets.json` at the right size (flat colour, border, asset name); never overwrites existing files; records each file with its checksum in `assets/placeholders.json` | Dev | Must | D1 | Running it fills `assets/images/` with 65 files and lists them in `placeholders.json`. |
 | A2 | Generate and commit all placeholder images | Dev | Must | A1 | The game runs with no missing images. |
 | A3 | Runtime fallback: a missing image becomes a generated rectangle of the expected size, with a console warning | Dev | Should | D1 | Deleting a file doesn't crash the game. |
 | A4 | Short "How to replace art" note in the repository README (editor Art tab, or by hand: same name, same size, same folder; JPG for backgrounds) | Dev | Should | A2 | The artist can replace a file without asking. |
@@ -155,7 +155,7 @@ All tasks except drawing the art. Art *integration* (placeholders, replacing fil
 |---|---|---|---|---|---|
 | E1 | `editor.html` shell: tabs (Texts, Art), "Choose project folder" with File System Access API, remembered folder (IndexedDB), message in unsupported browsers | Dev | Should | S4 | Folder chosen once; works in Chrome and Edge; Firefox shows the message. |
 | E2 | Safe saving: backups to `.backup/<date-time>/`, `.backup/` in `.gitignore`, unsaved-changes marks and leave-page warning | Dev | Should | E1 | Every overwrite leaves a backup; nothing is lost on accidental close. |
-| E3 | Art tab grid: cards from `assets.json` grouped as in the Art List; thumbnail, name, required size, folder, Temporary/Final status; filters, search, progress counter | Dev | Should | E1, A1 | All 64 images listed with the right status. |
+| E3 | Art tab grid: cards from `assets.json` grouped as in the Art List; thumbnail, name, required size, folder, Temporary/Final status; filters, search, progress counter | Dev | Should | E1, A1 | All 65 images listed with the right status. |
 | E4 | Art replace: drag-and-drop or *Replace…*; format, size and transparency checks; Resize to fit / Crop to fill; save as PNG or JPG per path; update `placeholders.json` | Dev | Should | E2, E3 | A wrong-size image can be fixed and saved in two clicks; the game shows it after reload. |
 | E5 | Art preview "Show in place" using `layout.json`; *Restore previous*; *Rescan* (detects files replaced by hand via checksum) | Dev | Could | E4, D2 | Preview matches the game layout; restore brings back the old file. |
 | E6 | `ScriptWriter.js`: writes parsed sections back to `script.txt` in the TDD §5.1 format, keeping comments | Dev | Should | C2 | Parse → write → parse gives the same result on the full script. |

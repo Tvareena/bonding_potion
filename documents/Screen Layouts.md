@@ -38,6 +38,7 @@ Drawing order, back to front: background → character sprite → textbox → na
 | Textbox | 60, 780 | 1800 × 220 | Semi-transparent. Drawn as a stretchable frame (9-slice). |
 | Name plate | 400, 730 | 360 × 64 | Speaker's name. Stretchable frame. |
 | Line text area | 400, 810 | 1440 × 110 | Text only, no art. |
+| "More" arrow ▼ | centred at 1826, 908 | 32 × 20 | Bobbing triangle drawn by the game when a line waits for a click. "Click to continue" hint ends just left of it (1796, 918). |
 | Text menu (Log, Auto, Skip, Save, Load, Settings) | first at 1020, 945, then every 140 px to the right | 120 × 40 click area each | Text-only buttons: no background or frame, the player sees and clicks just the words. The click area is invisible. Hover and pressed states are shown by the game (text colour or underline). **No art needed.** |
 | Heroine portrait frame | 60, 600 | 320 × 420 | Overlaps the left end of the textbox. |
 | Heroine portrait | 70, 610 | 300 × 400 | Inside the frame. One image (one emotion). |
@@ -77,7 +78,7 @@ Drawing order, back to front: background → cat → cauldron → everything els
 | Workshop background | 0, 0 | 1920 × 1080 | Includes the table surface. |
 | Recipe book page | 40, 40 | 560 × 580 | Empty page; the game writes the potion name, a row of element icons (64 × 64, starting at y 240) with the ratio numbers under them (e.g. 2 : 3 : 2), and the flavour line. |
 | Next arrow | 1760, 40 | 120 × 120 | Normal, hover, pressed and disabled states. |
-| Cat recipe bubble | 1040, 22 | 440 × 200 | Speech bubble with its tail pointing down at the cat (tail tip around x 1313, y 220). The game draws the cat's recipe inside: element icons 56 × 56 in a row with ratio numbers below. Appears with the cat's advice. |
+| Cat recipe bubble | 1040, 22 | 440 × 200 | Speech bubble with its tail pointing down at the cat (tail tip around x 1313, y 220). The game draws the cat's recipe inside: element icons 56 × 56 in a row with ratio numbers below. Appears with the cat's advice. In potion 6 (cat away) the tail-less version `ui_cat_bubble_memory` (440 × 160) is used at the same position. |
 | Cat on the table | 1140, 230 | 340 × 520 | One pose, partly hidden behind the cauldron. Not shown in potion 6. |
 | Cauldron | 600, 300 | 620 × 500 | |
 | Liquid layer | 660, 340 | 500 × 140 | Light grey; the game tints it to the mix colour. Separate file. |
@@ -92,6 +93,7 @@ Drawing order, back to front: background → cat → cauldron → everything els
 | Heroine portrait frame | 40, 650 | 320 × 420 | Same frame as on the dialogue screen. |
 | Heroine portrait | 50, 660 | 300 × 400 | Same portrait files as on the dialogue screen. |
 | Textbox | 380, 840 | 840 × 200 | Lines of all characters (text area 400, 878 · 800 × 104). Same frame style as on the dialogue screen. |
+| "More" arrow ▼ | centred at 1190, 972 | 32 × 20 | Drawn by the game when another line is waiting. |
 | Text menu (Log, Auto, Skip, Save, Load, Settings) | first at 402, 992, then every 135 px | 120 × 40 click area each | Text only, same as the dialogue screen. No art needed. |
 | Name plate | 400, 810 | 300 × 56 | |
 

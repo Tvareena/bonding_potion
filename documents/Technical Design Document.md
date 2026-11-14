@@ -552,7 +552,7 @@ A separate page for the team to change texts and replace art without touching co
 |---|---|
 | **Grid** | Every image from `assets.json`, grouped as in the Art List. Each card: thumbnail, file name, required size, folder, status **Temporary** / **Final** (from `assets/placeholders.json`). |
 | **Filters** | All / Temporary only / Final only; search by name; filter by group. |
-| **Progress** | "41 of 64 final" overall and per group. |
+| **Progress** | "41 of 65 final" overall and per group. |
 | **Replace** | Drag a file onto a card (or click *Replace…*). The editor checks: format (PNG, JPG, WEBP accepted), size, transparency (warns if a sprite has no transparent pixels or a background has transparency). |
 | **Wrong size** | If the size doesn't match, a dialog shows both sizes and offers: *Resize to fit* (keeps proportions, transparent margins), *Crop to fill* (keeps proportions, cuts the edges), or *Cancel*. Different aspect ratio → a clear warning. Resizing uses a high-quality canvas downscale. |
 | **Format conversion** | Saved as PNG, or as JPG (quality 0.85) for backgrounds and illustrations, according to the path in `assets.json`, whatever format was dropped. |

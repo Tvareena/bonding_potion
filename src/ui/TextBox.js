@@ -1,10 +1,10 @@
-import { G, font, rect } from '../core.js';
+import { G, font, rect, color } from '../core.js';
 import { nineSlice } from './NineSlice.js';
 
 // Textbox with a name plate and typewriter text (TDD §6.1).
 export class TextBox {
   /**
-   * cfg: { box, nameplate, text: [x,y,w,h], fontSize, fontMin, nameSize, depth }
+   * cfg: { box, nameplate, text: [x,y,w,h], fontSize, fontMin, nameSize, depth, more: [x, y] }
    */
   constructor(scene, cfg) {
     this.scene = scene;
@@ -21,6 +21,25 @@ export class TextBox {
     this.typing = false;
     this.timer = null;
     this.onDone = null;
+
+    // "More lines" arrow: a small bouncing triangle at the bottom-right of the text (drawn by the game).
+    const mp = cfg.more || [t.x + t.w - 14, t.y + t.h - 10];
+    this.moreY = mp[1];
+    this.moreArrow = scene.add.triangle(mp[0], mp[1], 0, 0, 32, 0, 16, 20, color(G.config.colors.menu))
+      .setOrigin(0.5).setDepth(d + 3).setVisible(false);
+    this.moreTween = null;
+  }
+
+  /** Shows or hides the bouncing "more lines" arrow. */
+  setMore(on) {
+    if (on === !!this.moreTween) return;
+    if (on) {
+      this.moreArrow.setVisible(true).setY(this.moreY - 4);
+      this.moreTween = this.scene.tweens.add({ targets: this.moreArrow, y: this.moreY + 4, duration: 420, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+    } else {
+      this.moreTween.stop(); this.moreTween = null;
+      this.moreArrow.setVisible(false);
+    }
   }
 
   setVisible(v) {
@@ -79,6 +98,7 @@ export class TextBox {
 
   stop() {
     if (this.timer) { this.timer.remove(); this.timer = null; }
+    this.setMore(false);
     this.typing = false;
     this.onDone = null;
   }

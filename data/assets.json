@@ -48,7 +48,7 @@
     "bottle_love":       { "path": "assets/images/bottles/bottle_love.png",       "size": [256, 256], "group": "Bottles", "ph": { "shape": "bottle", "colors": ["#e05a8a", "#f2a2c0"] } },
 
     "ui_logo":                  { "path": "assets/images/ui/ui_logo.png",                  "size": [810, 110], "group": "Title screen", "ph": { "shape": "textlabel", "text": "BONDING POTION", "textColor": "#efe6ee", "underline": true } },
-    "ui_menu_panel":            { "path": "assets/images/ui/ui_menu_panel.png",            "size": [490, 570], "group": "Title screen", "ph": { "color": "#e3d6dc", "alpha": 0.85, "shape": "softpanel" } },
+    "ui_menu_panel":            { "path": "assets/images/ui/ui_menu_panel.png",            "size": [490, 535], "group": "Title screen", "ph": { "color": "#e3d6dc", "alpha": 0.85, "shape": "softpanel" } },
     "ui_title_start":           { "path": "assets/images/ui/ui_title_start.png",           "size": [440, 100], "group": "Title screen", "ph": { "shape": "textlabel", "text": "START", "textColor": "#2f2a2e" } },
     "ui_title_continue":        { "path": "assets/images/ui/ui_title_continue.png",        "size": [440, 100], "group": "Title screen", "ph": { "shape": "textlabel", "text": "CONTINUE", "textColor": "#2f2a2e" } },
     "ui_title_load":            { "path": "assets/images/ui/ui_title_load.png",            "size": [440, 100], "group": "Title screen", "ph": { "shape": "textlabel", "text": "LOAD", "textColor": "#2f2a2e" } },

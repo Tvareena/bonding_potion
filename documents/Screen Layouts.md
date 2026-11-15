@@ -18,8 +18,8 @@ Source files are in [layouts/](layouts/). Each layout has an `.svg` file (exact,
 |---|---|---|---|
 | Title background | 0, 0 | 1920 × 1080 | One image. The left part sits under the logo and buttons, so keep it calm enough for them to read well. |
 | Logo "BONDING POTION" | 88, 194 | 810 × 110 | Image `ui_logo.png`: title text with the underline, transparent around it. |
-| Menu panel | 255, 420 | 490 × 570 | Soft semi-transparent panel (`ui_menu_panel`). With Continue hidden the game shortens it to 490 × 460. |
-| Menu buttons START, CONTINUE, LOAD, SETTINGS, CREDITS | 280, 435 · then every 110 px down (435, 545, 655, 765, 875) | 440 × 100 each | Each button is an image of its word (`ui_title_start/continue/load/settings/credits.png`), transparent around the word. The game turns the word pink and grows it a little on hover. Continue only when a save exists (then the others move up). |
+| Menu panel | 255, 455 | 490 × 535 | Soft semi-transparent panel (`ui_menu_panel`). With Continue hidden the game shortens it to 490 × 435. |
+| Menu buttons START, CONTINUE, LOAD, SETTINGS, CREDITS | 280, 472 · then every 100 px down (472, 572, 672, 772, 872) | 440 × 100 each | Each button is an image of its word (`ui_title_start/continue/load/settings/credits.png`), transparent around the word. The game turns the word pink and grows it a little on hover. Continue only when a save exists (then the others move up). |
 
 ## 2. Dialogue screen
 

@@ -19,22 +19,22 @@
   <text x="88" y="336" class="sm">ui_logo 88, 194 · 810 × 110 (transparent)</text>
 
   <!-- Menu panel -->
-  <rect x="255" y="420" width="490" height="570" rx="30" fill="#E3D6DC" stroke="#9a8a96" stroke-width="3" stroke-dasharray="12 8"/>
-  <rect x="280" y="435" width="440" height="100" class="box"/>
-  <rect x="280" y="545" width="440" height="100" class="box"/>
-  <rect x="280" y="655" width="440" height="100" class="box"/>
-  <rect x="280" y="765" width="440" height="100" class="box"/>
-  <rect x="280" y="875" width="440" height="100" class="box"/>
-  <text x="500" y="505" class="menu">START</text>
-  <text x="500" y="615" class="menu">CONTINUE</text>
-  <text x="500" y="725" class="menu">LOAD</text>
-  <text x="500" y="835" class="menu">SETTINGS</text>
-  <text x="500" y="945" class="menu">CREDITS</text>
-  <text x="255" y="1020" class="sm">ui_menu_panel 255, 420 · 490 × 570</text>
+  <rect x="255" y="455" width="490" height="535" rx="30" fill="#E3D6DC" stroke="#9a8a96" stroke-width="3" stroke-dasharray="12 8"/>
+  <rect x="280" y="472" width="440" height="100" class="box"/>
+  <rect x="280" y="572" width="440" height="100" class="box"/>
+  <rect x="280" y="672" width="440" height="100" class="box"/>
+  <rect x="280" y="772" width="440" height="100" class="box"/>
+  <rect x="280" y="872" width="440" height="100" class="box"/>
+  <text x="500" y="542" class="menu">START</text>
+  <text x="500" y="642" class="menu">CONTINUE</text>
+  <text x="500" y="742" class="menu">LOAD</text>
+  <text x="500" y="842" class="menu">SETTINGS</text>
+  <text x="500" y="942" class="menu">CREDITS</text>
+  <text x="255" y="1020" class="sm">ui_menu_panel 255, 455 · 490 × 535</text>
   <text x="780" y="465" class="sm">Buttons = images of the words (ui_title_*),</text>
   <text x="780" y="493" class="sm">440 × 100 each, transparent, at x 280,</text>
-  <text x="780" y="521" class="sm">y 435, 545, 655, 765, 875 (every 110 px).</text>
+  <text x="780" y="521" class="sm">y 472, 572, 672, 772, 872 (every 100 px).</text>
   <text x="780" y="549" class="sm">Pink + slightly bigger on hover (by the game).</text>
   <text x="780" y="577" class="sm">Continue only with a save; without it the</text>
-  <text x="780" y="605" class="sm">others move up and the panel is 460 high.</text>
+  <text x="780" y="605" class="sm">others move up and the panel is 435 high.</text>
 </svg>

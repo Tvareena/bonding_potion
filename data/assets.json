@@ -17,7 +17,7 @@
     "cat_table": { "path": "assets/images/characters/cat_table.png", "size": [340, 520], "group": "Cat", "ph": { "color": "#2e2a33", "shape": "catbody" } },
 
     "cauldron":        { "path": "assets/images/potion/cauldron.png",        "size": [620, 500], "group": "Potion screen objects", "ph": { "color": "#4a3f52", "shape": "cauldron" } },
-    "cauldron_liquid": { "path": "assets/images/potion/cauldron_liquid.png", "size": [500, 140], "group": "Potion screen objects", "ph": { "color": "#eeeeee", "shape": "ellipse" } },
+    "cauldron_liquid": { "path": "assets/images/potion/cauldron_liquid.png", "size": [620, 500], "group": "Potion screen objects", "ph": { "color": "#eeeeee", "shape": "ellipse", "area": [60, 40, 500, 140] } },
     "recipe_page":     { "path": "assets/images/potion/recipe_page.png",     "size": [560, 580], "group": "Potion screen objects", "ph": { "color": "#f3e9d2", "shape": "page" } },
 
     "crystal_ember_shard":    { "path": "assets/images/crystals/crystal_ember_shard.png",    "size": [128, 128], "group": "Crystals", "ph": { "shapes": [["triangle", "#E8C547"]] } },

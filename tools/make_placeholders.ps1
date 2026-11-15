@@ -161,8 +161,11 @@ function Draw($key, $e) {
         $showLabel = $false
       }
       'ellipse' {
-        $br = New-Object Drawing.SolidBrush($base); $g.FillEllipse($br, 2, 2, ($w - 4), ($h - 4)); $br.Dispose()
-        $br = New-Object Drawing.SolidBrush([Drawing.Color]::White); $g.FillEllipse($br, ($w * 0.2), ($h * 0.25), ($w * 0.25), ($h * 0.2)); $br.Dispose()
+        # ph.area = [x, y, w, h]: draw the ellipse only there (rest stays transparent)
+        $ex = 2; $ey = 2; $ew = $w - 4; $eh = $h - 4
+        if ($ph.area) { $ex = [double]$ph.area[0]; $ey = [double]$ph.area[1]; $ew = [double]$ph.area[2]; $eh = [double]$ph.area[3] }
+        $br = New-Object Drawing.SolidBrush($base); $g.FillEllipse($br, $ex, $ey, $ew, $eh); $br.Dispose()
+        $br = New-Object Drawing.SolidBrush([Drawing.Color]::White); $g.FillEllipse($br, ($ex + $ew * 0.2), ($ey + $eh * 0.25), ($ew * 0.25), ($eh * 0.2)); $br.Dispose()
         $showLabel = $false
       }
       'page' {

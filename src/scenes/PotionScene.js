@@ -120,7 +120,8 @@ export class PotionScene extends Phaser.Scene {
     this.buildCatBubble();
 
     // Cauldron, liquid, counter
-    const cd = rect(L.cauldron), lq = rect(L.liquid);
+    // The liquid image covers the whole cauldron (same size), bubbles rise from the liquid surface.
+    const cd = rect(L.cauldron), lq = rect(L.liquid), sf = rect(L.liquidSurface || L.liquid);
     this.add.image(cd.x, cd.y, 'cauldron').setOrigin(0, 0).setDisplaySize(cd.w, cd.h).setDepth(D.cauldron);
     this.liquid = this.add.image(lq.x, lq.y, 'cauldron_liquid').setOrigin(0, 0).setDisplaySize(lq.w, lq.h).setDepth(D.liquid);
     this.counter = this.add.container(0, 0).setDepth(D.counter);
@@ -129,7 +130,7 @@ export class PotionScene extends Phaser.Scene {
 
     // Particles
     this.bubbles = this.add.particles(0, 0, 'fx_bubble', {
-      x: { min: lq.x + 50, max: lq.x + lq.w - 50 }, y: { min: lq.y + 40, max: lq.y + 90 },
+      x: { min: sf.x + 50, max: sf.x + sf.w - 50 }, y: { min: sf.y + 40, max: sf.y + 90 },
       speedY: { min: -30, max: -70 }, scale: { start: 0.22, end: 0.05 }, alpha: { start: 0.9, end: 0 },
       lifespan: 1100, frequency: 140, emitting: false
     }).setDepth(D.bubbles);

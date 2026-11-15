@@ -257,7 +257,7 @@ Every image in the game is a separate file in the assets folder, with a clear na
 | Character sprite: Jaros, human (half-body) | 900 × 1000 | 1 | One image, one emotion. |
 | Cat head icon (dialogue) | 220 × 220 | 1 | The swinging animation is done in code. |
 | Cat on the table (potion screen) | 340 × 520 | 1 | One pose, sitting behind the cauldron. |
-| Cauldron | 620 × 500 | 1 | Plus a separate liquid layer (500 × 140, light grey, tinted in code). |
+| Cauldron | 620 × 500 | 1 | Plus a separate liquid layer (620 × 500, same as the cauldron, transparent except the liquid; light grey, tinted in code). |
 | Ingredient (draggable crystal) | 128 × 128 | 13 | Also used, scaled down, as the menu icon, so no separate inventory icon is needed. |
 | Element icon | 64 × 64 | 4 | Yellow triangle, blue circle, green square, purple rhombus. |
 | Finished potion bottle | 128 × 128 | 6 | One per potion, with the element colours. |

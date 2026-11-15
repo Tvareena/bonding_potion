@@ -78,7 +78,7 @@ Drawing order, back to front: background → cat → cauldron → everything els
 | Cat recipe bubble | 1040, 22 | 440 × 200 | Speech bubble with its tail pointing down at the cat (tail tip around x 1313, y 220). The game draws the cat's recipe inside: element icons 56 × 56 in a row with ratio numbers below. Appears with the cat's advice. In potion 6 (cat away) the tail-less version `ui_cat_bubble_memory` (440 × 160) is used at the same position. |
 | Cat on the table | 1140, 230 | 340 × 520 | One pose, partly hidden behind the cauldron. Not shown in potion 6. |
 | Cauldron | 600, 300 | 620 × 500 | |
-| Liquid layer | 660, 340 | 500 × 140 | Light grey; the game tints it to the mix colour. Separate file. |
+| Liquid layer | 600, 300 | 620 × 500 | Same size and position as the cauldron, drawn over it; transparent except the liquid in the opening (about 660, 340 · 500 × 140 on screen). Light grey; the game tints it to the mix colour. Separate file. |
 | Ratio on the cauldron | 680, 590 | 460 × 140 | Drawn by the game on the front of the cauldron: 48 × 48 element icons, the current ratio below them, and the amount of each element under that (smaller). |
 | Floating ingredients | around 910, 404 (two rows on the liquid) | 72 × 72 each | The crystal and bottle images, shown smaller and bobbing. Click to take one out. |
 | Brew button | 1240, 760 | 220 × 90 | Normal, hover and pressed states. |

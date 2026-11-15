@@ -328,13 +328,22 @@ async function restore(key) {
 function showOverlay() { if (state.root) $('drop-overlay').hidden = false; }
 function hideOverlay() { $('drop-overlay').hidden = true; }
 
+/** "Start.png", "start button.png", "ui-title-start.PNG" → ui_title_start (exact name first, then a unique ending). */
+function matchKey(fileName) {
+  const norm = (s) => s.toLowerCase().replace(/[\s\-.]+/g, '_').replace(/_+/g, '_').replace(/^_|_$/g, '');
+  const n = norm(baseName(fileName)).replace(/_(button|btn|final|new|copy|\d+)$/g, '');
+  const keys = Object.keys(state.images);
+  const exact = keys.find(k => baseName(state.images[k].path) === n || k === n);
+  if (exact) return exact;
+  const ends = keys.filter(k => k.endsWith('_' + n));
+  return ends.length === 1 ? ends[0] : null;
+}
+
 async function dropMany(files) {
-  const byName = {};
-  for (const k of Object.keys(state.images)) byName[baseName(state.images[k].path)] = k;
   const unmatched = [];
   for (const f of files) {
-    if (!f.type.startsWith('image/')) { unmatched.push(f.name); continue; }
-    const key = byName[baseName(f.name)];
+    if (!/^image\/|^$/.test(f.type) || !/\.(png|jpe?g|webp)$/i.test(f.name)) { unmatched.push(f.name); continue; }
+    const key = matchKey(f.name);
     if (!key) { unmatched.push(f.name); continue; }
     await replace(key, f); // one by one, so size questions come one at a time
   }
@@ -376,6 +385,6 @@ async function init() {
 }
 
 // For automated checks only (no effect on normal use).
-window.artEditor = { state, openRoot, replace, restore, dropMany };
+window.artEditor = { state, openRoot, replace, restore, dropMany, matchKey };
 
 init();

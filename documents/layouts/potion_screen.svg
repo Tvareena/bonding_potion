@@ -38,8 +38,9 @@
   <!-- Cauldron -->
   <rect x="600" y="300" width="620" height="500" fill="#C9B6DE" stroke="#4B2E6B" stroke-width="4"/>
   <rect x="660" y="340" width="500" height="140" fill="#9FD3C7" stroke="#2E7D6B" stroke-width="3"/>
-  <text x="910" y="405" text-anchor="middle" class="sm">Liquid layer 660, 340 · 500 × 140</text>
-  <text x="910" y="440" text-anchor="middle" class="xs">(tinted in code)</text>
+  <text x="910" y="400" text-anchor="middle" class="sm">Liquid (visible part)</text>
+  <text x="910" y="430" text-anchor="middle" class="xs">liquid image 600, 300 · 620 × 500, same as cauldron;</text>
+  <text x="910" y="456" text-anchor="middle" class="xs">transparent except this area · tinted in code</text>
   <text x="910" y="545" text-anchor="middle" class="lbl">Cauldron</text>
   <text x="910" y="581" text-anchor="middle" class="dim">600, 300 · 620 × 500</text>
   <rect x="680" y="590" width="460" height="140" fill="#FFFFFF" fill-opacity="0.7" stroke="#333" stroke-width="2" stroke-dasharray="8 6"/>

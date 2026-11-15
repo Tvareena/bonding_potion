@@ -1,6 +1,6 @@
 {
-  "heroine":     { "name": "Heroine", "kind": "portrait", "image": "heroine" },
-  "chad":        { "name": "Chad",    "kind": "sprite",   "image": "chad" },
+  "heroine":     { "name": "Pauline", "kind": "portrait", "image": "heroine" },
+  "chad":        { "name": "Dominic", "kind": "sprite",   "image": "chad" },
   "jaros":       { "name": "Jaros",   "kind": "cat",      "image": "cat_icon" },
   "jaros_human": { "name": "Jaros",   "kind": "sprite",   "image": "jaros_human" }
 }

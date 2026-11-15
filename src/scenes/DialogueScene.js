@@ -49,14 +49,15 @@ export class DialogueScene extends Phaser.Scene {
     this.menu.get('auto').setActive(!!G.settings.auto);
     this.skip = false;
 
-    // Heroine portrait
-    this.portrait = new Portrait(this, L.portraitFrame, L.portrait, 30);
+    // Pauline portrait
+    this.portrait = new Portrait(this, L.portrait, 30);
 
     // Cat icon (rotates around its pivot while Jaros speaks)
     const ci = rect(L.catIcon), pv = L.catPivot;
     this.catIcon = this.add.image(ci.x + pv[0], ci.y + pv[1], 'cat_icon')
       .setOrigin(pv[0] / ci.w, pv[1] / ci.h).setDisplaySize(ci.w, ci.h).setDepth(30);
     this.swing = null;
+    this.catIcon.setVisible(!G.state.flags.catAway); // Jaros has left (D6) until he speaks again (D7)
 
     // Idle hint
     this.hint = this.add.text(L.hint[0], L.hint[1], T(isTouchDevice() ? 'hint.tap' : 'hint.click'),
@@ -151,8 +152,8 @@ export class DialogueScene extends Phaser.Scene {
     const a = r.args;
     switch (r.name) {
       case 'bg': this.setBackground(a[0]); break;
-      case 'show': this.showSprite(a[0], a[1]); break;
-      case 'hide': this.hideSprite(); break;
+      case 'show': if (this.isCat(a[0])) this.setCatAway(false); else this.showSprite(a[0], a[1]); break;
+      case 'hide': if (this.isCat(a[0])) this.setCatAway(true); else this.hideSprite(); break;
       case 'music': G.audio.music(a[0]); break;
       case 'sfx': G.audio.sfx(a[0]); break;
       case 'wait': {
@@ -188,7 +189,7 @@ export class DialogueScene extends Phaser.Scene {
       this.tweens.add({ targets: this.sprite, alpha: 1, duration: this.dur(350) });
     }
     this.spriteChar = id;
-    this.catIcon.setVisible(id !== 'jaros_human');
+    this.updateCatIcon();
   }
 
   hideSprite() {
@@ -196,7 +197,28 @@ export class DialogueScene extends Phaser.Scene {
     this.tweens.killTweensOf(this.sprite);
     this.tweens.add({ targets: this.sprite, alpha: 0, duration: this.dur(300), onComplete: () => this.sprite.setVisible(false) });
     this.spriteChar = null;
-    this.catIcon.setVisible(true);
+    this.updateCatIcon();
+  }
+
+  isCat(id) { return !!(id && G.characters[id] && G.characters[id].kind === 'cat'); }
+
+  /** "@hide jaros": the cat leaves (his icon disappears) until "@show jaros" or his next line. Remembered across scenes and in saves. */
+  setCatAway(away) {
+    if (!!G.state.flags.catAway === away) return;
+    G.state.flags.catAway = away;
+    this.updateCatIcon(true);
+  }
+
+  /** The cat icon is hidden while Jaros is away or shown as a human. */
+  updateCatIcon(fade) {
+    const v = !G.state.flags.catAway && this.spriteChar !== 'jaros_human';
+    this.tweens.killTweensOf(this.catIcon);
+    if (fade && !this.restoring) {
+      if (v) this.catIcon.setVisible(true).setAlpha(0);
+      this.tweens.add({ targets: this.catIcon, alpha: v ? 1 : 0, duration: this.dur(400), onComplete: () => this.catIcon.setVisible(v) });
+    } else {
+      this.catIcon.setVisible(v).setAlpha(1);
+    }
   }
 
   /** Emotion of the speaker for this line ("chad angry: ..."); a line without one shows the default image. */
@@ -218,9 +240,10 @@ export class DialogueScene extends Phaser.Scene {
     if (r.speaker) {
       name = charName(r.speaker);
     }
-    this.setSwing(r.speaker && G.characters[r.speaker] && G.characters[r.speaker].kind === 'cat');
+    if (this.isCat(r.speaker)) this.setCatAway(false); // Jaros is back as soon as he speaks
+    this.setSwing(this.isCat(r.speaker));
     this.applyExpr(r);
-    // Narration (no speaker name): the Heroine's portrait disappears.
+    // Narration (no speaker name): Pauline's portrait disappears.
     this.portrait.show(!!r.speaker, this.skip);
     G.session.log.push({ name, text: r.text });
     this.lineIndex = this.i - 1;

@@ -8,7 +8,7 @@
 | **Related** | [Technical Design Document](Technical%20Design%20Document.md), [Art List](Art%20List.md) |
 | **Repository** | https://github.com/Tvareena/bonding_potion |
 
-> Character names (Heroine, Chad) are working names. Dialogue lines are not final. Every line, speaker and scene change lives in an editable script file (see the TDD), so the scenario can be rewritten without code changes. The lines quoted here only mark story beats.
+> Character names (Pauline, Dominic) are working names. Dialogue lines are not final. Every line, speaker and scene change lives in an editable script file (see the TDD), so the scenario can be rewritten without code changes. The lines quoted here only mark story beats.
 
 ---
 
@@ -39,14 +39,14 @@
 
 ### 2.1 Premise
 
-The Heroine sells potions in her aunt's shop. She is in love with Chad, a customer who doesn't return her feelings. The aunt's recipe book says a love potion is made by mixing six potions: Fun, Courage, Trust, Hope, Confidence and Gratitude. Jaros, the aunt's black cat familiar, thinks it's a terrible idea, but he stays with her while she brews and offers advice that differs slightly from the book.
+Pauline sells potions in her aunt's shop. She is in love with Dominic, a customer who doesn't return her feelings. The aunt's recipe book says a love potion is made by mixing six potions: Fun, Courage, Trust, Hope, Confidence and Gratitude. Jaros, the aunt's black cat familiar, thinks it's a terrible idea, but he stays with her while she brews and offers advice that differs slightly from the book.
 
 ### 2.2 Characters
 
 | ID | Name | Role | How shown | Images |
 |---|---|---|---|---|
-| `heroine` | Heroine *(working name)* | Protagonist | Portrait to the left of the textbox, on every screen | one image (one emotion) |
-| `chad` | Chad *(working name)* | Love interest; charming at first, then shows he's selfish and cruel | Half-body sprite, dialogue screen | one image (one emotion) |
+| `heroine` | Pauline *(working name)* | Protagonist | Portrait to the left of the textbox, on every screen | one image (one emotion) |
+| `chad` | Dominic *(working name)* | Love interest; charming at first, then shows he's selfish and cruel | Half-body sprite, dialogue screen | one image (one emotion) |
 | `jaros` | Jaros | The aunt's black cat familiar; sarcastic, grumpy, caring. Secretly a wizard under a curse | Cat head icon (dialogue screen), cat on the table (potion screen) | one image each |
 | `jaros_human` | Jaros (human form) | The freed wizard, in two endings | Half-body sprite, dialogue screen | one image (one emotion) |
 | — | The Aunt | Potion maker, owner of the shop and the book | **Never appears on screen**, only mentioned | — |
@@ -57,13 +57,13 @@ The game is a fixed sequence of 15 steps plus an ending. The order is final.
 
 | Step | Type | Content |
 |---|---|---|
-| D1 | Dialogue | Introduces the Heroine, Chad and the premise. She decides to brew a love potion. Dialogue tutorial. |
+| D1 | Dialogue | Introduces Pauline, Dominic and the premise. She decides to brew a love potion. Dialogue tutorial. |
 | P1 | Potion: **Fun** | Jaros is introduced. Brewing tutorial, told by the cat. |
-| D2 | Dialogue | Chad visits again; the player can tell he isn't kind, but the Heroine doesn't notice. |
+| D2 | Dialogue | Dominic visits again; the player can tell he isn't kind, but Pauline doesn't notice. |
 | P2 | Potion: **Courage** | Brewing with the cat. |
 | D3 | Dialogue | *Story events still to be written.* |
 | P3 | Potion: **Trust** | Brewing with the cat. |
-| D4 | Dialogue | The Heroine realises Chad is a bad person, but hopes the love potion will change him. |
+| D4 | Dialogue | Pauline realises Dominic is a bad person, but hopes the love potion will change him. |
 | P4 | Potion: **Hope** | Brewing with the cat. |
 | D5 | Dialogue | *Story events still to be written.* |
 | P5 | Potion: **Confidence** | Brewing with the cat. |
@@ -79,9 +79,9 @@ Every potion from 1 to 6 is recorded as **book** or **cat** (see 3.4). Potion 7 
 
 | Cat count | Ending ID | Ending | Summary |
 |---|---|---|---|
-| 5–6 | `romance` | Romance (happy) | Jaros drinks the potion before she can stop him and becomes human: a wizard under a curse. They've grown close while brewing, and she happily forgets Chad. |
-| 3–4 | `friendship` | Friendship | Jaros drinks the potion and becomes human. No romance, but he's grateful. She gives up on Chad. |
-| 0–2 | `bad` | Nightmare (bad) | She gives the potion to Chad. He falls in love, but he's cruel and selfish, and it turns into a nightmare. Final line: "But it's not what I wanted… at all…" |
+| 5–6 | `romance` | Romance (happy) | Jaros drinks the potion before she can stop him and becomes human: a wizard under a curse. They've grown close while brewing, and she happily forgets Dominic. |
+| 3–4 | `friendship` | Friendship | Jaros drinks the potion and becomes human. No romance, but he's grateful. She gives up on Dominic. |
+| 0–2 | `bad` | Nightmare (bad) | She gives the potion to Dominic. He falls in love, but he's cruel and selfish, and it turns into a nightmare. Final line: "But it's not what I wanted… at all…" |
 
 After the ending scene the **ending card** shows the ending's name and "Ending X of 3" (romance = 1, friendship = 2, bad = 3), with a button back to the title. Endings the player has seen are remembered in the save (3.10).
 
@@ -136,7 +136,7 @@ Crystals are unlimited. Each adds fixed element units. **Each potion has its own
 | P5 Confidence | Root Stone, Wisp Quartz, Storm Opal, Marsh Jade, Sun Citrine, Dusk Prism | 2 of 6 |
 | P6 Gratitude | Wisp Quartz, Tide Pearl, Deep Sapphire, Marsh Jade, Sun Citrine, Dusk Prism | 3 of 6 |
 
-**Limited ingredients.** Each potion's set is chosen so the player **can't make the book recipe from plain (single-element) crystals alone**: at least one mixed crystal is always needed, and the right ratio has to be worked out. In the story, the aunt used up most of the plain crystals before she left, and the Heroine has to make do with what's on the shelf (she says so at the start of potions 2–6). The sets are also the main way to control difficulty: change `potions.json → crystals` to make a potion easier or harder. Blaze Ruby, Sky Amethyst and Mountain Amber are currently not used in any potion.
+**Limited ingredients.** Each potion's set is chosen so the player **can't make the book recipe from plain (single-element) crystals alone**: at least one mixed crystal is always needed, and the right ratio has to be worked out. In the story, the aunt used up most of the plain crystals before she left, and Pauline has to make do with what's on the shelf (she says so at the start of potions 2–6). The sets are also the main way to control difficulty: change `potions.json → crystals` to make a potion easier or harder. Blaze Ruby, Sky Amethyst and Mountain Amber are currently not used in any potion.
 ### 3.4 Recipes and the hidden check
 
 Recipes are **ratios**, not amounts. The recipe page shows the book recipe as element icons in a row with the ratio numbers below them (for example 2 : 3 : 2).
@@ -173,7 +173,7 @@ Both successes look and sound the same.
 | Drop a crystal anywhere else | It flies back to its cell. |
 | Brew (with something in the cauldron) | Check (3.4) → success or fizzle. Brew does nothing on an empty cauldron. |
 | Empty | Everything floating sinks and the cauldron is cleared (in P7 the bottles go back to the shelf). |
-| Fizzle | Smoke effect and sound, a short line from the Heroine or the cat, the cauldron empties automatically. |
+| Fizzle | Smoke effect and sound, a short line from Pauline or the cat, the cauldron empties automatically. |
 | Success | Sparkle effect, the bottle appears and moves to the Potions tab, a short line, the **Next** arrow lights up: a pulsing glow behind it, and it swings gently back and forth (±10°, like the cat head icon on the dialogue screen; its size doesn't change). Crystals can no longer be added. |
 | Next | Goes to the next dialogue. Disabled (dimmed) until success. |
 
@@ -189,7 +189,7 @@ The game "wants" the book recipe. It helps more and pushes back harder as the st
 |---|---|---|---|
 | 1 | P1, P2 | After 10 s without adding a crystal, the recipe page glows softly. | None. |
 | 2 | P3, P4 | Recipe elements whose share is still too small glow; crystals that follow the book get a soft outline in the menu. | **Heavy drag**: an off-recipe crystal lags behind the pointer while dragged. |
-| 3 | P5, P6 | Strong glow, the recipe pulses, fitting crystals nudge forward in their cells. | Heavy drag, plus **cursor drift** (PC) and **slipping** (3.6.1). The Heroine comments the first time. |
+| 3 | P5, P6 | Strong glow, the recipe pulses, fitting crystals nudge forward in their cells. | Heavy drag, plus **cursor drift** (PC) and **slipping** (3.6.1). Pauline comments the first time. |
 | — | P7 | None. | None. |
 
 **Off-recipe crystal** ("against the book"), either:
@@ -203,9 +203,13 @@ This is checked again on every drag, so the same crystal can be fine at one mome
 - **Heavy drag** (levels 2–3): the dragged crystal follows the pointer slowly, like it's heavy.
 - **Cursor drift** (level 3, PC only): in the potion screen the game draws its own cursor. While an off-recipe crystal is dragged, the cursor slides slightly toward the nearest fitting crystal in the menu.
 - **Slipping** (level 3): an off-recipe crystal may fall out of the hand and fly back to its cell, even while the button is held. It never slips twice in a row for the same crystal, so the second try always works.
-- **Comments:** the first heavy drag in P3 and the first slip in P5 trigger a Heroine line (for example "Why is this one so heavy?" / "Why does it keep slipping?"). Each comment plays once per playthrough.
+- **Reactions:** every time the book interferes (a heavy crystal, a crystal slipping away), there is a reaction line picked at random from that potion's `resist_heavy` / `resist_slip` lines (for example "Why is this one so heavy?" / "It slipped right out of my hand!"). It's skipped only if another line is still on screen (the repeated cat advice is replaced). After the reaction, the cat's advice is shown again.
+- **Ingredient window:** on potions 2–7 the ingredient panel appears only after the opening lines (start and the cat's advice) are over; on potion 1 it's there from the start for the tutorial.
+- **Textbox:** on the potion screen the textbox and Pauline's portrait are shown only while there are lines; the text menu stays at the bottom of the screen.
+- **Cat:** when Jaros starts a line, the cat on the table briefly grows a little (8%), so it's clear he is talking.
+- **Jaros leaves (D6):** after he runs off, his icon in the top-right corner disappears (`@hide jaros`). It comes back with his first line in D7.
 - Mobile gets heavy drag and slipping; cursor drift is PC-only.
-- In P6 the cat is gone; his advice shows as the Heroine's recollection ("Jaros would say… one fire, three water, three earth, one air."). Resistance stays at level 3.
+- In P6 the cat is gone; his advice shows as Pauline's recollection ("Jaros would say… one fire, three water, three earth, one air."). Resistance stays at level 3.
 
 Exact timings and chances are in the TDD (config values) and tuned in playtesting. The goal: annoying enough to notice, never enough to stop the player.
 
@@ -239,15 +243,15 @@ The six menu items are text-only (no button art), under the text in the textbox.
 
 ### 3.9 Potion screen dialogue
 
-- All lines (Heroine, Jaros, recollections) appear in the potion screen textbox with the speaker's name.
+- All lines (Pauline, Jaros, recollections) appear in the potion screen textbox with the speaker's name.
 - Lines are triggered by events from the script: start of the potion, the cat's advice, first resistance, fizzle, success.
 - **The cat's recipe bubble.** When Jaros gives his advice, a speech bubble pops up above him showing his alternative recipe the same way the book does: element icons in a row with the ratio numbers below (for example 2 : 1 : 3 : 2). It stays until the player leaves the screen, so the book's recipe and the cat's can be compared at a glance. Clicking the cat repeats his advice line and the bubble bounces.
 - His spoken advice is a short remark without numbers ("Try my way. A drop of water keeps confidence from turning into pride.").
-- In P6 the cat is gone: the bubble still appears, slightly faded and **without the tail** (a separate image), when the Heroine remembers his recipe. P7 has no bubble.
-- When the game pushes back (a heavy or slipping crystal) and the Heroine comments, her line shows; after the player clicks (or by itself in Auto mode) the textbox returns to the cat's advice line. It reappears instantly, isn't added to the Log again, and disappears on the next tap.
+- In P6 the cat is gone: the bubble still appears, slightly faded and **without the tail** (a separate image), when Pauline remembers his recipe. P7 has no bubble.
+- When the game pushes back (a heavy or slipping crystal) and Pauline comments, her line shows; after the player clicks (or by itself in Auto mode) the textbox returns to the cat's advice line. It reappears instantly, isn't added to the Log again, and disappears on the next tap.
 - Other lines (fizzles, success) show in the textbox as usual.
 - **The last line disappears after a tap**, like every other line: the textbox empties (the cat's recipe stays visible in his bubble).
-- There is no Heroine "hint" line when the player is idle; only the recipe glows.
+- There is no Pauline "hint" line when the player is idle; only the recipe glows.
 - Lines advance exactly like on the dialogue screen: a click or tap on the textbox or on any free spot (not a crystal, button or tab), or Space / Enter. In Auto mode they advance by themselves. The "Click to continue" hint works the same way.
 - The puzzle stays playable while a line is waiting.
 - Jaros's advice for the current potion is repeated on request: clicking the cat on the table makes him say his advice again.
@@ -299,11 +303,11 @@ Matches the artist's mockup: dark patterned background with the potion bottle on
 
 ### 4.3 Dialogue screen
 
-Background, centred half-body sprite (0–1 at a time), semi-transparent textbox with name plate, Heroine portrait on the left (hidden, with its frame, on narration lines that have no speaker name; the same on the potion screen), cat head icon top-right, text-only menu inside the textbox. Characters fade in and out when shown or hidden; backgrounds cross-fade.
+Background, centred half-body sprite (0–1 at a time), semi-transparent textbox with name plate, Pauline portrait on the left (hidden, with its frame, on narration lines that have no speaker name; the same on the potion screen), cat head icon top-right, text-only menu inside the textbox. Characters fade in and out when shown or hidden; backgrounds cross-fade.
 
 ### 4.4 Potion screen
 
-Recipe page (top-left), Next arrow (top-right), cat on the table behind the cauldron with his recipe bubble above him, cauldron in the centre with the element counter, Brew and Empty buttons, ingredient menu on the right (tabs Crystals/Potions, sort row, 3 × 5 grid), Heroine portrait and textbox at the bottom-left, with the same text menu as dialogue (Log, Auto, Skip, Save, Load, Settings) under the text.
+Recipe page (top-left), Next arrow (top-right), cat on the table behind the cauldron with his recipe bubble above him, cauldron in the centre with the element counter, Brew and Empty buttons, ingredient menu on the right (tabs Crystals/Potions, sort row, 3 × 5 grid), Pauline portrait and textbox at the bottom-left, with the same text menu as dialogue (Log, Auto, Skip, Save, Load, Settings) under the text.
 
 **Sorting:** the sort row has four element icons. Tapping one shows only crystals that contain that element (tap again to clear). Default order: single-element, then double, then triple.
 
@@ -358,6 +362,6 @@ Hand-drawn 2D. Expressive characters with simple silhouettes. The colour palette
 
 ## 8. Open questions
 
-- Final names for the Heroine and Chad.
+- Final names for Pauline and Dominic.
 - Story events for D3 and D5 and the potion-screen lines for P2–P5.
 - Whether the title screen marks endings the player has already seen.

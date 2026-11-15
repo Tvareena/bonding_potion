@@ -20,7 +20,7 @@ jaros: All yours, and all mine to watch. Try not to sell the cough syrup as perf
 heroine: That happened once!
 @show chad
 chad: Morning, potion girl. The usual hangover tonic. Make it quick.
-heroine: Chad! G-good morning! Here, I made it fresh, just for you.
+heroine: Dominic! G-good morning! Here, I made it fresh, just for you.
 chad: Hm. You don't have to stare like that. It's weird.
 @hide
 heroine: He noticed me… sort of.
@@ -93,11 +93,15 @@ heroine: Trust. Water and earth.
 heroine: Not a single root stone left… The earth will have to come from mixed crystals.
 @on advice
 jaros: Mine's better. Trust needs a little warmth, or it's just cold mud.
-@on resist_heavy
+@on resist_heavy random
 heroine: Huh? Why is this one so heavy?
 jaros: Interesting. The book doesn't like being argued with.
-@on resist_slip
+heroine: Ugh, it's like lifting a brick.
+heroine: Is the book… holding it down?
+@on resist_slip random
 heroine: It slipped right out of my hand!
+heroine: Hey, come back here!
+jaros: Slippery, isn't it? The book has its own ideas.
 @on fizzle random
 heroine: It turned into mud.
 jaros: Trust me, that's not trust.
@@ -106,10 +110,10 @@ heroine: Trust, done. Halfway there!
 
 == d4
 @bg shop
-: Next morning, Chad comes in with two friends.
+: Next morning, Dominic comes in with two friends.
 @show chad
 chad: That's her. She gives me free stuff. Watch, she'll do anything I say.
-heroine: Chad?
+heroine: Dominic?
 chad: Relax, I'm joking. Mostly. Bring the usual.
 @hide
 heroine: He was laughing at me.
@@ -123,11 +127,15 @@ heroine: Hope. I could use some.
 heroine: Even fewer plain crystals. I'll have to think about what goes with what.
 @on advice
 jaros: Here's how I'd do it. Hope needs something to stand on.
-@on resist_heavy
+@on resist_heavy random
 heroine: Why is this crystal so heavy?
 jaros: The book has opinions, it seems.
-@on resist_slip
+heroine: Heavier than it looks… much heavier.
+heroine: Come on, it's just a little crystal!
+@on resist_slip random
 heroine: It slipped again!
+heroine: Why won't it stay in my hand?
+jaros: Hold tighter. Or listen to me instead of the book.
 @on fizzle random
 heroine: It went dark. That's not hope.
 jaros: Try again. That's what hope is for.
@@ -151,11 +159,15 @@ heroine: Confidence. Earth, air and fire.
 heroine: Only a few plain crystals on the shelf. I'll have to mix and match.
 @on advice
 jaros: Try my way. A drop of water keeps confidence from turning into pride.
-@on resist_heavy
+@on resist_heavy random
 heroine: This one feels heavier than it should.
-@on resist_slip
+heroine: My arm's getting tired just holding it.
+jaros: The book is being stubborn again.
+@on resist_slip random
 heroine: Why does it keep slipping out of my hand?
 jaros: The book really wants things its way.
+heroine: Not again!
+heroine: It's like the crystal doesn't want to go in.
 @on fizzle random
 heroine: It sputtered and died.
 jaros: Confidence. Ironic.
@@ -172,6 +184,7 @@ jaros: Yes, if you can't see that one doesn't need a love potion to fall in love
 heroine: You called me… Wait, what did you say?
 jaros: Nothing. Forget it.
 : The cat jumps off the counter and disappears into the night.
+@hide jaros
 heroine: Jaros?
 
 == p6 potion gratitude
@@ -181,10 +194,14 @@ heroine: Gratitude. All four elements.
 heroine: Almost nothing plain left. Auntie, what were you brewing?
 @on advice
 heroine: I still remember how Jaros would make it. Something you can hold on to.
-@on resist_heavy
+@on resist_heavy random
 heroine: Why is this so heavy?
-@on resist_slip
+heroine: Even the crystals are against me today.
+heroine: Heavy… Jaros would know what to do.
+@on resist_slip random
 heroine: It keeps slipping. Like everything today.
+heroine: Dropped it again…
+heroine: Please, just stay in my hand.
 @on fizzle random
 heroine: Wrong again.
 heroine: He'd have something smart to say about that.
@@ -215,7 +232,7 @@ heroine: The love potion… it's done.
 
 == ending romance
 @bg shop
-heroine: It's finished. Now I just have to give it to Chad.
+heroine: It's finished. Now I just have to give it to Dominic.
 jaros: Is that really what you want?
 : Before she can answer, the cat leaps onto the table and drinks the potion.
 heroine: Jaros! No!
@@ -227,11 +244,11 @@ jaros_human: A wizard, actually. Cursed a long time ago. Your aunt took me in.
 jaros_human: Your potions weren't a love potion. Not with my changes. They were a cure.
 heroine: You changed the recipe… for me?
 jaros_human: For us. If you'll have a grumpy wizard instead of a cat.
-heroine: Chad who?
+heroine: Dominic who?
 
 == ending friendship
 @bg shop
-heroine: It's finished. Now I just have to give it to Chad.
+heroine: It's finished. Now I just have to give it to Dominic.
 : Before she can answer, the cat leaps onto the table and drinks the potion.
 heroine: Jaros! No!
 @wait 0.6
@@ -239,7 +256,7 @@ heroine: Jaros! No!
 jaros_human: Don't look at me like that. I've been waiting a very long time for this.
 heroine: You were cursed?
 jaros_human: For longer than you've been alive. Thank you. I mean it.
-heroine: I almost gave that potion to Chad.
+heroine: I almost gave that potion to Dominic.
 jaros_human: And now you won't. You don't need a potion to be loved.
 heroine: Then I'll start by liking myself. And you, as a friend.
 
@@ -252,7 +269,7 @@ heroine: I made you something special. Drink it.
 @wait 0.6
 @show chad
 chad: You. Only you. You're mine now. Don't you dare look at anyone else.
-heroine: Chad, you're hurting my hand…
+heroine: Dominic, you're hurting my hand…
 chad: I'll never let you go. Never.
 jaros: …
 heroine: But it's not what I wanted… at all…

@@ -46,11 +46,11 @@
   </g>
   <text x="400" y="1040" class="sm">Menu: text-only buttons, no background. Dashed = invisible click area 120 × 40, from 1020, 945, step 140</text>
 
-  <!-- Heroine portrait -->
+  <!-- Pauline portrait -->
   <rect x="60" y="600" width="320" height="420" fill="#8E73AD" stroke="#4B2E6B" stroke-width="4"/>
   <rect x="70" y="610" width="300" height="400" fill="#E9D3DC" stroke="#9A4A6A" stroke-width="3"/>
-  <text x="220" y="790" text-anchor="middle" class="lbl">Heroine</text>
+  <text x="220" y="790" text-anchor="middle" class="lbl">Pauline</text>
   <text x="220" y="826" text-anchor="middle" class="lbl">portrait</text>
   <text x="220" y="866" text-anchor="middle" class="dim">60, 600 · 320 × 420</text>
-  <text x="220" y="950" text-anchor="middle" class="sm">frame 60, 600 · 320 × 420</text>
+  <text x="220" y="950" text-anchor="middle" class="sm">no frame</text>
 </svg>

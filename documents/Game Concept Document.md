@@ -7,7 +7,7 @@
 | **Based on** | Early Concept Document |
 | **Repository** | https://github.com/Tvareena/bonding_potion |
 
-> Character names (Heroine, Chad) are working names. Dialogue lines are not final: the build must let the team add, change and remove lines and characters by editing a script file, without touching code. The few lines in this document mark story beats and can be rewritten.
+> Character names (Pauline, Dominic) are working names. Dialogue lines are not final: the build must let the team add, change and remove lines and characters by editing a script file, without touching code. The few lines in this document mark story beats and can be rewritten.
 
 ## 1. Overview
 
@@ -32,27 +32,27 @@ A young potion seller tries to brew a love potion, which means brewing six other
 
 - **Easy to brew.** The puzzle is readable at a glance: four elements, coloured crystals, one cauldron. Difficulty comes from amounts and ratios, not hidden rules.
 - **A choice the game doesn't announce.** The player is never asked "book or cat?". They show it by what they brew. The game counts their choices without saying so.
-- **The game pushes back.** The interface itself (highlights, a stubborn cursor, ingredients slipping out of the hand) leans toward the "proper" recipe. It's noticeable and the Heroine comments on it, but it never makes the cat's way impossible.
+- **The game pushes back.** The interface itself (highlights, a stubborn cursor, ingredients slipping out of the hand) leans toward the "proper" recipe. It's noticeable and Pauline comments on it, but it never makes the cat's way impossible.
 - **A short story with charm.** Short dialogue scenes between puzzles, a witty cat, and a romance that slowly shows its true colours.
 
 ### 1.4 Unique selling points
 
 - Puzzle choices *are* the dialogue choices: the ending comes from how you brew, not from a menu.
 - The "the interface resists you" mechanic makes it physically felt that the "right" path isn't necessarily the right one.
-- A cat companion who gets more important to the Heroine (and to the player) with every potion.
+- A cat companion who gets more important to Pauline (and to the player) with every potion.
 
 ## 2. Story
 
 ### 2.1 Premise
 
-The Heroine works as a potion seller in her aunt's potion shop. She is in love with Chad, a customer who doesn't return her feelings. She decides to brew a love potion. According to the recipe book, a love potion is made by mixing six other potions: Fun, Courage, Trust, Hope, Confidence and Gratitude. Jaros, the black cat who is her aunt's familiar, tries to talk her out of it, but still watches over her and helps her brew, offering advice that differs slightly from the book.
+Pauline works as a potion seller in her aunt's potion shop. She is in love with Dominic, a customer who doesn't return her feelings. She decides to brew a love potion. According to the recipe book, a love potion is made by mixing six other potions: Fun, Courage, Trust, Hope, Confidence and Gratitude. Jaros, the black cat who is her aunt's familiar, tries to talk her out of it, but still watches over her and helps her brew, offering advice that differs slightly from the book.
 
 ### 2.2 Characters
 
 | Character | Role | Description |
 |---|---|---|
-| Heroine *(working name)* | Protagonist, player character | A young potion seller working in her aunt's shop. Kind, hopeful, a little naive and stubborn. Always shown as a portrait to the left of the textbox. |
-| Chad *(working name)* | Love interest | A handsome customer of the shop. Charming at first, but selfish and cruel. The player notices it before the Heroine does. Shown as a half-body sprite. |
+| Pauline *(working name)* | Protagonist, player character | A young potion seller working in her aunt's shop. Kind, hopeful, a little naive and stubborn. Always shown as a portrait to the left of the textbox. |
+| Dominic *(working name)* | Love interest | A handsome customer of the shop. Charming at first, but selfish and cruel. The player notices it before Pauline does. Shown as a half-body sprite. |
 | Jaros | Companion, secret love interest | A black cat, the aunt's familiar. Sarcastic and grumpy, but caring. Against the love potion plan, yet he helps anyway. Actually a wizard under an evil curse (revealed only in two of the endings). Appears as a head icon in dialogue scenes and as a full cat on the table during brewing. |
 | Jaros, human form | Ending character | The wizard freed from the curse. Shown as a half-body sprite in the Romance and Friendship endings. |
 | The Aunt | Off-screen character | A potion maker and the owner of the shop and the recipe book. Only mentioned in dialogue; she never appears on screen. |
@@ -63,19 +63,19 @@ The game alternates dialogue scenes and potion puzzles: 8 dialogue scenes and 7 
 
 | Step | Type | Story beat |
 |---|---|---|
-| D1 | Dialogue | Introduces the Heroine, Chad and the premise. The Heroine decides to brew a love potion. Includes the click/tap tutorial. |
-| P1 | Potion: Fun | The Heroine moves to the workshop and Jaros is introduced. Tutorial: the cat explains elements, ingredients and how to brew. |
-| D2 | Dialogue | Chad appears again. The player can tell from the dialogue that he isn't kind; the Heroine doesn't notice. |
+| D1 | Dialogue | Introduces Pauline, Dominic and the premise. Pauline decides to brew a love potion. Includes the click/tap tutorial. |
+| P1 | Potion: Fun | Pauline moves to the workshop and Jaros is introduced. Tutorial: the cat explains elements, ingredients and how to brew. |
+| D2 | Dialogue | Dominic appears again. The player can tell from the dialogue that he isn't kind; Pauline doesn't notice. |
 | P2 | Potion: Courage | Brewing with the cat. Story events for this step are still to be written. |
 | D3 | Dialogue | Story events for this step are still to be written. |
 | P3 | Potion: Trust | Brewing with the cat. |
-| D4 | Dialogue | The Heroine realises Chad is a bad person, but hopes the love potion will change him. |
+| D4 | Dialogue | Pauline realises Dominic is a bad person, but hopes the love potion will change him. |
 | P4 | Potion: Hope | Brewing with the cat. |
 | D5 | Dialogue | Story events for this step are still to be written. |
 | P5 | Potion: Confidence | Brewing with the cat. |
 | D6 | Dialogue | Jaros makes a last attempt to talk her out of it. They argue. She: "So you think I'm stupid?" He: "Yes, if you can't see that one doesn't need a love potion to fall in love with someone like you." She: "You called me… Wait, what did you say?" The cat leaves, angry and embarrassed. |
-| P6 | Potion: Gratitude | The cat is absent. The Heroine remembers his earlier advice and may follow it; his suggestions appear as her recollections. |
-| D7 | Dialogue | The Heroine and Jaros make peace. She goes on to brew the love potion, though she has doubts. |
+| P6 | Potion: Gratitude | The cat is absent. Pauline remembers his earlier advice and may follow it; his suggestions appear as her recollections. |
+| D7 | Dialogue | Pauline and Jaros make peace. She goes on to brew the love potion, though she has doubts. |
 | P7 | Potion: Love | The six finished potions are mixed together. This step has no choice. |
 | D8 | Dialogue: ending | One of three endings (see 2.4). |
 
@@ -85,9 +85,9 @@ Each of potions 1–6 is brewed either **by the book** or **by the cat's advice*
 
 | Cat's-way potions | Ending | What happens |
 |---|---|---|
-| 5–6 | Romance ending (happy) | Jaros drinks the potion before the Heroine can stop him and turns into a human: a wizard under an evil curse. They've built a strong bond while brewing, and she happily forgets Chad. |
-| 3–4 | Friendship ending | Jaros drinks the potion and turns into a human wizard. They don't fall in love, but he's grateful for her help. She changes her mind and gives up on winning Chad. |
-| 0–2 (4+ by the book) | Bad ending | The Heroine gives the love potion to Chad. He falls in love, but because he's cruel and selfish it becomes a nightmare instead of a happy ending. Her final line: "But it's not what I wanted… at all…" |
+| 5–6 | Romance ending (happy) | Jaros drinks the potion before Pauline can stop him and turns into a human: a wizard under an evil curse. They've built a strong bond while brewing, and she happily forgets Dominic. |
+| 3–4 | Friendship ending | Jaros drinks the potion and turns into a human wizard. They don't fall in love, but he's grateful for her help. She changes her mind and gives up on winning Dominic. |
+| 0–2 (4+ by the book) | Bad ending | Pauline gives the love potion to Dominic. He falls in love, but because he's cruel and selfish it becomes a nightmare instead of a happy ending. Her final line: "But it's not what I wanted… at all…" |
 
 ## 3. Gameplay
 
@@ -161,18 +161,18 @@ The ingredient menu has two tabs: **Crystals** and **Potions** (finished potions
 
 ### 3.6 Guidance and resistance
 
-The cat's advice contradicts the recipe slightly. As the story goes on, the game pushes harder for the book recipe. The resistance is strong enough to notice and for the Heroine to comment on, but it never blocks the cat's way.
+The cat's advice contradicts the recipe slightly. As the story goes on, the game pushes harder for the book recipe. The resistance is strong enough to notice and for Pauline to comment on, but it never blocks the cat's way.
 
 | Potions | Guidance toward the book | Resistance to other choices |
 |---|---|---|
 | 1–2 | Light hint: the recipe page gently glows when the player hesitates. | None. |
 | 3–4 | Recipe lines and matching crystals in the menu are highlighted. | Off-recipe crystals feel "heavy": dragging them lags behind the cursor or finger. |
-| 5–6 | Strong highlights, a pulsing recipe, and the needed crystals nudge forward on the shelf. | The cursor drifts toward recipe crystals; off-recipe crystals sometimes slip out of the hand and fall back to the shelf, even while the button is held. The Heroine remarks on it (for example, "Why does this one keep slipping?"). |
+| 5–6 | Strong highlights, a pulsing recipe, and the needed crystals nudge forward on the shelf. | The cursor drifts toward recipe crystals; off-recipe crystals sometimes slip out of the hand and fall back to the shelf, even while the button is held. Pauline remarks on it (for example, "Why does this one keep slipping?"). |
 
 - An "off-recipe" crystal is one that would push any element above the book amount.
 - Slipping happens at most once per crystal in a row, so the player can always succeed on the second try.
 - On mobile, cursor drift is replaced by drag lag and slipping; the feeling should stay the same.
-- In potion 6 the cat is absent: his advice appears as the Heroine's own recollection, and the resistance stays at full strength.
+- In potion 6 the cat is absent: his advice appears as Pauline's own recollection, and the resistance stays at full strength.
 
 ### 3.7 Tutorial
 
@@ -202,7 +202,7 @@ A standard visual novel layout.
 
 - A full-screen background.
 - A semi-transparent textbox along the bottom, with the speaker's name and the line.
-- The Heroine's portrait in a frame to the left of the textbox, overlapping it (one image).
+- Pauline's portrait in a frame to the left of the textbox, overlapping it (one image).
 - Other characters appear as half-body sprites in the centre, behind and above the textbox.
 - A cat head icon in the top-right corner (only outside brewing). It swings slightly while one of Jaros's lines is shown.
 - A row of small text-only menu buttons in the bottom-right of the textbox, under the line: Log, Auto, Skip, Save, Load, Settings. They have no background; the player sees and clicks just the words. For the 1-day build, Save, Load and Settings can be cut (see section 6).
@@ -227,8 +227,8 @@ The layout follows the sketch below. Puzzle elements must never be covered by th
 | Cauldron | 600, 300, 620 × 500 | Drop target. The liquid colour changes with the mix; the element counter sits on its front. |
 | Brew and Empty buttons | 1240, 760 and 1240, 870, 220 × 90 (each) | Stacked next to the cauldron. |
 | Ingredient menu | 1480, 230, 420 × 820 | Tabs (Crystals / Potions), sorting, grid of 3 columns. |
-| Heroine portrait | Frame 40, 650, 320 × 420; portrait 40, 650, 320 × 420 | Same frame and portrait files as in dialogue. |
-| Textbox | 380, 840, 840 × 200 (name plate 400, 810, 300 × 56) | Lines of all characters (the Heroine and Jaros) with the speaker's name, plus fizzle messages. Advancing is optional; the puzzle stays playable. |
+| Pauline portrait | Frame 40, 650, 320 × 420; portrait 40, 650, 320 × 420 | Same frame and portrait files as in dialogue. |
+| Textbox | 380, 815, 840 × 200 (name plate 400, 785, 300 × 56); shown only while there are lines | Lines of all characters (Pauline and Jaros) with the speaker's name, plus fizzle messages. Advancing is optional; the puzzle stays playable. |
 
 ### 4.4 Other screens
 
@@ -249,11 +249,10 @@ Every image in the game is a separate file in the assets folder, with a clear na
 
 | Asset | Size (px) | Count | Notes |
 |---|---|---|---|
-| Background: dialogue (shop) | 1920 × 1080 | 1–2 | JPG or PNG. Shop interior; optionally a street or doorway for Chad's scenes. |
+| Background: dialogue (shop) | 1920 × 1080 | 1–2 | JPG or PNG. Shop interior; optionally a street or doorway for Dominic's scenes. |
 | Background: potion screen (workshop table) | 1920 × 1080 | 1 | The table surface where the cat sits. |
-| Heroine portrait | 320 × 420 | 1 | One image, one emotion. Fits the frame left of the textbox. |
-| Portrait frame | 320 × 420 | 1 | Separate so portraits can be swapped. |
-| Character sprite: Chad (half-body) | 900 × 1000 | 1 | One image, one emotion. |
+| Pauline portrait | 320 × 420 | 1 | One image, one emotion. Fits the frame left of the textbox. |
+| Character sprite: Dominic (half-body) | 900 × 1000 | 1 | One image, one emotion. |
 | Character sprite: Jaros, human (half-body) | 900 × 1000 | 1 | One image, one emotion. |
 | Cat head icon (dialogue) | 220 × 220 | 1 | The swinging animation is done in code. |
 | Cat on the table (potion screen) | 340 × 520 | 1 | One pose, sitting behind the cauldron. |
@@ -306,13 +305,13 @@ One working day is very tight for this content, so features are prioritised. "Mu
 | Risk | Mitigation |
 |---|---|
 | 1 day isn't enough for all content and art | Follow the Must/Should/Could scope; ship with temporary art; keep scenes short. |
-| Resistance feels like a bug, not a story device | The Heroine and the cat comment on it in character; it builds up gradually; it never blocks success. |
+| Resistance feels like a bug, not a story device | Pauline and the cat comment on it in character; it builds up gradually; it never blocks success. |
 | Players don't realise there are two ways to brew | The potion 1 tutorial shows the cat's advice explicitly; the cat repeats it in every potion. |
 | Puzzle too easy or too hard | Recipe amounts are in a data file and can be tuned after a short playtest. |
 | Drag and drop on small phone screens | Tap-to-select-then-tap-cauldron as an alternative; large touch targets. |
 
 ## 7. Open questions
 
-- Final names for the Heroine and Chad.
+- Final names for Pauline and Dominic.
 - Story events for dialogue scenes D3 and D5, and for brewing steps 2–5.
 - Next document: the Technical Design Document (TDD), followed by the full art list.

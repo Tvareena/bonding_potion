@@ -74,26 +74,26 @@
   <text x="1480" y="218" class="xs">Ingredient menu 1480, 230 · 420 × 820</text>
 
   <!-- Textbox -->
-  <rect x="380" y="840" width="840" height="200" fill="#B9A6CF" fill-opacity="0.75" stroke="#6A4A8C" stroke-width="4"/>
-  <rect x="400" y="810" width="300" height="56" rx="8" fill="#F1ECF7" stroke="#6A4A8C" stroke-width="4"/>
-  <text x="550" y="846" text-anchor="middle" class="xs">Name plate 400, 810 · 300 × 56</text>
-  <text x="420" y="930" class="lbl">Textbox (all characters' lines)</text>
-  <text x="420" y="968" class="dim">380, 840 · 840 × 200</text>
+  <rect x="380" y="815" width="840" height="200" fill="#B9A6CF" fill-opacity="0.75" stroke="#6A4A8C" stroke-width="4"/>
+  <rect x="400" y="785" width="300" height="56" rx="8" fill="#F1ECF7" stroke="#6A4A8C" stroke-width="4"/>
+  <text x="550" y="821" text-anchor="middle" class="xs">Name plate 400, 785 · 300 × 56</text>
+  <text x="420" y="905" class="lbl">Textbox (shown only while there are lines)</text>
+  <text x="420" y="943" class="dim">380, 815 · 840 × 200</text>
 
-  <!-- Text menu in the potion textbox -->
+  <!-- Text menu at the bottom edge, below the textbox -->
   <g font-size="22" fill="#4B2E6B" font-weight="bold" text-anchor="middle">
-    <rect x="402" y="992" width="120" height="40" fill="none" stroke="#4B2E6B" stroke-width="1.5" stroke-dasharray="5 4"/><text x="462" y="1019">Log</text>
-    <rect x="537" y="992" width="120" height="40" fill="none" stroke="#4B2E6B" stroke-width="1.5" stroke-dasharray="5 4"/><text x="597" y="1019">Auto</text>
-    <rect x="672" y="992" width="120" height="40" fill="none" stroke="#4B2E6B" stroke-width="1.5" stroke-dasharray="5 4"/><text x="732" y="1019">Skip</text>
-    <rect x="807" y="992" width="120" height="40" fill="none" stroke="#4B2E6B" stroke-width="1.5" stroke-dasharray="5 4"/><text x="867" y="1019">Save</text>
-    <rect x="942" y="992" width="120" height="40" fill="none" stroke="#4B2E6B" stroke-width="1.5" stroke-dasharray="5 4"/><text x="1002" y="1019">Load</text>
-    <rect x="1077" y="992" width="120" height="40" fill="none" stroke="#4B2E6B" stroke-width="1.5" stroke-dasharray="5 4"/><text x="1137" y="1019">Settings</text>
+    <rect x="402" y="1032" width="120" height="40" fill="none" stroke="#4B2E6B" stroke-width="1.5" stroke-dasharray="5 4"/><text x="462" y="1059">Log</text>
+    <rect x="537" y="1032" width="120" height="40" fill="none" stroke="#4B2E6B" stroke-width="1.5" stroke-dasharray="5 4"/><text x="597" y="1059">Auto</text>
+    <rect x="672" y="1032" width="120" height="40" fill="none" stroke="#4B2E6B" stroke-width="1.5" stroke-dasharray="5 4"/><text x="732" y="1059">Skip</text>
+    <rect x="807" y="1032" width="120" height="40" fill="none" stroke="#4B2E6B" stroke-width="1.5" stroke-dasharray="5 4"/><text x="867" y="1059">Save</text>
+    <rect x="942" y="1032" width="120" height="40" fill="none" stroke="#4B2E6B" stroke-width="1.5" stroke-dasharray="5 4"/><text x="1002" y="1059">Load</text>
+    <rect x="1077" y="1032" width="120" height="40" fill="none" stroke="#4B2E6B" stroke-width="1.5" stroke-dasharray="5 4"/><text x="1137" y="1059">Settings</text>
   </g>
 
-  <!-- Heroine portrait -->  <rect x="40" y="650" width="320" height="420" fill="#8E73AD" stroke="#4B2E6B" stroke-width="4"/>
-  <rect x="50" y="660" width="300" height="400" fill="#E9D3DC" stroke="#9A4A6A" stroke-width="3"/>
-  <text x="200" y="840" text-anchor="middle" class="lbl">Heroine</text>
+  <!-- Pauline portrait -->  
+  <rect x="40" y="650" width="320" height="420" fill="#E9D3DC" stroke="#9A4A6A" stroke-width="3"/>
+  <text x="200" y="840" text-anchor="middle" class="lbl">Pauline</text>
   <text x="200" y="876" text-anchor="middle" class="lbl">portrait</text>
   <text x="200" y="916" text-anchor="middle" class="dim">40, 650 · 320 × 420</text>
-  <text x="200" y="1010" text-anchor="middle" class="sm">frame 40, 650 · 320 × 420</text>
+  <text x="200" y="1010" text-anchor="middle" class="sm">no frame</text>
 </svg>

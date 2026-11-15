@@ -34,7 +34,7 @@
 | Folder | `assets/images/<folder>/` as listed. |
 | Replacing files | Easiest: the **art editor** at https://tvareena.github.io/bonding_potion/editor.html (Chrome or Edge; choose your project folder). Drag the finished image onto its card; the editor checks size and format, offers to resize, and saves it under the right name. By hand also works: same name, same size, same folder. |
 | Text | **Don't paint text** on buttons, the recipe page, panels or the textbox: the game writes it. No image has lettering (the title is drawn by the game too). |
-| Characters | Each human character (Heroine, Chad, Jaros in human form) has **one image with one emotion**: no expression variants. Chad and Jaros use the same canvas, size and framing, so they line up. |
+| Characters | Each human character (Pauline, Dominic, Jaros in human form) has **one image with one emotion**: no expression variants. Dominic and Jaros use the same canvas, size and framing, so they line up. |
 | Stretchable frames (9-slice) | Some UI frames are stretched by the game. Their corners (the "slice" width given in the table) are never stretched; the edges stretch in one direction; the centre stretches in both. Keep corner decoration inside the slice area and keep edges and centre plain enough to stretch. |
 | File size | Compress PNGs (e.g. TinyPNG). Total art should stay under ~25 MB. |
 
@@ -54,21 +54,21 @@
 
 | File | Size | Position | Priority | Notes |
 |---|---|---|---|---|
-| `ending_romance.jpg` | 1920 × 1080 | 0, 0 | Must | Jaros, now human, and the Heroine together. Shown on the ending card. |
-| `ending_friendship.jpg` | 1920 × 1080 | 0, 0 | Must | Jaros, human, as a friend; the Heroine free of Chad. |
-| `ending_bad.jpg` | 1920 × 1080 | 0, 0 | Must | Chad obsessed with the Heroine; it should feel wrong, a nightmare. |
+| `ending_romance.jpg` | 1920 × 1080 | 0, 0 | Must | Jaros, now human, and Pauline together. Shown on the ending card. |
+| `ending_friendship.jpg` | 1920 × 1080 | 0, 0 | Must | Jaros, human, as a friend; Pauline free of Dominic. |
+| `ending_bad.jpg` | 1920 × 1080 | 0, 0 | Must | Dominic obsessed with Pauline; it should feel wrong, a nightmare. |
 
 The ending card writes the ending's name and "Ending X of 3" over the illustration in the centre, plus a button at 760, 880 · 400 × 100. Keep the central area readable.
 
 ## 4. Characters — `assets/images/characters/`
 
-### 4.1 Heroine portrait
+### 4.1 Pauline portrait
 
 | File | Size | Position | Priority | Notes |
 |---|---|---|---|---|
 | `heroine.png` | 320 × 420 | Dialogue: 60, 600 · Potion screen: 40, 650 (same size and place as the frame) | Must | Head and shoulders, facing slightly right (toward the textbox). One image for the whole game, so a calm, friendly look that suits every scene works best. |
 
-The portrait sits inside the frame `ui_portrait_frame` (section 7). The frame covers the outer 10 px, so keep the face well inside.
+The portrait has no frame: the image itself is shown as it is.
 
 ### 4.2 Half-body character sprites
 
@@ -157,7 +157,6 @@ The six bottles should look like one set (similar shape family, different detail
 | `ui_title_load.png` | 440 × 100 | 280, 672 (572 without Continue) | — | Must | The word **LOAD**, same style. |
 | `ui_title_settings.png` | 440 × 100 | 280, 772 (672 without Continue) | — | Must | The word **SETTINGS**, same style. |
 | `ui_title_credits.png` | 440 × 100 | 280, 872 (772 without Continue) | — | Must | The word **CREDITS**, same style. |
-| `ui_portrait_frame.png` | 320 × 420 | Dialogue: 60, 600 · Potion: 40, 650 | — | Must | Frame around the Heroine portrait, drawn on top of it. **Transparent window 300 × 400 at 10, 10 inside the image**; the frame covers the outer 10 px of the 320 × 420 portrait. |
 | `ui_button_large_normal.png` | 400 × 100 | Ending card: 760, 880 | normal | Must | Button **without text** ("Title" is written by the game). The main menu doesn't use it: its buttons are word images (`ui_title_*`). |
 | `ui_button_large_hover.png` | 400 × 100 | same | hover | Should | Mouse over (PC only). |
 | `ui_button_large_pressed.png` | 400 × 100 | same | pressed | Should | |
@@ -174,15 +173,15 @@ The six bottles should look like one set (similar shape family, different detail
 | `ui_ingredient_panel.png` | 420 × 820 | 1480, 230 | — | Must | Background of the ingredient menu (shelf, box or cabinet). Tabs sit at the top (inside the image: 20, 20 · 380 × 60), the sort row below (20, 92 · 380 × 54), then a 3 × 5 grid of cells (from 20, 160; cells 120 × 120 every 130 px). |
 | `ui_cell.png` | 120 × 120 | grid in the ingredient panel | — | Should | One slot for a crystal or bottle. The game highlights it in code. |
 | `ui_cat_bubble.png` | 440 × 200 | 1040, 22 (potion screen) | — | Must | Speech bubble for the cat's recipe, **without text or icons** (the game draws the element icons and ratio numbers inside). Body about 440 × 160 at the top; the tail points **down** at the cat from the bottom edge, tip at about 273, 200 inside the image. Keep the inside plain and light so icons read well. |
-| `ui_cat_bubble_memory.png` | 440 × 160 | 1040, 22 (potion screen, potion 6 only) | — | Must | The same bubble **without a tail**, used in potion 6 when the cat is away and the Heroine remembers his recipe. Can look a little dreamier (softer edge, lighter outline) to read as a memory. No text or icons. |
+| `ui_cat_bubble_memory.png` | 440 × 160 | 1040, 22 (potion screen, potion 6 only) | — | Must | The same bubble **without a tail**, used in potion 6 when the cat is away and Pauline remembers his recipe. Can look a little dreamier (softer edge, lighter outline) to read as a memory. No text or icons. |
 | `ui_cursor.png` | 64 × 64 | follows the mouse (potion screen, PC) | — | Should | Custom cursor (for example a hand or a pointer). **The tip (click point) at 8, 8 inside the image.** |
 
 ### 7.2 Stretchable frames (9-slice)
 
 | File | Source size | Slice (corners) | Used at | Priority | Notes |
 |---|---|---|---|---|---|
-| `ui_textbox.png` | 192 × 192 | 48 px | Dialogue: 60, 780 · 1800 × 220 · Potion: 380, 840 · 840 × 200 | Must | **Semi-transparent** (about 70–80% opacity painted into the PNG), so the background and sprite show through. |
-| `ui_nameplate.png` | 192 × 64 | 24 px left and right (stretches only in width) | Dialogue: 400, 730 · 360 × 64 · Potion: 400, 810 · 300 × 56 | Must | Plate with the speaker's name (name written by the game). |
+| `ui_textbox.png` | 192 × 192 | 48 px | Dialogue: 60, 780 · 1800 × 220 · Potion: 380, 815 · 840 × 200 | Must | **Semi-transparent** (about 70–80% opacity painted into the PNG), so the background and sprite show through. |
+| `ui_nameplate.png` | 192 × 64 | 24 px left and right (stretches only in width) | Dialogue: 400, 730 · 360 × 64 · Potion: 400, 785 · 300 × 56 | Must | Plate with the speaker's name (name written by the game). |
 | `ui_panel.png` | 192 × 192 | 48 px | 360, 140 · 1200 × 800 (Pause, Save, Load, Log, Credits, Settings, Confirm) | Should | Panel over a dimmed screen. Opaque. |
 
 ### 7.3 Things the game draws itself (no art needed)
@@ -219,20 +218,20 @@ The six bottles should look like one set (similar shape family, different detail
 |---|---|
 | Backgrounds | 3 |
 | Ending illustrations | 3 |
-| Heroine portrait | 1 |
+| Pauline portrait | 1 |
 | Character sprites | 2 |
 | Cat | 2 |
 | Potion screen objects | 3 |
 | Crystals | 13 |
 | Element icons | 4 |
 | Bottles | 7 |
-| UI fixed images | 26 |
+| UI fixed images | 25 |
 | UI 9-slice frames | 3 |
 | Effects | 3 |
 | Other | 1 |
-| **Total** | **71** |
+| **Total** | **70** |
 
-**Suggested order:** element icons and crystals (they define the puzzle) → cauldron, liquid, cat on the table, recipe page, ingredient panel → Heroine portrait, cat icon, textbox, name plate, portrait frame → backgrounds → Chad and Jaros human sprites → bottles → buttons and their states → ending illustrations, logo, title background → effects, cursor, panel, favicon.
+**Suggested order:** element icons and crystals (they define the puzzle) → cauldron, liquid, cat on the table, recipe page, ingredient panel → Pauline portrait, cat icon, textbox, name plate → backgrounds → Dominic and Jaros human sprites → bottles → buttons and their states → ending illustrations, logo, title background → effects, cursor, panel, favicon.
 
 ---
 

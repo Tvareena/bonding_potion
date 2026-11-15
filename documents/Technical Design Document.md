@@ -230,7 +230,7 @@ heroine: It worked!
 ...
 ```
 
-**Emotions:** `chad angry: text` shows the image `chad_angry` (the character's `image` from `characters.json` + `_` + emotion) for that line; a line without an emotion shows the usual image. For the Heroine this is the portrait, for sprite characters the image in the middle (only while that character is shown; `@show chad angry` shows them with an emotion), for Jaros the cat icon in dialogue (`cat_icon_angry`) and the cat on the table on the potion screen (`cat_table_angry`). A missing image falls back to the usual one with a warning.
+**Emotions:** `chad angry: text` shows the image `chad_angry` (the character's `image` from `characters.json` + `_` + emotion) for that line; a line without an emotion shows the usual image. For Pauline this is the portrait, for sprite characters the image in the middle (only while that character is shown; `@show chad angry` shows them with an emotion), for Jaros the cat icon in dialogue (`cat_icon_angry`) and the cat on the table on the potion screen (`cat_table_angry`). A missing image falls back to the usual one with a warning.
 
 **Conditions:** any line or command can start with `[...]`: the row is used only if all conditions are true (`src/systems/Conditions.js`). `potion=cat` / `potion=book` (that potion was brewed with that recipe; potion ids from `potions.json`), `cat>=N`, `cat<=N`, `cat>N`, `cat<N`, `cat=N` (number of potions brewed with the cat's recipe so far). Conditions are checked when the row is reached, so saves and line numbers aren't affected. In potion sections they filter lines before a random one is picked. For testing, `?choices=fun:cat,trust:book` pre-sets choices.
 
@@ -255,7 +255,7 @@ heroine: It worked!
 |---|---|
 | `@bg <name>` | Cross-fade to background `bg_<name>`. |
 | `@show <character>` | Show a character's half-body sprite (replaces the current one). |
-| `@hide` | Hide the current sprite. |
+| `@hide` | Hide the current sprite. `@hide jaros` (the cat character): his icon disappears and stays hidden (also in the next scenes and in saves, flag `catAway`) until `@show jaros` or his next line. |
 | `@music <name>` / `@music off` | Change or stop music. |
 | `@sfx <name>` | Play a sound. |
 | `@wait <seconds>` | Pause. |
@@ -271,8 +271,8 @@ Unknown commands, speakers or images don't stop the game: they're skipped and re
 
 ```json
 {
-  "heroine":     { "name": "Heroine", "kind": "portrait", "default": "neutral" },
-  "chad":        { "name": "Chad",    "kind": "sprite",   "default": "neutral" },
+  "heroine":     { "name": "Pauline", "kind": "portrait", "default": "neutral" },
+  "chad":        { "name": "Dominic",    "kind": "sprite",   "default": "neutral" },
   "jaros":       { "name": "Jaros",   "kind": "cat" },
   "jaros_human": { "name": "Jaros",   "kind": "sprite",   "default": "neutral" }
 }
@@ -336,7 +336,7 @@ Positions and sizes of every on-screen element, using the same numbers as [Scree
 {
   "images": {
     "bg_shop":       { "path": "assets/images/backgrounds/bg_shop.jpg", "size": [1920, 1080], "group": "Backgrounds" },
-    "heroine":       { "path": "assets/images/characters/heroine.png", "size": [320, 420], "group": "Heroine portrait" },
+    "heroine":       { "path": "assets/images/characters/heroine.png", "size": [320, 420], "group": "Pauline portrait" },
     "ui_textbox":    { "path": "assets/images/ui/ui_textbox.png", "size": [192, 192], "group": "UI frames", "nineSlice": [48, 48, 48, 48] }
   },
   "audio": { "music_shop": "assets/audio/music/shop.mp3" }
@@ -427,7 +427,7 @@ Active when `potion.guidance ≥ 1`.
 - **Heavy drag:** for a non-fitting crystal, instead of jumping to the pointer each frame, the crystal moves `heavyLerp` of the way there.
 - **Cursor drift (PC, level 3):** the potion screen hides the system cursor and draws `ui_cursor` at the pointer position plus a drift offset. While a non-fitting crystal is dragged, the offset grows toward the nearest fitting cell by `driftSpeed`, capped at `driftMax`. Drag and drop use the drawn cursor position. On touch devices the custom cursor is off.
 - **Slip (level 3):** when a non-fitting drag starts, roll `slipChance`. On a hit, after a random `slipDelay` the crystal is released and tweens back to its cell, with a slip sound. The same crystal can't slip twice in a row.
-- **Comments:** first heavy drag → `resist_heavy` event; first slip → `resist_slip` event. Flags in `GameState` make them play once per playthrough.
+- **Reactions:** every heavy drag → `resist_heavy` event; every slip → `resist_slip` event (mark them `random` so one line is picked). Skipped only while another line (other than the repeated advice) is on screen.
 
 ### 6.4 Audio
 

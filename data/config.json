@@ -45,7 +45,10 @@
     "dim": "#000000",
     "titleText": "#efe6ee",
     "titleMenu": "#2f2a2e",
-    "titleMenuHover": "#b0558a"
+    "titleMenuHover": "#b0558a",
+    "potionMenu": "#efe6ee",
+    "potionMenuHover": "#f6b8d6",
+    "potionMenuActive": "#ff8fc0"
   },
   "elements": {
     "order": ["fire", "water", "earth", "air"],

@@ -25,7 +25,7 @@ Source files are in [layouts/](layouts/). Each layout has an `.svg` file (exact,
 
 ![Dialogue screen layout](layouts/dialogue_screen.png)
 
-Drawing order, back to front: background → character sprite → textbox → name plate and menu text → Heroine portrait → cat icon.
+Drawing order, back to front: background → character sprite → textbox → name plate and menu text → Pauline portrait → cat icon.
 
 | Element | Position | Size | Notes |
 |---|---|---|---|
@@ -37,8 +37,8 @@ Drawing order, back to front: background → character sprite → textbox → na
 | Line text area | 400, 810 | 1440 × 110 | Text only, no art. |
 | "More" arrow ▼ | centred at 1826, 908 | 32 × 20 | Bobbing triangle drawn by the game when a line waits for a click. "Click to continue" hint ends just left of it (1796, 918). |
 | Text menu (Log, Auto, Skip, Save, Load, Settings) | first at 1020, 945, then every 140 px to the right | 120 × 40 click area each | Text-only buttons: no background or frame, the player sees and clicks just the words. The click area is invisible. Hover and pressed states are shown by the game (text colour or underline). **No art needed.** |
-| Heroine portrait frame | 60, 600 | 320 × 420 | Overlaps the left end of the textbox. |
-| Heroine portrait | 60, 600 | 320 × 420 | Same size and place as the frame, under it (the frame covers its outer 10 px). One image (one emotion). |
+| Pauline portrait | 60, 600 | 320 × 420 | No frame. Overlaps the left end of the textbox. |
+| Pauline portrait | 60, 600 | 320 × 420 | Same size and place as the frame, under it (the frame covers its outer 10 px). One image (one emotion). |
 
 ## 3. Cat head icon
 
@@ -62,7 +62,7 @@ Drawing order, back to front: background → character sprite → textbox → na
 | Position on screen | 510, 80 (centre line at screen x 960) |
 | Head zone | 300, 60 · 300 × 300 inside the sprite. Keep the face here so all characters line up. |
 | Behind the textbox | y 700–1000 inside the sprite (screen y 780 and below). It shows through the semi-transparent textbox, so keep important details above this line. |
-| Used for | Chad and Jaros in human form, one image each (one emotion) |
+| Used for | Dominic and Jaros in human form, one image each (one emotion) |
 
 ## 5. Potion-brewing screen
 
@@ -87,12 +87,12 @@ Drawing order, back to front: background → cat → cauldron → everything els
 | Menu tabs (Crystals, Potions) | 1500, 250 and 1695, 250 | 185 × 60 each | Normal, hover and selected states. |
 | Sort row | 1500, 322 | 380 × 54 | Holds 48 × 48 element icons used as sort buttons. |
 | Crystal cells | 3 columns from x 1500, every 130 px; 5 rows from y 390, every 130 px | 120 × 120 each | Crystal art is 128 × 128, shown slightly smaller in the cells. |
-| Heroine portrait frame | 40, 650 | 320 × 420 | Same frame as on the dialogue screen. |
-| Heroine portrait | 40, 650 | 320 × 420 | Same portrait file as on the dialogue screen, under the frame. |
-| Textbox | 380, 840 | 840 × 200 | Lines of all characters (text area 400, 878 · 800 × 104). Same frame style as on the dialogue screen. |
+| Pauline portrait | 40, 650 | 320 × 420 | No frame. Shown only while there are lines (and not for narration). |
+| Pauline portrait | 40, 650 | 320 × 420 | Same portrait file as on the dialogue screen, under the frame. |
+| Textbox | 380, 815 | 840 × 200 | Lines of all characters (text area 400, 853 · 800 × 120). Same frame style as on the dialogue screen. **Shown only while there are lines**: it fades out after the last line is tapped and back in with the next one. |
 | "More" arrow ▼ | centred at 1190, 972 | 32 × 20 | Drawn by the game when another line is waiting. |
-| Text menu (Log, Auto, Skip, Save, Load, Settings) | first at 402, 992, then every 135 px | 120 × 40 click area each | Text only, same as the dialogue screen. No art needed. |
-| Name plate | 400, 810 | 300 × 56 | |
+| Text menu (Log, Auto, Skip, Save, Load, Settings) | first at 402, 1032, then every 135 px (bottom edge, below the textbox) | 120 × 40 click area each | Text only, light colour (config `potionMenu`) so it reads on the background; always visible. No art needed. |
+| Name plate | 400, 785 | 300 × 56 | |
 
 ## 6. Other screens (no drawing)
 
@@ -111,7 +111,7 @@ Drawing order, back to front: background → cat → cauldron → everything els
 Drawing the potion screen at full size showed overlaps in the first numbers. The concept document has been updated to match these layouts:
 
 - Recipe page height: 680 → 580, to make room for the portrait.
-- Heroine portrait on the potion screen: same 320 × 420 frame and 320 × 420 portrait as on the dialogue screen.
-- Textbox on the potion screen: 380, 840 · 840 × 200, so it ends before the buttons.
+- Pauline portrait on the potion screen: same 320 × 420 frame and 320 × 420 portrait as on the dialogue screen.
+- Textbox on the potion screen: 380, 815 · 840 × 200, with the text menu below it at the bottom edge.
 - Brew and Empty buttons: stacked at 1240, 760 and 1240, 870.
 - Main menu buttons: 400 × 100. The dialogue menu is text-only (120 × 40 click areas) and needs no button art.

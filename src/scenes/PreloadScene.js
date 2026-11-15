@@ -94,7 +94,7 @@ export class PreloadScene extends Phaser.Scene {
         }
         if (r.kind === 'cmd') {
           if (r.name === 'bg' && !imgs['bg_' + r.args[0]]) warn(`script.txt line ${r.line}: unknown background "${r.args[0]}"`);
-          if (r.name === 'show' && (!G.characters[r.args[0]] || G.characters[r.args[0]].kind !== 'sprite')) warn(`script.txt line ${r.line}: @show "${r.args[0]}" is not a sprite character`);
+          if (r.name === 'show' && (!G.characters[r.args[0]] || !['sprite', 'cat'].includes(G.characters[r.args[0]].kind))) warn(`script.txt line ${r.line}: @show "${r.args[0]}" is not a sprite character`);
           else if (r.name === 'show' && r.args[1] && !imgs[(G.characters[r.args[0]].image || r.args[0]) + '_' + r.args[1]]) warn(`script.txt line ${r.line}: no image for "@show ${r.args[0]} ${r.args[1]}" — the default image is shown`);
           if (!['bg', 'show', 'hide', 'music', 'sfx', 'wait', 'on'].includes(r.name)) warn(`script.txt line ${r.line}: unknown command "@${r.name}"`);
         }

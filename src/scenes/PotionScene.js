@@ -114,7 +114,9 @@ export class PotionScene extends Phaser.Scene {
 
     // Cat
     const ct = rect(L.cat);
-    this.cat = this.add.image(ct.x, ct.y, 'cat_table').setOrigin(0, 0).setDisplaySize(ct.w, ct.h).setDepth(D.cat);
+    // Origin at the bottom centre, so the cat grows upwards from the table when he speaks.
+    this.cat = this.add.image(ct.x + ct.w / 2, ct.y + ct.h, 'cat_table').setOrigin(0.5, 1).setDisplaySize(ct.w, ct.h).setDepth(D.cat);
+    this.catScale = { x: this.cat.scaleX, y: this.cat.scaleY };
     if (!this.potion.catPresent) this.cat.setVisible(false);
     else this.cat.setInteractive({ pixelPerfect: true }).on('pointerup', () => this.onCatClick());
     this.buildCatBubble();
@@ -156,8 +158,9 @@ export class PotionScene extends Phaser.Scene {
     this.nextGlow.fillStyle(color(this.cfg.colors.recipeHighlight), 1).fillRoundedRect(nx.x - 14, nx.y - 14, nx.w + 28, nx.h + 28, 26);
     this.nextBtn = new Button(this, 'ui_next', nx.x, nx.y, nx.w, nx.h, null, () => this.next(), { handCursor: false }).setDepth(D.ui).setEnabled(false);
 
-    // Ingredient panel
+    // Ingredient panel (everything in it goes into one container, so it can appear after the opening lines)
     const pn = rect(L.panel);
+    const panelFirst = this.children.list.length;
     this.add.image(pn.x, pn.y, 'ui_ingredient_panel').setOrigin(0, 0).setDisplaySize(pn.w, pn.h).setDepth(D.ui);
     const t0 = rect(L.tabs[0]), t1 = rect(L.tabs[1]);
     this.tabCrystals = new Button(this, 'ui_tab', t0.x, t0.y, t0.w, t0.h, T('potion.tabCrystals'), () => this.setTab('crystals'), { handCursor: false, fontSize: 26 }).setDepth(D.cell);
@@ -187,19 +190,32 @@ export class PotionScene extends Phaser.Scene {
     }
     this.gridItems = [];
     this.outlines = this.add.graphics().setDepth(D.outline);
+    this.panelBox = this.add.container(0, 0).setDepth(D.ui);
+    this.panelBox.add(this.children.list.slice(panelFirst, this.children.list.length - 1));
+    // Except on the first potion, the panel is hidden until the opening lines are over.
+    this.panelShown = !!this.potion.tutorial;
+    if (!this.panelShown) {
+      this.panelBox.setAlpha(0);
+      this.panelBlocker = this.add.zone(pn.x, pn.y, pn.w, pn.h).setOrigin(0, 0).setDepth(D.ui + 5).setInteractive()
+        .on('pointerup', () => this.advanceLine(true));
+    }
 
-    // Heroine + textbox
-    this.portrait = new Portrait(this, L.portraitFrame, L.portrait, D.portrait);
+    // Pauline + textbox
+    this.portrait = new Portrait(this, L.portrait, D.portrait);
     this.textbox = new TextBox(this, {
       box: L.textbox, nameplate: L.nameplate, text: L.text,
       fontSize: this.cfg.font.potionLine, fontMin: this.cfg.font.potionLineMin, nameSize: this.cfg.font.potionName, depth: D.textbox,
-      more: G.layout.dialogue.potionMore
+      more: L.more
     });
     this.textbox.clear();
+    // Textbox and portrait are shown only while there are lines (the menu below stays).
+    this.textbox.fade(false, true);
+    this.portrait.show(false, true);
     const tb = rect(L.textbox);
-    this.add.zone(tb.x, tb.y, tb.w, tb.h).setOrigin(0, 0).setDepth(D.textbox + 5).setInteractive()
+    this.textboxZone = this.add.zone(tb.x, tb.y, tb.w, tb.h).setOrigin(0, 0).setDepth(D.textbox + 5).setInteractive()
       .on('pointerup', () => this.onTextboxClick());
-    // Same text-only menu as on the dialogue screen, under the text in the textbox.
+    this.textboxZone.disableInteractive();
+    // Same text-only menu as on the dialogue screen, at the bottom of the screen under the textbox.
     this.menu = new TextMenu(this, L.menu, [
       { id: 'log', label: T('menu.log'), onClick: () => openOverlay(this, 'log') },
       { id: 'auto', label: T('menu.auto'), onClick: () => this.toggleAuto() },
@@ -207,10 +223,10 @@ export class PotionScene extends Phaser.Scene {
       { id: 'save', label: T('menu.save'), onClick: () => openOverlay(this, 'save') },
       { id: 'load', label: T('menu.load'), onClick: () => openOverlay(this, 'load') },
       { id: 'settings', label: T('menu.settings'), onClick: () => openOverlay(this, 'settings') }
-    ], D.textbox + 6);
+    ], D.textbox + 6, { menu: this.cfg.colors.potionMenu, menuHover: this.cfg.colors.potionMenuHover, menuActive: this.cfg.colors.potionMenuActive });
     this.menu.get('auto').setActive(!!G.settings.auto);
     this.skip = false;
-    const hp = G.layout.dialogue.potionHint;
+    const hp = L.hint;
     this.hint = this.add.text(hp[0], hp[1], T(isTouchDevice() ? 'hint.tap' : 'hint.click'),
       font(this.cfg.font.hint, { color: this.cfg.colors.menu, fontStyle: 'italic' })).setOrigin(1, 1).setDepth(D.textbox + 3).setVisible(false);
 
@@ -270,7 +286,7 @@ export class PotionScene extends Phaser.Scene {
   /**
    * The cat's alternative recipe, shown in a speech bubble above him like the book shows its recipe:
    * element icons in a row with the ratio numbers below. Hidden until he gives his advice.
-   * In P6 (cat absent) it shows as the Heroine's memory of it: same bubble, slightly faded.
+   * In P6 (cat absent) it shows as Pauline's memory of it: same bubble, slightly faded.
    */
   buildCatBubble() {
     this.catBubble = null;
@@ -278,7 +294,7 @@ export class PotionScene extends Phaser.Scene {
     const B = this.L.catBubble, r = rect(B.rect), c = this.cfg;
     const box = this.add.container(r.x + r.w / 2, r.y + r.h).setDepth(D.cat + 1).setAlpha(0).setScale(0.6);
     // Container origin is the bottom-centre (tail end), so the pop-in grows out of the cat.
-    // No cat on the table (P6): a bubble without the tail pointing at him (the Heroine's memory of his recipe).
+    // No cat on the table (P6): a bubble without the tail pointing at him (Pauline's memory of his recipe).
     const noTail = !this.potion.catPresent;
     const bodyH = B.bodyH || 160;
     box.add(this.add.image(0, noTail ? -(r.h - bodyH) : 0, noTail ? 'ui_cat_bubble_memory' : 'ui_cat_bubble')
@@ -354,6 +370,7 @@ export class PotionScene extends Phaser.Scene {
       if (i >= this.cells.length || item.hidden) return;
       const cell = this.cells[i];
       const img = this.add.image(cell.cx, cell.cy, item.key).setDisplaySize(gr.item, gr.item).setDepth(D.item);
+      this.panelBox.add(img);
       if (!item.usable && item.type === 'bottle' && !this.isMix) img.setAlpha(0.9);
       img.setInteractive(); // hover info for every item; only usable ones can be picked up
       const entry = Object.assign({ img, cell, baseY: cell.cy }, item);
@@ -811,10 +828,7 @@ export class PotionScene extends Phaser.Scene {
     G.audio.sfx('pickup');
 
     const offRecipe = entry.type === 'crystal' && this.level >= 2 && !this.fits(entry.crystal);
-    if (offRecipe && !G.state.flags.commentHeavy) {
-      G.state.flags.commentHeavy = true;
-      this.playEvent('resist_heavy');
-    }
+    if (offRecipe) this.react('resist_heavy');
     if (offRecipe && this.level >= 3) {
       const r = this.cfg.resist;
       if (this.lastSlipped !== entry.id && Math.random() < r.slipChance) {
@@ -838,10 +852,7 @@ export class PotionScene extends Phaser.Scene {
     this.lastSlipped = h.entry.id;
     G.audio.sfx('slip');
     this.flyBack(h);
-    if (!G.state.flags.commentSlip) {
-      G.state.flags.commentSlip = true;
-      this.playEvent('resist_slip');
-    }
+    this.react('resist_slip');
   }
 
   flyBack(h) {
@@ -873,7 +884,7 @@ export class PotionScene extends Phaser.Scene {
       G.audio.sfx('slip');
       const img = this.add.image(this.dropZone.centerX, this.dropZone.centerY, entry.key).setDisplaySize(this.L.grid.item, this.L.grid.item).setDepth(D.held);
       this.flyBack({ entry, img });
-      if (!G.state.flags.commentSlip) { G.state.flags.commentSlip = true; this.playEvent('resist_slip'); }
+      this.react('resist_slip');
       return;
     }
     if (this.lastSlipped === entry.id) this.lastSlipped = null;
@@ -1012,31 +1023,70 @@ export class PotionScene extends Phaser.Scene {
       if (!item.repeat) G.session.log.push({ name, text: r.text });
       this.portrait.show(!!r.speaker); // narration: no portrait
       if (r.speaker === 'heroine') this.portrait.setExpr(r.expr);
-      if (r.speaker === 'jaros' && this.cat) {
+      if (r.speaker === 'jaros' && this.cat && this.cat.visible) {
         // The cat on the table: "jaros angry: ..." → cat_table_angry (if it exists).
         const key = r.expr && this.textures.exists('cat_table_' + r.expr) ? 'cat_table_' + r.expr : 'cat_table';
-        if (this.cat.texture.key !== key) { const w = this.cat.displayWidth, h = this.cat.displayHeight; this.cat.setTexture(key).setDisplaySize(w, h); }
+        if (this.cat.texture.key !== key) {
+          const ct = rect(this.L.cat);
+          this.cat.setTexture(key).setDisplaySize(ct.w, ct.h);
+          this.catScale = { x: this.cat.scaleX, y: this.cat.scaleY };
+        }
+        if (!item.repeat) this.catPop();
       }
+      this.textbox.fade(true);
+      this.textboxZone.setInteractive();
       this.lineActive = true;
       this.refreshButtons();
       if (item.ev === 'advice' && !item.repeat) this.showCatBubble();
       this.currentEv = item.ev;
+      this.currentRepeat = !!item.repeat;
       this.textbox.show(name, r.text, { instant: this.skip || !!item.repeat, onDone: () => this.lineDone() });
       this.startIdle();
       return;
     }
     // No more lines: the last one stays until a new line replaces it or the player leaves.
     // The cat's recipe stays visible in his bubble.
-    // After the Heroine reacts to the game pushing back (heavy or slipping crystal),
+    // After Pauline reacts to the game pushing back (heavy or slipping crystal),
     // the textbox goes back to the advice line (shown again like a normal line, then cleared on tap).
     if (this.adviceRow && !this.done && (this.currentEv === 'resist_heavy' || this.currentEv === 'resist_slip')) { this.showAdvice(); return; }
-    // No more lines: the textbox empties after the last line is tapped, like on the dialogue screen.
+    // No more lines: after the last line is tapped the textbox and portrait disappear (the menu stays).
     this.lineActive = false;
     this.textbox.setMore(false);
     this.textbox.clear();
+    this.textbox.fade(false);
+    this.portrait.show(false);
+    this.textboxZone.disableInteractive();
     this.currentEv = null;
     this.refreshButtons();
     if (this.skip) this.toggleSkip(); // nothing left to skip
+  }
+
+  /** The cat on the table grows a little for a moment when he starts a line. */
+  catPop() {
+    const s = this.catScale;
+    this.tweens.killTweensOf(this.cat);
+    this.cat.setScale(s.x, s.y);
+    this.tweens.add({ targets: this.cat, scaleX: s.x * 1.08, scaleY: s.y * 1.08, duration: 160, yoyo: true, ease: 'Sine.easeOut',
+      onComplete: () => this.cat.setScale(s.x, s.y) });
+  }
+
+  /** The ingredient panel appears (after the opening lines, except on the first potion). */
+  showPanel() {
+    if (this.panelShown) return;
+    this.panelShown = true;
+    if (this.panelBlocker) { this.panelBlocker.destroy(); this.panelBlocker = null; }
+    this.tweens.add({ targets: this.panelBox, alpha: 1, duration: 350 });
+    this.startedAt = this.time.now; // idle hints count from here
+    this.lastAddTime = this.time.now;
+  }
+
+  /** The book pushes back (heavy or slipping crystal): Pauline reacts every time, unless a line is already on screen. */
+  react(name) {
+    if (this.queue.length || (this.lineActive && !this.currentRepeat)) return;
+    // The repeated advice line may be replaced right away.
+    const replace = this.lineActive;
+    this.playEvent(name);
+    if (replace && this.queue.length) this.nextLine();
   }
 
   /** Shows the advice line again: instantly, not added to the Log again, and cleared on the next tap. */
@@ -1048,7 +1098,7 @@ export class PotionScene extends Phaser.Scene {
   /** A line is fully shown: wait for a click/tap, or continue by itself in Auto mode (same as the dialogue screen). */
   lineDone() {
     // Bouncing arrow only when another line is still waiting (on the last line there's nothing more to click for).
-    this.textbox.setMore(!this.skip && this.queue.length > 0);
+    this.textbox.setMore(!this.skip && this.queue.some(q => q.row));
     if (this.skip && !this.lineTimer) {
       this.lineTimer = this.time.delayedCall(80, () => { this.lineTimer = null; this.nextLine(); });
     } else if (G.settings.auto && !this.lineTimer) {
@@ -1118,7 +1168,7 @@ export class PotionScene extends Phaser.Scene {
       this.tutorialStep = 1;
       this.playEvent('start', () => this.tutorial(1));
     } else {
-      this.playEvent('start', () => this.playEvent('advice'));
+      this.playEvent('start', () => this.playEvent('advice', () => this.showPanel()));
     }
   }
 

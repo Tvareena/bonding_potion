@@ -9,9 +9,9 @@
     "ending_friendship": { "path": "assets/images/endings/ending_friendship.jpg", "size": [1920, 1080], "group": "Ending illustrations", "ph": { "color": "#b9d6e7" } },
     "ending_bad":        { "path": "assets/images/endings/ending_bad.jpg",        "size": [1920, 1080], "group": "Ending illustrations", "ph": { "color": "#5a4a5e" } },
 
-    "heroine":     { "path": "assets/images/characters/heroine.png",     "size": [320, 420],  "group": "Heroine portrait",  "ph": { "color": "#e9d3dc", "shape": "portrait", "label": "portrait" } },
+    "heroine":     { "path": "assets/images/characters/heroine.png",     "size": [320, 420],  "group": "Pauline portrait",  "ph": { "color": "#e9d3dc", "shape": "portrait", "label": "portrait" } },
 
-    "chad":        { "path": "assets/images/characters/chad.png",        "size": [900, 1000], "group": "Character sprites", "ph": { "color": "#7d95b3", "shape": "silhouette", "label": "Chad" } },
+    "chad":        { "path": "assets/images/characters/chad.png",        "size": [900, 1000], "group": "Character sprites", "ph": { "color": "#7d95b3", "shape": "silhouette", "label": "Dominic" } },
     "jaros_human": { "path": "assets/images/characters/jaros_human.png", "size": [900, 1000], "group": "Character sprites", "ph": { "color": "#3d3550", "shape": "silhouette", "label": "Jaros (human)" } },
     "cat_icon":  { "path": "assets/images/characters/cat_icon.png",  "size": [220, 220], "group": "Cat", "ph": { "color": "#2e2a33", "shape": "cathead" } },
     "cat_table": { "path": "assets/images/characters/cat_table.png", "size": [340, 520], "group": "Cat", "ph": { "color": "#2e2a33", "shape": "catbody" } },
@@ -54,7 +54,6 @@
     "ui_title_load":            { "path": "assets/images/ui/ui_title_load.png",            "size": [440, 100], "group": "Title screen", "ph": { "shape": "textlabel", "text": "LOAD", "textColor": "#2f2a2e" } },
     "ui_title_settings":        { "path": "assets/images/ui/ui_title_settings.png",        "size": [440, 100], "group": "Title screen", "ph": { "shape": "textlabel", "text": "SETTINGS", "textColor": "#2f2a2e" } },
     "ui_title_credits":         { "path": "assets/images/ui/ui_title_credits.png",         "size": [440, 100], "group": "Title screen", "ph": { "shape": "textlabel", "text": "CREDITS", "textColor": "#2f2a2e" } },
-    "ui_portrait_frame":        { "path": "assets/images/ui/ui_portrait_frame.png",        "size": [320, 420], "group": "UI", "ph": { "color": "#6a4a8c", "shape": "frame", "inset": 10 } },
     "ui_button_large_normal":   { "path": "assets/images/ui/ui_button_large_normal.png",   "size": [400, 100], "group": "UI", "ph": { "color": "#f6e3a8", "shape": "button", "border": "#b8902a" } },
     "ui_button_large_hover":    { "path": "assets/images/ui/ui_button_large_hover.png",    "size": [400, 100], "group": "UI", "ph": { "color": "#fbeec4", "shape": "button", "border": "#d1a634" } },
     "ui_button_large_pressed":  { "path": "assets/images/ui/ui_button_large_pressed.png",  "size": [400, 100], "group": "UI", "ph": { "color": "#e6cc80", "shape": "button", "border": "#9a7620" } },

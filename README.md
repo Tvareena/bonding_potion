@@ -68,6 +68,7 @@ heroine happy: Text.        a line with an emotion (image heroine_happy; usual i
 [trust=cat] jaros: Text.    only if the Trust potion was brewed with the cat's recipe
 [cat>=3, hope=book] : Text. only if the cat's recipe was used 3+ times AND Hope used the book recipe
 @hide                       hide the character
+@hide jaros                 the cat leaves: his icon disappears until he speaks again
 
 == p1 potion fun            a potion step
 @on start                   lines for an event…

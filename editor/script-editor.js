@@ -192,6 +192,7 @@ function emotions(id) {
   return Object.keys(S.images).filter(k => k.startsWith(pre)).map(k => k.slice(pre.length)).filter(x => /^[a-z0-9]+$/.test(x));
 }
 function spriteChars() { return Object.keys(S.chars).filter(id => S.chars[id].kind === 'sprite'); }
+function catChars() { return Object.keys(S.chars).filter(id => S.chars[id].kind === 'cat'); }
 function backgrounds() { return Object.keys(S.images).filter(k => k.startsWith('bg_') && k !== 'bg_title').map(k => k.slice(3)); }
 function catPotions() { return S.potions.filter(p => p.cat); }
 
@@ -470,17 +471,23 @@ function rowBody(r, ctx) {
     case 'show': {
       who.append(el('span', 'kind', '➜ Show character'));
       const s = el('select');
-      const list = spriteChars();
-      list.forEach(id => s.append(opt(id, charLabel(id), id === a[0])));
+      const list = [...spriteChars(), ...catChars()];
+      list.forEach(id => s.append(opt(id, S.chars[id].kind === 'cat' ? charLabel(id) + ': his icon comes back' : charLabel(id), id === a[0])));
       if (!list.includes(a[0])) s.append(opt(a[0], (a[0] || '?') + ' (not a character in the middle)', true));
       s.addEventListener('change', () => set(() => { r.args = [s.value]; }));
       who.append(s, emotionSelect(a[0], a[1], (e) => set(() => { r.args = e ? [a[0], e] : [a[0]]; })));
       who.append(el('span', 'muted', 'appears in the middle (replaces whoever is there)'));
       break;
     }
-    case 'hide':
-      who.append(el('span', 'kind', '⬅ Hide character'), el('span', 'muted', 'the character in the middle leaves'));
+    case 'hide': {
+      who.append(el('span', 'kind', '⬅ Hide character'));
+      const s = el('select');
+      s.append(opt('', 'the character in the middle', !a[0]));
+      catChars().forEach(id => s.append(opt(id, `${charLabel(id)}: his icon disappears (until he speaks again)`, id === a[0])));
+      s.addEventListener('change', () => set(() => { r.args = s.value ? [s.value] : []; }));
+      who.append(s);
       break;
+    }
     case 'bg': {
       who.append(el('span', 'kind', 'Background'));
       const s = el('select'); const list = backgrounds();

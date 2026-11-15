@@ -2,11 +2,12 @@ import { G, font } from '../core.js';
 
 // Text-only buttons: the player sees and clicks just the words (no button art).
 export class TextButton {
-  constructor(scene, x, y, w, h, label, onClick) {
+  constructor(scene, x, y, w, h, label, onClick, colors) {
     this.scene = scene;
+    this.colors = colors || null; // { menu, menuHover, menuActive } — default: config colors
     this.active = false;
     this.zone = scene.add.zone(x, y, w, h).setOrigin(0, 0).setInteractive({ useHandCursor: true });
-    this.text = scene.add.text(x + w / 2, y + h / 2, label, font(G.config.font.menu, { color: G.config.colors.menu, fontStyle: 'bold' })).setOrigin(0.5);
+    this.text = scene.add.text(x + w / 2, y + h / 2, label, font(G.config.font.menu, { color: (colors && colors.menu) || G.config.colors.menu, fontStyle: 'bold' })).setOrigin(0.5);
     this.hover = false;
     this.zone.on('pointerover', (p) => { if (!p.wasTouch) { this.hover = true; this.refresh(); } });
     this.zone.on('pointerout', () => { this.hover = false; this.refresh(); });
@@ -14,7 +15,7 @@ export class TextButton {
     this.refresh();
   }
   refresh() {
-    const c = G.config.colors;
+    const c = Object.assign({}, G.config.colors, this.colors || {});
     this.text.setColor(this.active ? c.menuActive : (this.hover ? c.menuHover : c.menu));
     this.text.setFontStyle(this.active ? 'bold italic' : 'bold');
   }
@@ -28,13 +29,13 @@ export class TextButton {
  * Items are laid out right-aligned so the last item stays at the right end.
  */
 export class TextMenu {
-  constructor(scene, cfg, items, depth) {
+  constructor(scene, cfg, items, depth, colors) {
     this.buttons = {};
     const n = items.length;
     const total = 5; // full menu has 6 items → first x is cfg.x; fewer items shift right
     items.forEach((it, i) => {
       const x = cfg.x + (total - (n - 1) + i) * cfg.step;
-      const b = new TextButton(scene, x, cfg.y, cfg.w, cfg.h, it.label, it.onClick).setDepth(depth || 0);
+      const b = new TextButton(scene, x, cfg.y, cfg.w, cfg.h, it.label, it.onClick, colors).setDepth(depth || 0);
       this.buttons[it.id] = b;
     });
   }

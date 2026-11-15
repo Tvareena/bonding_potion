@@ -66,7 +66,7 @@ All tasks except drawing the art. Art *integration* (placeholders, replacing fil
 |---|---|---|---|---|---|
 | U1 | `Button`: image button with normal / hover / pressed (+ disabled), text label drawn on top; hover only with a mouse | Dev | Must | C1 | All image buttons use it. |
 | U2 | `TextBox`: 9-slice box, name plate (hidden for narration), text wrapping and shrink-to-fit, typewriter with click-to-complete | Dev | Must | C1 | Lines up to ~3 rows fit in both textbox sizes. |
-| U3 | `Portrait`: Heroine portrait with frame (one image) | Dev | Must | C1 | Portrait shows on both screens. |
+| U3 | `Portrait`: Pauline portrait with frame (one image) | Dev | Must | C1 | Portrait shows on both screens. |
 | U4 | `TextMenu`: text-only items with invisible 120 × 40 hit areas, hover colour/underline; hides unimplemented items and re-aligns | Dev | Must | C1 | Menu matches Screen Layouts. |
 | U5 | `Panel`: 9-slice panel at 360, 140 · 1200 × 800 over a dimmed screen | Dev | Should | C1 | Used by the overlay panels. |
 | U6 | `IngredientMenu`: panel, tabs (Crystals / Potions), sort row, 3 × 5 grid of cells | Dev | Must | C1 | Layout matches Screen Layouts. |
@@ -108,7 +108,7 @@ All tasks except drawing the art. Art *integration* (placeholders, replacing fil
 | R2 | Level 1: recipe glow after 10 s without adding a crystal | Dev | Should | R1 | Glow appears in P1–P2. |
 | R3 | Level 2: recipe lines glow, fitting cells outlined, heavy drag for non-fitting crystals | Dev | Should | R1 | Noticeable lag in P3–P4 for off-recipe crystals only. |
 | R4 | Level 3: pulsing recipe, fitting crystals nudge; custom cursor with drift (PC); slipping (never twice in a row) | Dev | Should | R3 | P5–P6: drift and slips happen but the cat recipe can still be completed. |
-| R5 | One-time comments: `resist_heavy` (first heavy drag), `resist_slip` (first slip) | Dev | Should | R3, R4, B12 | Each comment plays once per playthrough. |
+| R5 | Reactions: `resist_heavy` (every heavy drag), `resist_slip` (every slip), one random line each time | Dev | Should | R3, R4, B12 | A reaction plays every time unless another line is on screen. |
 | R6 | Tune resistance values in `config.json` after playtesting | Design | Should | R4, Q2 | Testers notice the resistance; nobody gets stuck. |
 
 ## 9. Tutorial
@@ -122,10 +122,10 @@ All tasks except drawing the art. Art *integration* (placeholders, replacing fil
 
 | ID | Task | Owner | Priority | Depends on | Done when |
 |---|---|---|---|---|---|
-| W1 | Decide final names for the Heroine and Chad; update `characters.json` | Design | Should | D6 | Names final. |
+| W1 | Decide final names for Pauline and Dominic; update `characters.json` | Design | Should | D6 | Names final. |
 | W2 | Write the story events for D3 and D5 (open in GDD §2.3) | Design | Must | — | Beats agreed. |
 | W3 | Write dialogue D1–D7 in the script format (TDD §5.1), with sprites and backgrounds | Design | Must | W2 | All dialogue sections play in the game. |
-| W4 | Write potion-screen lines for P1–P7: `start`, `advice`, `fizzle` (several, random), `success`; P6 as the Heroine's memories of the cat | Design | Must | — | Every potion has at least start, advice, fizzle and success lines. |
+| W4 | Write potion-screen lines for P1–P7: `start`, `advice`, `fizzle` (several, random), `success`; P6 as Pauline's memories of the cat | Design | Must | — | Every potion has at least start, advice, fizzle and success lines. |
 | W5 | Write the resistance comments (`resist_heavy`, `resist_slip`) | Design | Should | — | Lines in the script. |
 | W6 | Write the three endings (romance, friendship, bad, with the final line "But it's not what I wanted… at all…") and the ending names for the cards | Design | Must | — | All three ending sections play. |
 | W7 | Proofread the whole script; check every line fits the textbox (about 3 rows) | Design | Should | W3–W6 | No overflow or shrunk text. |
@@ -160,7 +160,7 @@ All tasks except drawing the art. Art *integration* (placeholders, replacing fil
 | E5 | Art preview "Show in place" using `layout.json`; *Restore previous*; *Rescan* (detects files replaced by hand via checksum) | Dev | Could | E4, D2 | Preview matches the game layout; restore brings back the old file. |
 | E6 | `ScriptWriter.js`: writes parsed sections back to `script.txt` in the TDD §5.1 format, keeping comments | Dev | Should | C2 | Parse → write → parse gives the same result on the full script. |
 | E7 | Texts tab, Scenes: section list, row table (speaker, text, command rows with drop-downs), add/delete/duplicate/move rows, potion events with "random" checkbox | Dev | Should | E1, E6 | Any line can be changed and saved; the game plays the change after reload. |
-| E8 | Texts tab, Characters / Potions & crystals / Interface texts: edit names, flavour lines and `texts.json`; add a character (adds its image entry and placeholder) | Dev | Should | E7, D7 | Renaming the Heroine in the editor changes it everywhere in the game. |
+| E8 | Texts tab, Characters / Potions & crystals / Interface texts: edit names, flavour lines and `texts.json`; add a character (adds its image entry and placeholder) | Dev | Should | E7, D7 | Renaming Pauline in the editor changes it everywhere in the game. |
 | E9 | Texts checks: line too long (measured with the game font, more than 3 rows), unknown speaker/background/event, empty lines, missing potion events | Dev | Should | E7 | Warnings appear next to the right rows. |
 | E10 | Search across all texts; *Play from here* (`?debug=1&scene=<id>`); *Import text…* with a difference view | Dev | Could | E7, Q1 | Search jumps to the row; the game opens at the chosen section. |
 | E11 | Short editor guide in the README (opening it, choosing the folder, saving, backups, publishing with GitHub Desktop) | Dev | Should | E4, E7 | The designer and the artist can use the editor without help. |

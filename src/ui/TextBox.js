@@ -42,6 +42,16 @@ export class TextBox {
     }
   }
 
+  /** Fades the whole textbox (box, name plate, text) in or out. */
+  fade(v, instant) {
+    if (this.faded === !v) return;
+    this.faded = !v;
+    const targets = [this.box, this.plate, this.nameText, this.body];
+    this.scene.tweens.killTweensOf(targets);
+    if (instant) { targets.forEach(o => o.setAlpha(v ? 1 : 0)); return; }
+    this.scene.tweens.add({ targets, alpha: v ? 1 : 0, duration: 220 });
+  }
+
   setVisible(v) {
     [this.box, this.plate, this.nameText, this.body].forEach(o => o.setVisible(v));
     if (v && !this.nameText.text) { this.plate.setVisible(false); this.nameText.setVisible(false); }

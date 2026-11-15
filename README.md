@@ -29,6 +29,10 @@ Saving works like a visual novel: **Save** / **Load** in the dialogue menu or th
 
 All text lives in data files. No code changes are needed.
 
+### Opening the editors
+
+Double-click **`Open editors.bat`** in the project folder. It starts the local server (a small minimized window "Bonding Potion server"; keep it open while you work, close it to stop) and opens the Art editor and the Script editor in Microsoft Edge. If `localhost:8080` ever says it can't connect, the server isn't running: just double-click the file again.
+
 ### With the script editor (recommended)
 
 1. Open **http://localhost:8080/script-editor.html** (run `tools/serve.ps1` first) or **https://tvareena.github.io/bonding_potion/script-editor.html**, in **Chrome or Edge**.

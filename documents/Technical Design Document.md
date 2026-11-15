@@ -230,6 +230,10 @@ heroine: It worked!
 ...
 ```
 
+**Emotions:** `chad angry: text` shows the image `chad_angry` (the character's `image` from `characters.json` + `_` + emotion) for that line; a line without an emotion shows the usual image. For the Heroine this is the portrait, for sprite characters the image in the middle (only while that character is shown; `@show chad angry` shows them with an emotion), for Jaros the cat icon in dialogue (`cat_icon_angry`) and the cat on the table on the potion screen (`cat_table_angry`). A missing image falls back to the usual one with a warning.
+
+**Conditions:** any line or command can start with `[...]`: the row is used only if all conditions are true (`src/systems/Conditions.js`). `potion=cat` / `potion=book` (that potion was brewed with that recipe; potion ids from `potions.json`), `cat>=N`, `cat<=N`, `cat>N`, `cat<N`, `cat=N` (number of potions brewed with the cat's recipe so far). Conditions are checked when the row is reached, so saves and line numbers aren't affected. In potion sections they filter lines before a random one is picked. For testing, `?choices=fun:cat,trust:book` pre-sets choices.
+
 **Sections**
 
 | Header | Meaning |
@@ -526,6 +530,8 @@ A separate page for the team to change texts and replace art without touching co
 - The editor is also published on GitHub Pages with the game, but it only works with a folder on your computer, so it can't change the live site.
 
 ### 13.2 Texts tab
+
+> **Status:** built as a separate page, `script-editor.html` (`editor/script-editor.js`, `editor/script-editor.css`), sharing the folder (IndexedDB) with the Art editor. It edits `data/script.txt` (scenes, potion moments, lines, speakers, emotions, Show/Hide character, background, music, sound, pauses, notes, conditions `[...]`; drag-and-drop reordering; undo/redo; search; warnings) and character names in `characters.json`. Its Characters tab adds emotions: it writes a temporary image `<image>_<emotion>.png` (the usual image, faded, with the emotion's name), adds it to `assets.json` and `assets/placeholders.json`, so it shows as Temporary in the Art editor. It writes the script itself (no `ScriptWriter.js`); unreadable lines are kept as "can't be read" rows. Not built yet: interface texts (`texts.json`), potion and crystal names, adding new characters or scenes, import.
 
 | Section | What you can do |
 |---|---|

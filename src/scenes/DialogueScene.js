@@ -1,4 +1,5 @@
-import { G, T, font, rect, charName, charImage, hasTexture, warn, isTouchDevice, goTo, autoDelayMs } from '../core.js';
+import { G, T, font, rect, charName, charImage, exprImage, hasTexture, warn, isTouchDevice, goTo, autoDelayMs } from '../core.js';
+import { condOk } from '../systems/Conditions.js';
 import { TextBox } from '../ui/TextBox.js';
 import { Portrait } from '../ui/Portrait.js';
 import { TextMenu } from '../ui/TextMenu.js';
@@ -110,6 +111,7 @@ export class DialogueScene extends Phaser.Scene {
     target = Math.min(target, this.rows.length);
     while (this.i < target) {
       const r = this.rows[this.i++];
+      if (!condOk(r.cond, G.state.choices)) continue;
       if (r.kind === 'cmd') {
         if (['bg', 'show', 'hide', 'music'].includes(r.name)) this.command(r);
       }
@@ -135,6 +137,7 @@ export class DialogueScene extends Phaser.Scene {
   run() {
     while (this.i < this.rows.length) {
       const r = this.rows[this.i++];
+      if (!condOk(r.cond, G.state.choices)) continue; // condition not met: skip this row
       if (r.kind === 'cmd') {
         if (this.command(r) === 'wait') return;
         continue;
@@ -148,7 +151,7 @@ export class DialogueScene extends Phaser.Scene {
     const a = r.args;
     switch (r.name) {
       case 'bg': this.setBackground(a[0]); break;
-      case 'show': this.showSprite(a[0]); break;
+      case 'show': this.showSprite(a[0], a[1]); break;
       case 'hide': this.hideSprite(); break;
       case 'music': G.audio.music(a[0]); break;
       case 'sfx': G.audio.sfx(a[0]); break;
@@ -171,10 +174,10 @@ export class DialogueScene extends Phaser.Scene {
     this.tweens.add({ targets: this.bg, alpha: 1, duration: this.dur(500), onComplete: () => { old.destroy(); this.bg.setDepth(0); } });
   }
 
-  showSprite(id) {
+  showSprite(id, expr) {
     const ch = G.characters[id];
     if (!ch || ch.kind !== 'sprite') { warn(`@show: "${id}" is not a sprite character`); return; }
-    const key = charImage(id);
+    const key = exprImage(this, id, expr);
     if (!hasTexture(this, key)) { warn(`Unknown image "${key}"`); return; }
     const sp = this.spriteRect;
     if (this.spriteChar === id && this.sprite.visible) {
@@ -196,12 +199,27 @@ export class DialogueScene extends Phaser.Scene {
     this.catIcon.setVisible(true);
   }
 
+  /** Emotion of the speaker for this line ("chad angry: ..."); a line without one shows the default image. */
+  applyExpr(r) {
+    const ch = r.speaker && G.characters[r.speaker];
+    if (!ch) return;
+    if (ch.kind === 'portrait') this.portrait.setExpr(r.expr);
+    else if (ch.kind === 'cat') {
+      const key = exprImage(this, r.speaker, r.expr), ci = rect(G.layout.dialogue.catIcon);
+      if (this.catIcon.texture.key !== key) this.catIcon.setTexture(key).setDisplaySize(ci.w, ci.h);
+    } else if (ch.kind === 'sprite' && this.spriteChar === r.speaker && this.sprite.visible) {
+      const key = exprImage(this, r.speaker, r.expr), sp = this.spriteRect;
+      if (this.sprite.texture.key !== key) this.sprite.setTexture(key).setDisplaySize(sp.w, sp.h);
+    }
+  }
+
   showLine(r) {
     let name = null;
     if (r.speaker) {
       name = charName(r.speaker);
     }
     this.setSwing(r.speaker && G.characters[r.speaker] && G.characters[r.speaker].kind === 'cat');
+    this.applyExpr(r);
     // Narration (no speaker name): the Heroine's portrait disappears.
     this.portrait.show(!!r.speaker, this.skip);
     G.session.log.push({ name, text: r.text });

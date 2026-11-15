@@ -1,0 +1,83 @@
+/* Script editor — on top of editor.css */
+#save-bar { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+#dirty { color: var(--accent-2); font-weight: bold; }
+.muted { color: var(--muted); font-size: 14px; }
+.error { color: var(--bad); }
+
+#app { display: grid; grid-template-columns: 270px 1fr; gap: 0; min-height: calc(100vh - 60px); }
+#sidebar { position: sticky; top: 58px; align-self: start; max-height: calc(100vh - 58px); overflow: auto; padding: 14px 12px; border-right: 1px solid var(--line); background: #fff; }
+#search { width: 100%; margin-bottom: 10px; }
+#tabs-top { display: flex; gap: 6px; margin-bottom: 10px; }
+.tab { flex: 1; padding: 5px 8px; font-size: 14px; }
+.tab.on { background: var(--accent); color: #fff; }
+#sections { list-style: none; margin: 0; padding: 0; }
+#sections li { padding: 6px 10px; border-radius: 8px; cursor: pointer; display: flex; justify-content: space-between; gap: 6px; font-size: 14px; }
+#sections li:hover { background: #f1eaf8; }
+#sections li.on { background: var(--accent); color: #fff; }
+#sections li.group { cursor: default; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .05em; padding-top: 12px; }
+#sections li.group:hover { background: none; }
+#sections .hits { background: var(--accent-2); color: #fff; border-radius: 10px; padding: 0 7px; font-size: 12px; }
+#sections li.nohit { opacity: .45; }
+
+#content { padding: 16px 22px 60px; min-width: 0; }
+#section-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; margin-bottom: 12px; flex-wrap: wrap; }
+#section-head h2 { font-size: 22px; margin: 0; }
+.play { display: flex; gap: 8px; }
+
+.moment { margin: 18px 0 6px; padding: 8px 12px; background: #ece4f5; border-radius: 10px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
+.moment h3 { margin: 0; font-size: 16px; }
+.moment label { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
+.moment .del-moment { margin-left: auto; padding: 2px 8px; font-size: 12px; }
+
+.row { position: relative; display: grid; grid-template-columns: 22px 1fr auto; gap: 8px; align-items: start; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; margin: 6px 0; }
+.row.cmd { background: #faf8fc; }
+.row.note { background: #fffbea; border-color: #eadfae; }
+.row.bad { background: #fdeeee; border-color: #e3a9a9; }
+.row.dim { opacity: .35; }
+.row.hit { box-shadow: 0 0 0 3px #f6d6e2; }
+.row.dragging { opacity: .4; }
+.row.drop-before { box-shadow: 0 -3px 0 var(--accent-2); }
+.row.drop-after { box-shadow: 0 3px 0 var(--accent-2); }
+.row.has-cond { border-left: 5px solid var(--accent-2); }
+.handle { cursor: grab; color: #b3a6c4; font-size: 18px; line-height: 30px; text-align: center; user-select: none; }
+.body { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.who { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.who select { padding: 4px 6px; }
+.who .kind { font-size: 13px; font-weight: bold; color: var(--accent); min-width: 120px; }
+.row textarea { width: 100%; font: 16px/1.4 Arial, Helvetica, sans-serif; padding: 6px 8px; border: 1px solid var(--line); border-radius: 8px; resize: none; min-height: 38px; field-sizing: content; }
+.row textarea:focus, .row input:focus, .row select:focus { outline: 2px solid #cdb6e8; }
+.row input[type=text], .row input[type=number] { font: inherit; padding: 4px 8px; border: 1px solid var(--line); border-radius: 8px; }
+.row input.wide { flex: 1; min-width: 200px; }
+.narration textarea { font-style: italic; }
+.cond { align-self: flex-start; font-size: 13px; padding: 2px 10px; border-radius: 12px; border: 1px dashed var(--muted); color: var(--muted); background: none; }
+.cond.set { border: 1px solid var(--accent-2); color: #fff; background: var(--accent-2); }
+.tools { display: flex; gap: 4px; flex-wrap: wrap; justify-content: flex-end; max-width: 160px; }
+.tools button { padding: 2px 8px; font-size: 13px; line-height: 20px; }
+.tools .del { border-color: var(--bad); color: var(--bad); }
+.add-end { margin: 8px 0 0 30px; display: flex; gap: 6px; flex-wrap: wrap; }
+.add-end button { font-size: 13px; padding: 4px 10px; }
+.missing-img { color: var(--warn); font-size: 12px; }
+
+.menu { position: absolute; z-index: 40; background: #fff; border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 6px 24px rgba(0,0,0,.18); padding: 6px; display: flex; flex-direction: column; min-width: 200px; }
+.menu button { border: none; text-align: left; border-radius: 6px; padding: 6px 10px; }
+
+#chars { display: grid; gap: 14px; }
+.char { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+.char-head { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; }
+.char-head input { font: inherit; font-size: 17px; font-weight: bold; padding: 4px 8px; border: 1px solid var(--line); border-radius: 8px; width: 220px; }
+.emos { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+.emo { width: 130px; text-align: center; font-size: 13px; }
+.emo .pic { height: 120px; border: 1px solid var(--line); border-radius: 8px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #f6f2fa; }
+.emo .pic img { max-width: 100%; max-height: 100%; }
+.emo.add .pic { border-style: dashed; cursor: pointer; font-size: 30px; color: var(--accent); }
+
+#warnings-wrap { margin-top: 30px; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; }
+#warnings-wrap summary { cursor: pointer; color: var(--warn); font-weight: bold; }
+#warnings li { color: var(--warn); margin: 3px 0; }
+
+.cond-item { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 8px 0; }
+.cond-item select, .cond-item input { font: inherit; padding: 4px 6px; }
+.cond-item input[type=number] { width: 70px; }
+#choices-list .ch { display: flex; gap: 10px; align-items: center; margin: 6px 0; }
+#choices-list .ch span { width: 200px; }
+#emo-name { font: inherit; font-size: 18px; padding: 6px 10px; width: 100%; }

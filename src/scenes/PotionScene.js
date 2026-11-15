@@ -9,6 +9,7 @@ import { SaveSystem } from '../systems/SaveSystem.js';
 import { openOverlay } from './OverlayScene.js';
 import { setupDebug } from '../systems/Debug.js';
 import { reduceRatio, sameRatio, ratioDistance } from '../systems/Ratio.js';
+import { condOk } from '../systems/Conditions.js';
 
 const D = { bg: 0, recipe: 5, recipeHi: 6, recipeText: 7, glow: 8, cat: 10, cauldron: 20, liquid: 21, bubbles: 22, counter: 23,
   ui: 30, cell: 31, outline: 32, item: 33, portrait: 40, textbox: 42, tutorial: 80, fx: 90, held: 100, love: 110, tip: 900, cursor: 1000, floating: 22.5 };
@@ -978,7 +979,7 @@ export class PotionScene extends Phaser.Scene {
   playEvent(name, cb) {
     const ev = this.section.events[name];
     if (ev && ev.rows.length) {
-      let rows = ev.rows.filter(r => r.kind === 'line' || (r.kind === 'cmd' && r.name === 'sfx'));
+      let rows = ev.rows.filter(r => (r.kind === 'line' || (r.kind === 'cmd' && r.name === 'sfx')) && condOk(r.cond, G.state.choices));
       if (ev.random) {
         const lines = rows.filter(r => r.kind === 'line');
         rows = lines.length ? [lines[Math.floor(Math.random() * lines.length)]] : [];
@@ -1009,6 +1010,12 @@ export class PotionScene extends Phaser.Scene {
       }
       if (!item.repeat) G.session.log.push({ name, text: r.text });
       this.portrait.show(!!r.speaker); // narration: no portrait
+      if (r.speaker === 'heroine') this.portrait.setExpr(r.expr);
+      if (r.speaker === 'jaros' && this.cat) {
+        // The cat on the table: "jaros angry: ..." → cat_table_angry (if it exists).
+        const key = r.expr && this.textures.exists('cat_table_' + r.expr) ? 'cat_table_' + r.expr : 'cat_table';
+        if (this.cat.texture.key !== key) { const w = this.cat.displayWidth, h = this.cat.displayHeight; this.cat.setTexture(key).setDisplaySize(w, h); }
+      }
       this.lineActive = true;
       this.refreshButtons();
       if (item.ev === 'advice' && !item.repeat) this.showCatBubble();

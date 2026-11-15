@@ -29,6 +29,24 @@ Saving works like a visual novel: **Save** / **Load** in the dialogue menu or th
 
 All text lives in data files. No code changes are needed.
 
+### With the script editor (recommended)
+
+1. Open **http://localhost:8080/script-editor.html** (run `tools/serve.ps1` first) or **https://tvareena.github.io/bonding_potion/script-editor.html**, in **Chrome or Edge**.
+2. Click **Choose project folder…** and select your `bonding_potion` folder (next time: **Reconnect**).
+3. Pick a scene on the left. For every row you can:
+   - change the text, **who says it** (or narration with no name) and the **emotion** (which image of the character is shown);
+   - **add** rows (`+` on a row, or the buttons under the list), **delete**, **duplicate**, and **reorder** them (drag `⋮⋮`, or ↑ ↓);
+   - make characters **appear** (Show character, with an emotion) and **leave** (Hide character), change background, music, sound and pauses;
+   - set **Only if…**: the row is used only when a potion was brewed with the cat's or the book recipe, or the cat's recipe was used a number of times.
+   Press **Enter** in a text to start the next line for the same speaker.
+4. Potion screens are grouped by **moment** (screen opens, cat's advice, fizzle, success…). "Say only one random line" picks one line each time.
+5. **Characters** tab: rename characters (the name above the textbox) and add **emotions**. A new emotion creates a temporary image (e.g. `heroine_happy.png`) that you then replace in the Art editor.
+6. **Save** (Ctrl+S) writes `data/script.txt` (old version kept in `.backup/`). **▶ Play this scene** opens the game at that scene; **Test choices…** lets you pretend earlier potions were brewed with the cat's or book recipe, to check conditions. (Play shows your saved changes only when the editor is opened from `localhost`; from the GitHub Pages link it opens the online game, which updates after you push.)
+
+Undo / Redo work for everything until you close the page.
+
+### By hand
+
 | What | File |
 |---|---|
 | Dialogue, potion-screen lines, endings | `data/script.txt` |
@@ -43,10 +61,13 @@ All text lives in data files. No code changes are needed.
 ```
 == d1                       a dialogue scene
 @bg shop                    background (bg_shop)
-@show chad smile            show a character sprite
-heroine: Text.              a line (each character has one image)
+@show chad                  show a character in the middle (@show chad angry: with an emotion)
+heroine: Text.              a line
+heroine happy: Text.        a line with an emotion (image heroine_happy; usual image if it doesn't exist)
 : Text.                     narration (no name)
-@hide                       hide the sprite
+[trust=cat] jaros: Text.    only if the Trust potion was brewed with the cat's recipe
+[cat>=3, hope=book] : Text. only if the cat's recipe was used 3+ times AND Hope used the book recipe
+@hide                       hide the character
 
 == p1 potion fun            a potion step
 @on start                   lines for an event…

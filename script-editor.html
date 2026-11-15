@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bonding Potion — Script editor</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="editor/editor.css">
+  <link rel="stylesheet" href="editor/script-editor.css">
+</head>
+<body>
+  <header>
+    <h1>Bonding Potion · Script editor</h1>
+    <div id="folder-bar">
+      <button id="btn-pick" class="primary">Choose project folder…</button>
+      <button id="btn-reconnect" hidden>Reconnect to “<span id="last-folder"></span>”</button>
+      <span id="folder-status"></span>
+    </div>
+    <div id="save-bar" hidden>
+      <span id="dirty" hidden>Unsaved changes</span>
+      <button id="btn-undo" title="Ctrl+Z">Undo</button>
+      <button id="btn-redo" title="Ctrl+Y">Redo</button>
+      <button id="btn-save" class="primary" title="Ctrl+S">Save</button>
+    </div>
+  </header>
+
+  <section id="unsupported" class="notice" hidden>
+    This editor needs <b>Chrome</b> or <b>Edge</b> on a computer (it saves files into your project folder).
+    Firefox and Safari can't do that. The game itself works in every browser.
+  </section>
+
+  <section id="intro" class="notice">
+    <p><b>How it works</b></p>
+    <ol>
+      <li>Click <b>Choose project folder…</b> and select the <code>bonding_potion</code> folder (the one with <code>index.html</code> and <code>data</code>). Allow the browser to edit files.</li>
+      <li>Pick a scene on the left. Change lines, who says them and their emotion; add, delete and drag rows to reorder them; make characters appear and disappear.</li>
+      <li><b>Only if…</b> on a row sets a condition: the row is used only when the player brewed a potion with the cat's or the book recipe, or used the cat's recipe a certain number of times.</li>
+      <li>Click <b>Save</b> (Ctrl+S). The editor writes <code>data/script.txt</code> and keeps the old version in <code>.backup/</code>. Then <b>Play</b> the scene to check it.</li>
+    </ol>
+    <p>Images are replaced in the separate <a href="editor.html">Art editor</a>.</p>
+  </section>
+
+  <main id="app" hidden>
+    <nav id="sidebar">
+      <input id="search" type="search" placeholder="Find text…">
+      <div id="tabs-top">
+        <button id="tab-script" class="tab on">Scenes</button>
+        <button id="tab-chars" class="tab">Characters</button>
+      </div>
+      <ul id="sections"></ul>
+    </nav>
+
+    <section id="content">
+      <div id="script-view">
+        <div id="section-head">
+          <div>
+            <h2 id="section-title"></h2>
+            <div id="section-sub" class="muted"></div>
+          </div>
+          <div class="play">
+            <button id="btn-play" title="Saves, then opens the game at this scene in a new tab">▶ Play this scene</button>
+            <button id="btn-play-opts" title="Test conditions: pretend earlier potions were brewed a certain way">Test choices…</button>
+          </div>
+        </div>
+        <div id="rows"></div>
+        <div id="add-moment-wrap" hidden>
+          <select id="add-moment"><option value="">+ Add lines for another moment…</option></select>
+        </div>
+      </div>
+
+      <div id="chars-view" hidden>
+        <h2>Characters</h2>
+        <p class="muted">The name is shown above the textbox when the character speaks. Emotions are extra images: a line with an emotion shows that image instead of the default one. New emotions get a temporary image that you replace with final art in the <a href="editor.html">Art editor</a>.</p>
+        <div id="chars"></div>
+      </div>
+
+      <details id="warnings-wrap" hidden>
+        <summary>Problems found in the script (<span id="warn-count"></span>)</summary>
+        <ul id="warnings"></ul>
+      </details>
+    </section>
+  </main>
+
+  <!-- condition dialog -->
+  <dialog id="cond-dialog">
+    <h2>Only if…</h2>
+    <p class="muted">The row is used only when <b>all</b> these are true. With no conditions it's always used.</p>
+    <div id="cond-list"></div>
+    <p><button id="cond-add">+ Add condition</button></p>
+    <div class="rd-buttons">
+      <button id="cond-clear">Always use this row</button>
+      <button id="cond-cancel">Cancel</button>
+      <button id="cond-ok" class="primary">OK</button>
+    </div>
+  </dialog>
+
+  <!-- test choices dialog -->
+  <dialog id="choices-dialog">
+    <h2>Test choices</h2>
+    <p class="muted">When you press Play, the game pretends these potions were already brewed like this. Useful to check rows with conditions.</p>
+    <div id="choices-list"></div>
+    <div class="rd-buttons">
+      <button id="choices-reset">Reset</button>
+      <button id="choices-ok" class="primary">OK</button>
+    </div>
+  </dialog>
+
+  <!-- new emotion dialog -->
+  <dialog id="emo-dialog">
+    <h2>New emotion for <span id="emo-char"></span></h2>
+    <p class="muted">One word, small letters, for example <code>happy</code>, <code>angry</code>, <code>sad</code>. The editor creates a temporary image <code id="emo-file"></code> for the artist to replace.</p>
+    <p><input id="emo-name" type="text" maxlength="20" autocomplete="off"></p>
+    <p id="emo-error" class="error" hidden></p>
+    <div class="rd-buttons">
+      <button id="emo-cancel">Cancel</button>
+      <button id="emo-ok" class="primary">Create</button>
+    </div>
+  </dialog>
+
+  <div id="add-menu" class="menu" hidden></div>
+  <div id="toast"></div>
+
+  <script type="module" src="editor/script-editor.js"></script>
+</body>
+</html>

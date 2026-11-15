@@ -64,6 +64,10 @@ export class PreloadScene extends Phaser.Scene {
     G.settings = SaveSystem.loadSettings();
     G.audio = new AudioManager(this.game);
 
+    // ?choices=fun:cat,trust:book — pretend these potions were already brewed this way (for testing conditions).
+    const pre = new URLSearchParams(window.location.search).get('choices');
+    if (pre) pre.split(',').forEach(p => { const [id, v] = p.split(':'); if (id && (v === 'cat' || v === 'book')) G.state.choices[id.toLowerCase()] = v; });
+
     if (G.startScene) {
       if (Flow.jumpTo(this, G.startScene.toLowerCase())) return;
       warn(`?scene=${G.startScene}: no such section in script.txt`);
@@ -77,14 +81,21 @@ export class PreloadScene extends Phaser.Scene {
     for (const s of G.script.sections) {
       if (s.type === 'potion' && !G.potions.find(p => p.id === s.potionId)) warn(`script.txt line ${s.line}: unknown potion "${s.potionId}"`);
       for (const r of s.rows) {
+        for (const c of (r.cond || [])) {
+          if (c.type === 'potion' && !G.potions.find(p => p.id === c.potion)) warn(`script.txt line ${r.line}: condition "${c.potion}=${c.value}": unknown potion "${c.potion}"`);
+        }
         if (r.kind === 'line' && r.speaker) {
           const c = G.characters[r.speaker];
           if (!c) warn(`script.txt line ${r.line}: unknown speaker "${r.speaker}"`);
-          else if (r.expr) warn(`script.txt line ${r.line}: "${r.speaker} ${r.expr}:" — characters have one image, the word "${r.expr}" is ignored`);
+          else if (r.expr) {
+            const key = (c.image || r.speaker) + '_' + r.expr;
+            if (!imgs[key]) warn(`script.txt line ${r.line}: no image "${key}" for "${r.speaker} ${r.expr}:" — the default image is shown`);
+          }
         }
         if (r.kind === 'cmd') {
           if (r.name === 'bg' && !imgs['bg_' + r.args[0]]) warn(`script.txt line ${r.line}: unknown background "${r.args[0]}"`);
           if (r.name === 'show' && (!G.characters[r.args[0]] || G.characters[r.args[0]].kind !== 'sprite')) warn(`script.txt line ${r.line}: @show "${r.args[0]}" is not a sprite character`);
+          else if (r.name === 'show' && r.args[1] && !imgs[(G.characters[r.args[0]].image || r.args[0]) + '_' + r.args[1]]) warn(`script.txt line ${r.line}: no image for "@show ${r.args[0]} ${r.args[1]}" — the default image is shown`);
           if (!['bg', 'show', 'hide', 'music', 'sfx', 'wait', 'on'].includes(r.name)) warn(`script.txt line ${r.line}: unknown command "@${r.name}"`);
         }
       }

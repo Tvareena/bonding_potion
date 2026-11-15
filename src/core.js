@@ -64,10 +64,20 @@ export function charName(id) {
   return c ? c.name : id;
 }
 
-/** Image key of a character (each human character has one image). */
+/** Default image key of a character (characters.json → image). */
 export function charImage(id) {
   const c = G.characters[id];
   return (c && c.image) || id;
+}
+
+/**
+ * Image for a character with an emotion: "chad angry: ..." → chad_angry (if that image exists),
+ * otherwise the default image. No emotion → the default image.
+ */
+export function exprImage(scene, id, expr) {
+  const base = charImage(id);
+  if (expr && scene.textures.exists(base + '_' + expr)) return base + '_' + expr;
+  return base;
 }
 
 export function potionById(id) {

@@ -309,7 +309,7 @@ $jpgCodec = [Drawing.Imaging.ImageCodecInfo]::GetImageEncoders() | Where-Object 
 $jpgParams = New-Object Drawing.Imaging.EncoderParameters(1)
 $jpgParams.Param[0] = New-Object Drawing.Imaging.EncoderParameter([Drawing.Imaging.Encoder]::Quality, [long]85)
 
-$made = 0; $skipped = 0
+$made = 0; $skipped = 0; $redrawn = @{}
 foreach ($prop in $assets.images.PSObject.Properties) {
   $key = $prop.Name; $e = $prop.Value
   $rel = $e.path
@@ -334,7 +334,23 @@ foreach ($prop in $assets.images.PSObject.Properties) {
   }
   $bmp.Dispose()
   $phList[$rel] = (Get-FileHash $full -Algorithm SHA256).Hash
+  $redrawn[$key] = $phList[$rel].Substring(0, 10).ToLower()
   $made++
+}
+
+# New version codes ("v") for redrawn images, so browsers download them instead of showing old saved copies.
+if ($redrawn.Count) {
+  $assetsPath = Join-Path $root 'data\assets.json'
+  $text = [IO.File]::ReadAllText($assetsPath)
+  foreach ($k in $redrawn.Keys) {
+    $m = [regex]::Match($text, '(?m)^[ \t]*"' + [regex]::Escape($k) + '":[ \t]*\{.*$')
+    if (-not $m.Success) { continue }
+    $line = $m.Value
+    if ($line -match '"v":\s*"[^"]*"') { $line = [regex]::Replace($line, '"v":\s*"[^"]*"', '"v": "' + $redrawn[$k] + '"') }
+    else { $line = [regex]::Replace($line, '("path":\s*"[^"]*",)', '$1 "v": "' + $redrawn[$k] + '",') }
+    $text = $text.Remove($m.Index, $m.Length).Insert($m.Index, $line)
+  }
+  [IO.File]::WriteAllText($assetsPath, $text, (New-Object Text.UTF8Encoding($false)))
 }
 
 $sorted = [ordered]@{}

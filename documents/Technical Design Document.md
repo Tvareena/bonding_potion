@@ -313,7 +313,7 @@ Image key = `crystal_<id>`. The full list is in the GDD, section 3.3.
 
 | Key | Default | Meaning |
 |---|---|---|
-| `elements.colors` | fire `#E8C547`, water `#3A6FD8`, earth `#4E9A4B`, air `#8E5BC8` | Liquid tint and highlights. Temporary values; the artist picks the final ones. |
+| `elements.colors` | fire `#D9B45A`, water `#5F7FB8`, earth `#6F9466`, air `#9A72B0` | Liquid tint and highlights. Temporary values; the artist picks the final ones. |
 | `text.speeds` | slow 25, normal 45, fast 90 | Characters per second. |
 | `text.autoSpeeds` | slow 2.0 s + 0.05 s/char, normal 1.2 + 0.03, fast 0.6 + 0.015 | Auto mode pause after a line, per Auto speed setting. Used on both dialogue and potion screens. |
 | `hints.idleAdvance` | 5 s | "Click to continue" hint delay. |

@@ -66,7 +66,7 @@ export class DialogueScene extends Phaser.Scene {
     this.idleTimer = null;
 
     // Toast
-    this.toastText = this.add.text(960, 690, '', font(34, { color: '#ffffff', backgroundColor: 'rgba(43,29,58,0.85)', padding: { x: 24, y: 12 } }))
+    this.toastText = this.add.text(960, 690, '', font(34, { color: '#ffffff', backgroundColor: 'rgba(60,36,36,0.88)', padding: { x: 24, y: 12 } }))
       .setOrigin(0.5).setDepth(60).setAlpha(0);
 
     // Input

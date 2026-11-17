@@ -12,9 +12,9 @@ export class PreloadScene extends Phaser.Scene {
 
   preload() {
     const W = 1920, H = 1080;
-    this.add.text(W / 2, H / 2 - 70, T('loading'), font(40, { color: '#f4eff9' })).setOrigin(0.5);
-    const barBg = this.add.rectangle(W / 2, H / 2, 800, 24, 0x3a2f4a).setOrigin(0.5);
-    const bar = this.add.rectangle(W / 2 - 400, H / 2, 0, 24, 0xcbb9df).setOrigin(0, 0.5);
+    this.add.text(W / 2, H / 2 - 70, T('loading'), font(40, { color: '#f6eef2' })).setOrigin(0.5);
+    const barBg = this.add.rectangle(W / 2, H / 2, 800, 24, 0x3c2424).setOrigin(0.5);
+    const bar = this.add.rectangle(W / 2 - 400, H / 2, 0, 24, 0xcc9ccc).setOrigin(0, 0.5);
     this.load.on('progress', (p) => { bar.width = 800 * p; });
 
     this.failed = [];

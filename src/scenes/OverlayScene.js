@@ -48,7 +48,7 @@ export class OverlayScene extends Phaser.Scene {
     const r = rect(G.layout.panel.rect);
     this.panelRect = r;
     nineSlice(this, 'ui_panel', r.x, r.y, r.w, r.h);
-    this.toastText = this.add.text(960, r.y + 125, '', font(30, { color: '#ffffff', backgroundColor: 'rgba(43,29,58,0.9)', padding: { x: 20, y: 10 } }))
+    this.toastText = this.add.text(960, r.y + 125, '', font(30, { color: '#ffffff', backgroundColor: 'rgba(60,36,36,0.9)', padding: { x: 20, y: 10 } }))
       .setOrigin(0.5).setDepth(50).setAlpha(0);
     const kb = this.input.keyboard;
     if (kb) kb.on('keydown-ESC', () => this.back());
@@ -240,9 +240,9 @@ export class OverlayScene extends Phaser.Scene {
   }
 
   slider(x, y, w, value, onChange, onRelease) {
-    const track = this.track(this.add.rectangle(x, y, w, 10, 0x6a4a8c).setOrigin(0, 0.5));
-    const fill = this.track(this.add.rectangle(x, y, w * value, 10, 0xc0396b).setOrigin(0, 0.5));
-    const knob = this.track(this.add.circle(x + w * value, y, 22, 0xf6e3a8).setStrokeStyle(4, 0xb8902a).setInteractive({ useHandCursor: true, draggable: true }));
+    const track = this.track(this.add.rectangle(x, y, w, 10, 0x7a5f63).setOrigin(0, 0.5));
+    const fill = this.track(this.add.rectangle(x, y, w * value, 10, 0xb0558a).setOrigin(0, 0.5));
+    const knob = this.track(this.add.circle(x + w * value, y, 22, 0xecdde4).setStrokeStyle(4, 0x7a5f63).setInteractive({ useHandCursor: true, draggable: true }));
     const set = (px) => {
       const v = Phaser.Math.Clamp((px - x) / w, 0, 1);
       knob.x = x + w * v; fill.width = w * v;
@@ -304,8 +304,8 @@ export class OverlayScene extends Phaser.Scene {
     const g = this.track(this.add.graphics());
     const draw = (hover) => {
       g.clear();
-      g.fillStyle(hover ? 0xfdf8e6 : 0xf7f3fb, 1).fillRoundedRect(x, y, S.w, S.h, 14);
-      g.lineStyle(hover ? 5 : 3, hover ? 0xc0396b : 0x6a4a8c, 1).strokeRoundedRect(x, y, S.w, S.h, 14);
+      g.fillStyle(hover ? 0xf6eef2 : 0xf3eaee, 1).fillRoundedRect(x, y, S.w, S.h, 14);
+      g.lineStyle(hover ? 5 : 3, hover ? 0xb0558a : 0x7a5f63, 1).strokeRoundedRect(x, y, S.w, S.h, 14);
     };
     draw(false);
     const [tw, th] = S.thumb;
@@ -314,7 +314,7 @@ export class OverlayScene extends Phaser.Scene {
     const small = (yy, str, extra) => this.track(this.add.text(x + 14, yy, str, font(20, Object.assign({ color: G.config.colors.panelText }, extra || {}))));
 
     if (data) {
-      const frame = this.track(this.add.rectangle(tx, ty, tw, th, 0x2b1d3a).setOrigin(0, 0));
+      const frame = this.track(this.add.rectangle(tx, ty, tw, th, 0x3c2424).setOrigin(0, 0));
       void frame;
       if (data.shot) this.addThumb(data.shot, tx, ty, tw, th);
       else this.track(this.add.text(tx + tw / 2, ty + th / 2, sectionLabel(data.sectionId), font(26, { color: '#f4eff9', fontStyle: 'bold' })).setOrigin(0.5));

@@ -557,9 +557,9 @@ export class PotionScene extends Phaser.Scene {
     const icon = this.L.counterIcon, gap = 40;
     const totalW = els.length * icon + (els.length - 1) * gap;
     let x = cr.x + (cr.w - totalW) / 2;
-    const style = font(this.cfg.font.counter, { color: '#ffffff', fontStyle: 'bold', stroke: '#2b1d3a', strokeThickness: 6 });
+    const style = font(this.cfg.font.counter, { color: '#ffffff', fontStyle: 'bold', stroke: '#3c2424', strokeThickness: 6 });
     // Under each ratio number: the actual amount of that element in the cauldron, smaller.
-    const amountStyle = font(this.cfg.font.counterAmount || 22, { color: '#ffe9a8', fontStyle: 'bold', stroke: '#2b1d3a', strokeThickness: 5 });
+    const amountStyle = font(this.cfg.font.counterAmount || 22, { color: '#f0d9e4', fontStyle: 'bold', stroke: '#3c2424', strokeThickness: 5 });
     els.forEach((e, i) => {
       const colX = x + icon / 2;
       this.counter.add(this.add.image(colX, cr.y + icon / 2, 'element_' + e).setDisplaySize(icon, icon));
@@ -660,19 +660,19 @@ export class PotionScene extends Phaser.Scene {
     const rowY = pad + title.height + 10;
     parts.forEach((pt, i) => {
       box.add(this.add.image(x + icon / 2, rowY + icon / 2, 'element_' + pt.e).setDisplaySize(icon, icon));
-      const t = this.add.text(x + icon + 6, rowY + icon / 2, String(pt.v), font(26, { color: '#ffe27a', fontStyle: 'bold' })).setOrigin(0, 0.5);
+      const t = this.add.text(x + icon + 6, rowY + icon / 2, String(pt.v), font(26, { color: '#e4b4cc', fontStyle: 'bold' })).setOrigin(0, 0.5);
       box.add(t);
       x += icon + 6 + t.width + 12;
       if (sep && i < parts.length - 1) {
-        const s = this.add.text(x - 4, rowY + icon / 2, sep, font(26, { color: '#ffe27a', fontStyle: 'bold' })).setOrigin(0.5);
+        const s = this.add.text(x - 4, rowY + icon / 2, sep, font(26, { color: '#e4b4cc', fontStyle: 'bold' })).setOrigin(0.5);
         box.add(s);
         x += 14;
       }
     });
     const w = Math.max(title.width + pad * 2, x - 12 + pad), h = rowY + icon + pad;
     const bg = this.add.graphics();
-    bg.fillStyle(0x2b1d3a, 0.92).fillRoundedRect(0, 0, w, h, 12);
-    bg.lineStyle(3, 0xcbb9df, 1).strokeRoundedRect(0, 0, w, h, 12);
+    bg.fillStyle(0x3c2424, 0.94).fillRoundedRect(0, 0, w, h, 12);
+    bg.lineStyle(3, 0xb4849c, 1).strokeRoundedRect(0, 0, w, h, 12);
     box.addAt(bg, 0);
     if (where === 'grid') {
       box.setPosition(item.cell.x - w - 12, Phaser.Math.Clamp(item.cell.cy - h / 2, 10, 1080 - h - 10));
@@ -747,7 +747,7 @@ export class PotionScene extends Phaser.Scene {
       const s = this.gridItems.find(it => it.id === this.selected.id);
       if (s) {
         const gr = this.L.grid;
-        this.outlines.lineStyle(6, 0xc0396b, 1).strokeRoundedRect(s.cell.x - 3, s.cell.y - 3, gr.cell + 6, gr.cell + 6, 12);
+        this.outlines.lineStyle(6, 0xb0558a, 1).strokeRoundedRect(s.cell.x - 3, s.cell.y - 3, gr.cell + 6, gr.cell + 6, 12);
       }
     }
     if (this.level >= 2) {
@@ -1206,7 +1206,7 @@ export class PotionScene extends Phaser.Scene {
   tutorialHighlight(rects) {
     this.clearTutorialHighlight();
     if (this.done) return;
-    this.tutHi.lineStyle(8, 0xc0396b, 1);
+    this.tutHi.lineStyle(8, 0xb0558a, 1);
     rects.forEach(a => { const r = rect(a); this.tutHi.strokeRoundedRect(r.x - 8, r.y - 8, r.w + 16, r.h + 16, 18); });
     this.tutHiTween = this.tweens.add({ targets: this.tutHi, alpha: { from: 1, to: 0.25 }, duration: 600, yoyo: true, repeat: -1 });
   }

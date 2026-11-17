@@ -1,7 +1,7 @@
 {
   "saveVersion": 2,
   "saveSlots": { "pages": 3, "perPage": 6 },
-  "letterboxColor": "#1a1424",
+  "letterboxColor": "#1a1612",
   "fontFiles": [],
   "font": {
     "family": "Arial, Helvetica, sans-serif",
@@ -29,19 +29,19 @@
     "endingCounter": 36
   },
   "colors": {
-    "text": "#2b1d3a",
-    "name": "#2b1d3a",
-    "menu": "#4b2e6b",
-    "menuHover": "#8a4fc4",
-    "menuActive": "#c0396b",
-    "buttonText": "#3a2a12",
-    "buttonTextDisabled": "#8a8070",
-    "recipeText": "#3b2a14",
-    "recipeHighlight": "#ffe27a",
-    "outline": "#ffe27a",
-    "panelText": "#2b1d3a",
+    "text": "#3c2424",
+    "name": "#3c2424",
+    "menu": "#543c3c",
+    "menuHover": "#9c6c84",
+    "menuActive": "#b0558a",
+    "buttonText": "#3c2424",
+    "buttonTextDisabled": "#8f7f84",
+    "recipeText": "#3c2424",
+    "recipeHighlight": "#e4b4cc",
+    "outline": "#e4b4cc",
+    "panelText": "#3c2424",
     "endingText": "#ffffff",
-    "endingStroke": "#2b1d3a",
+    "endingStroke": "#24200f",
     "dim": "#000000",
     "titleText": "#efe6ee",
     "titleMenu": "#2f2a2e",
@@ -53,10 +53,10 @@
   "elements": {
     "order": ["fire", "water", "earth", "air"],
     "colors": {
-      "fire": "#E8C547",
-      "water": "#3A6FD8",
-      "earth": "#4E9A4B",
-      "air": "#8E5BC8"
+      "fire": "#D9B45A",
+      "water": "#5F7FB8",
+      "earth": "#6F9466",
+      "air": "#9A72B0"
     }
   },
   "text": {

@@ -247,6 +247,8 @@ async function openRoot(handle) {
     const ph = await readText('assets/placeholders.json');
     S.ph = ph ? (JSON.parse(ph).files || {}) : {};
   } catch (e) { toast('Could not read the data files: ' + e.message); return; }
+  Object.values(S.imgUrls).forEach(u => URL.revokeObjectURL(u));
+  S.imgUrls = {}; // pictures are read again from the newly opened folder
   S.model = buildModel(script);
   S.savedScript = serialize(S.model);
   S.savedChars = charsText();
@@ -749,11 +751,17 @@ async function createEmotion(charId, expr) {
     // Temporary image: the usual look, faded, with the emotion's name across it.
     const cv = document.createElement('canvas'); cv.width = w; cv.height = h;
     const g = cv.getContext('2d');
-    const src = await imgUrl(e.path);
-    if (src) {
-      const im = new Image(); im.src = src; await im.decode().catch(() => {});
-      g.globalAlpha = 0.4; g.drawImage(im, 0, 0, w, h); g.globalAlpha = 1;
-    } else { g.fillStyle = '#e3d6dc'; g.fillRect(0, 0, w, h); }
+    // Read the usual picture fresh from the folder (it may have been replaced in the Art editor meanwhile).
+    let drawn = false;
+    const file = await readFile(e.path);
+    if (file) {
+      try {
+        const bmp = await createImageBitmap(file);
+        g.globalAlpha = 0.4; g.drawImage(bmp, 0, 0, w, h); g.globalAlpha = 1; bmp.close();
+        drawn = true;
+      } catch (err) { /* unreadable picture: use a plain background */ }
+    }
+    if (!drawn) { g.fillStyle = '#e3d6dc'; g.fillRect(0, 0, w, h); }
     const bh = Math.max(28, Math.round(h * 0.14));
     g.fillStyle = 'rgba(176, 85, 138, 0.85)'; g.fillRect(0, (h - bh) / 2, w, bh);
     g.fillStyle = '#ffffff'; g.textAlign = 'center'; g.textBaseline = 'middle';

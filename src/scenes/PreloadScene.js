@@ -25,7 +25,8 @@ export class PreloadScene extends Phaser.Scene {
     const images = G.assets.images;
     for (const key of Object.keys(images)) {
       if (key.startsWith('_')) continue;
-      this.load.image(key, images[key].path);
+      // "v" changes whenever the picture changes (set by the art editor), so browsers don't keep showing old art.
+      this.load.image(key, images[key].path + (images[key].v ? '?v=' + images[key].v : ''));
     }
     const audio = G.assets.audio || {};
     for (const key of Object.keys(audio)) {

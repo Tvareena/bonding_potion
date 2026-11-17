@@ -302,6 +302,7 @@ async function replace(key, file) {
   try {
     await backup(e.path);
     await writeFile(e.path, blob);
+    await setVersion(key, blob);
   } catch (err) {
     log(`${e.path}: could not save (${err.message})`, 'err'); toast('Could not save: ' + err.message); return;
   }
@@ -311,12 +312,33 @@ async function replace(key, file) {
   toast(`${e.path.split('/').pop()} saved`);
 }
 
+/**
+ * Writes the image's version code ("v": first characters of its SHA-256) into its line in data/assets.json.
+ * The game adds it to the image address, so browsers download the new picture instead of showing a cached old one.
+ */
+async function setVersion(key, blob) {
+  const v = (await sha256(blob)).slice(0, 10).toLowerCase();
+  const text = await readText('data/assets.json');
+  if (!text) return;
+  const m = text.match(new RegExp(`^[ \\t]*"${key}":[ \\t]*\\{.*$`, 'm'));
+  if (!m) return;
+  let line = m[0];
+  if (/"v":\s*"[^"]*"/.test(line)) line = line.replace(/"v":\s*"[^"]*"/, `"v": "${v}"`);
+  else line = line.replace(/("path":\s*"[^"]*",)/, `$1 "v": "${v}",`);
+  if (line === m[0]) return;
+  const out = text.replace(m[0], line);
+  try { JSON.parse(out); } catch (e) { log(`data/assets.json: could not update the version of ${key}`, 'err'); return; }
+  await writeFile('data/assets.json', out);
+  state.images[key].v = v;
+}
+
 async function restore(key) {
   const e = state.images[key], bpath = state.backups[e.path];
   if (!bpath) return;
   const old = await readFile(bpath);
   if (!old) { toast('Backup not found.'); return; }
   await writeFile(e.path, old);
+  await setVersion(key, old);
   delete state.backups[e.path];
   await refreshCard(key); applyFilters();
   log(`${e.path} restored from ${bpath}`);

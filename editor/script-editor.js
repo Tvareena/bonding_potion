@@ -770,6 +770,7 @@ async function createEmotion(charId, expr) {
     if (!m) throw new Error(`"${base}" not found in data/assets.json`);
     const entry = JSON.parse(m[3]);
     entry.path = path;
+    delete entry.v; // the new picture gets its own version code when final art replaces it
     if (entry.ph) entry.ph = Object.assign({}, entry.ph, { label: expr });
     const keyPart = `"${key}":`;
     const pad = ' '.repeat(Math.max(1, (`"${base}":` + m[2]).length - keyPart.length));

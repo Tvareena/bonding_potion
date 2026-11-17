@@ -105,6 +105,8 @@ Every image already exists as a temporary picture with its final name and size (
 5. Each card shows **Temporary** or **Final**; the bar on top counts final images. **Show → Temporary only** lists what's left.
 6. In **GitHub Desktop**, commit and **Push origin**. The live game updates in about a minute.
 
+When the editor replaces an image it also updates that image's version code (`"v"` in `data/assets.json`), so players' browsers download the new picture instead of showing an old saved copy. If you replace an image by hand, the browser may show the old one until its saved copy expires; Ctrl+F5 reloads everything.
+
 The editor only changes files in the folder you pick; nothing is uploaded until you push. Firefox and Safari can't save to a folder, so use Chrome or Edge for the editor (the game itself works everywhere).
 
 ### By hand
